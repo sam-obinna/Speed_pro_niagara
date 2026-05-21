@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Contact — SpeedPro Niagara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #D91E1E;
+    --red-dark: #A81616;
+    --black: #0E0E0E;
+    --white: #FFFFFF;
+    --gray-100: #F5F4F2;
+    --gray-200: #E8E6E1;
+    --gray-400: #9C9890;
+    --gray-600: #5A5750;
+    --text: #1A1917;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--text);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 40px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo img { height: 36px; width: auto; display: block; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-600);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-links .btn-nav {
+    background: var(--red);
+    color: var(--white);
+    padding: 9px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    transition: background 0.2s;
+  }
+
+  .nav-links .btn-nav:hover { background: var(--red-dark); color: var(--white); }
+
+  .nav-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--gray-200);
+  }
+
+  /* HERO CONTACT SECTION */
+  .contact-hero {
+    background: var(--black);
+    padding: 80px 40px 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .contact-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 59px,
+      rgba(255,255,255,0.025) 59px,
+      rgba(255,255,255,0.025) 60px
+    );
+    pointer-events: none;
+  }
+
+  .contact-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-left { padding-bottom: 80px; }
+
+  .contact-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+  }
+
+  .contact-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  .contact-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .contact-h1 span { color: var(--red); }
+
+  .contact-sub {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.55);
+    max-width: 440px;
+    margin-bottom: 48px;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .detail-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .detail-icon svg { width: 16px; height: 16px; stroke: var(--red); fill: none; stroke-width: 1.8; }
+
+  .detail-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .detail-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 2px;
+  }
+
+  .detail-text a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+  }
+
+  .detail-text a:hover { color: var(--red); }
+
+  /* FORM PANEL */
+  .contact-right {
+    background: var(--white);
+    border-radius: 12px 12px 0 0;
+    padding: 40px 40px 0;
+    align-self: stretch;
+    min-height: 600px;
+  }
+
+  .form-header {
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .form-header-tag {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .form-header h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+
+  .form-header p {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  .tally-wrapper {
+    width: 100%;
+  }
+
+  /* VALUE STRIP */
+  .value-strip {
+    background: var(--red);
+    padding: 20px 40px;
+    overflow: hidden;
+  }
+
+  .value-strip-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    overflow: hidden;
+  }
+
+  .value-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .value-item svg { width: 18px; height: 18px; stroke: rgba(255,255,255,0.7); fill: none; stroke-width: 2; flex-shrink: 0; }
+
+  .value-item span {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .value-sep {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    flex-shrink: 0;
+  }
+
+  /* SERVICES SECTION */
+  .services-section {
+    background: var(--gray-100);
+    padding: 80px 40px;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 15px;
+    color: var(--gray-600);
+    line-height: 1.6;
+    max-width: 500px;
+    margin-bottom: 48px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--gray-200);
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .service-card {
+    background: var(--white);
+    padding: 28px 24px;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .service-card:hover { background: var(--black); }
+  .service-card:hover .sc-icon { border-color: rgba(255,255,255,0.15); background: rgba(217,30,30,0.15); }
+  .service-card:hover .sc-icon svg { stroke: var(--red); }
+  .service-card:hover .sc-name { color: var(--white); }
+  .service-card:hover .sc-desc { color: rgba(255,255,255,0.45); }
+
+  .sc-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+  }
+
+  .sc-icon svg { width: 18px; height: 18px; stroke: var(--gray-600); fill: none; stroke-width: 1.8; transition: stroke 0.2s; }
+
+  .sc-name {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+
+  .sc-desc {
+    font-size: 13px;
+    color: var(--gray-400);
+    line-height: 1.55;
+    transition: color 0.2s;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    padding: 56px 40px 32px;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 48px;
+    align-items: start;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 32px;
+  }
+
+  .footer-brand img { height: 32px; width: auto; margin-bottom: 16px; filter: brightness(0) invert(1); }
+
+  .footer-brand p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.6;
+    max-width: 240px;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .social-link {
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none;
+  }
+
+  .social-link:hover { border-color: var(--red); background: rgba(217,30,30,0.1); }
+  .social-link svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.5); transition: fill 0.2s; }
+  .social-link:hover svg { fill: var(--red); }
+
+  .footer-nav-col h4 {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 16px;
+  }
+
+  .footer-nav-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .footer-nav-col a {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-nav-col a:hover { color: var(--white); }
+
+  .footer-contact-col { text-align: right; }
+
+  .footer-contact-col h4 {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 16px;
+  }
+
+  .footer-contact-col p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+  }
+
+  .footer-contact-col a {
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-contact-col a:hover { color: var(--red); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .footer-badge {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .contact-hero { padding: 48px 20px 0; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .contact-left { padding-bottom: 0; }
+    .contact-right { border-radius: 12px 12px 0 0; padding: 28px 20px 0; }
+    .value-strip { padding: 16px 20px; }
+    .services-section { padding: 56px 20px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    footer { padding: 40px 20px 24px; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    .footer-contact-col { text-align: left; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 560px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .contact-h1 { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png" alt="SpeedPro Niagara"/>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/value">Value</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/insights">Insights</a></li>
+    <li><div class="nav-divider"></div></li>
+    <li><a href="/contact" class="btn-nav">Get a quote / Contact</a></li>
+  </ul>
+</nav>
+
+<!-- CONTACT HERO -->
+<section class="contact-hero">
+  <div class="contact-inner">
+
+    <!-- LEFT: Copy + details -->
+    <div class="contact-left">
+      <div class="contact-eyebrow">Get in touch</div>
+      <h1 class="contact-h1">Start your<br/>project with<br/><span>SpeedPro</span><br/>Niagara.</h1>
+      <p class="contact-sub">Tell us what you need — whether it's a simple signage project or comprehensive marketing support — and our team will respond quickly with a solution tailored to your goals.</p>
+
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Visit us</strong>
+            <a href="https://maps.app.goo.gl/UusiX1QaSoKWQPjj6" target="_blank">300 Welland Avenue, Unit 1<br/>St. Catharines ON, L2R 7L9</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 4.18 2 2 0 012.05 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Call us</strong>
+            <a href="tel:9059372022">905-937-2022</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Email us</strong>
+            <a href="mailto:Sales@speedproniagara.com">Sales@speedproniagara.com</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/><polyline points="12,6 12,12 16,14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Hours</strong>
+            Monday – Friday, 9:00 am – 5:00 pm
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Tally form -->
+    <div class="contact-right">
+      <div class="form-header">
+        <div class="form-header-tag">Project intake</div>
+        <h2>How can we help today?</h2>
+        <p>Whether you're requesting a quote or just exploring, we'll make it easy.</p>
+      </div>
+      <div class="tally-wrapper">
+        <iframe data-tally-src="https://tally.so/embed/RGVxAv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="1246" frameborder="0" marginheight="0" marginwidth="0" title="Speed Niagra Request form"></iframe>
+        <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VALUE STRIP -->
+<div class="value-strip">
+  <div class="value-strip-inner">
+    <div class="value-item">
+      <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
+      <span>Response within 24 hours</span>
+    </div>
+    <div class="value-sep"></div>
+    <div class="value-item">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>Tailored quotes</span>
+    </div>
+    <div class="value-sep"></div>
+    <div class="value-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      <span>No obligation</span>
+    </div>
+    <div class="value-sep"></div>
+    <div class="value-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      <span>Local Niagara team</span>
+    </div>
+    <div class="value-sep"></div>
+    <div class="value-item">
+      <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+      <span>Print + digital under one roof</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <div class="section-inner">
+    <div class="section-label">What we do</div>
+    <h2 class="section-title">Everything you need to get<br/>seen, trusted, chosen.</h2>
+    <p class="section-sub">Our AI-powered services and systems give you the tools to build visibility, earn trust, and win more clients — all from one dedicated partner.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        </div>
+        <div class="sc-name">Brand Lab</div>
+        <p class="sc-desc">Brand confidence and visibility — AI-enhanced creative makes your business impossible to ignore.</p>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+        </div>
+        <div class="sc-name">Signage Solutions</div>
+        <p class="sc-desc">Transform physical spaces with signage that doesn't just get seen — it gets results.</p>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8l5 3-5 3V8z"/></svg>
+        </div>
+        <div class="sc-name">Vehicle & Fleet</div>
+        <p class="sc-desc">Full wraps, partial wraps, and fleet graphics that turn every vehicle into a moving billboard.</p>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="sc-name">Tint & PPF</div>
+        <p class="sc-desc">Window tinting and paint protection film that keeps vehicles looking sharp and protected longer.</p>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        </div>
+        <div class="sc-name">Large Format</div>
+        <p class="sc-desc">Murals, banners, backdrops and posters printed large and bold for maximum visual impact.</p>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M3 9l2.45-4.9A2 2 0 017.24 3h9.52a2 2 0 011.8 1.1L21 9"/><path d="M12 3v6"/></svg>
+        </div>
+        <div class="sc-name">Trade Show</div>
+        <p class="sc-desc">Booth displays, retractable banners, and event graphics that make you the standout at every show.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f24f80d16c85ec13fafab3_Logo-SpeedPro-global.png" alt="SpeedPro Niagara"/>
+        <p>Print and visual branding solutions for businesses across the Niagara region.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/SpeedproNiagara" target="_blank" class="social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/speedproniagara/" target="_blank" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/speedpro-niagara/" target="_blank" class="social-link" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-nav-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/fractional-services-copy">Brand Lab</a></li>
+          <li><a href="/signage-solutions">Signage Solutions</a></li>
+          <li><a href="/vehicle-fleet">Vehicle & Fleet</a></li>
+          <li><a href="/tint-ppf">Tint & PPF</a></li>
+          <li><a href="/large-format-graphic">Large Format</a></li>
+          <li><a href="/trade-show">Trade Show</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact-col">
+        <h4>Find us</h4>
+        <p>
+          Monday – Friday<br/>
+          9:00 am – 5:00 pm<br/><br/>
+          <a href="https://maps.app.goo.gl/UusiX1QaSoKWQPjj6" target="_blank">
+            300 Welland Avenue, Unit 1<br/>
+            St. Catharines ON, L2R 7L9
+          </a><br/><br/>
+          <a href="mailto:Sales@speedproniagara.com">Sales@speedproniagara.com</a><br/>
+          <a href="tel:9059372022">905-937-2022</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 SpeedPro Niagara. All rights reserved.</p>
+      <div class="footer-badge">Built by TAGAPS</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
