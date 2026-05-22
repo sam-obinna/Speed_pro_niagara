@@ -754,7 +754,7 @@
 
   .chat-panel {
     position: absolute;
-    bottom: 88px;
+    bottom: 116px;
     right: 24px;
     width: 380px;
     max-width: calc(100vw - 32px);
@@ -788,9 +788,10 @@
   .chat-header-info { display: flex; align-items: center; gap: 12px; }
   .chat-avatar {
     width: 40px; height: 40px;
-    border-radius: 50%; background: var(--red);
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #c026d3);
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; box-shadow: 0 0 0 3px rgba(217,30,30,0.25);
+    flex-shrink: 0; box-shadow: 0 0 0 3px rgba(124,58,237,0.25);
   }
   .chat-avatar svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 2; }
   .chat-agent-name {
@@ -840,7 +841,8 @@
   .chat-msg.bot p { margin: 0 0 8px; }
   .chat-msg.bot p:last-child { margin-bottom: 0; }
   .chat-msg.user {
-    background: var(--red); color: white;
+    background: linear-gradient(135deg, #7c3aed, #c026d3);
+    color: white;
     align-self: flex-end; border-bottom-right-radius: 4px;
   }
 
@@ -892,44 +894,135 @@
     outline: none; transition: border-color 0.2s, background 0.2s;
     background: var(--gray-100);
   }
-  .chat-input:focus { border-color: var(--red); background: white; }
+  .chat-input:focus { border-color: #7c3aed; background: white; }
   .chat-input:disabled { opacity: 0.45; cursor: not-allowed; }
   .chat-send {
-    width: 42px; height: 42px; background: var(--red); border: none;
-    border-radius: 10px; cursor: pointer; display: flex;
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, #7c3aed, #c026d3);
+    border: none; border-radius: 10px; cursor: pointer; display: flex;
     align-items: center; justify-content: center; flex-shrink: 0;
-    transition: background 0.2s; -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.2s, transform 0.15s; -webkit-tap-highlight-color: transparent;
   }
-  .chat-send:hover { background: var(--red-dark); }
-  .chat-send:disabled { background: var(--gray-200); cursor: not-allowed; }
+  .chat-send:hover { opacity: 0.88; transform: scale(1.05); }
+  .chat-send:disabled { background: var(--gray-200); cursor: not-allowed; opacity: 1; transform: none; }
   .chat-send svg { width: 16px; height: 16px; stroke: white; fill: none; stroke-width: 2.5; }
 
   .chat-bubble {
     position: absolute;
     bottom: 24px; right: 24px;
-    width: 56px; height: 56px;
-    border-radius: 50%; background: var(--red); border: none;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed 0%, #c026d3 100%);
+    border: none;
     cursor: pointer; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 20px rgba(217,30,30,0.45);
-    transition: all 0.2s; pointer-events: auto;
-    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 8px 28px rgba(124,58,237,0.6), 0 2px 10px rgba(0,0,0,0.25);
+    pointer-events: auto; -webkit-tap-highlight-color: transparent;
+    animation: chatJump 3.8s cubic-bezier(0.28,0.84,0.42,1) 2s infinite;
   }
-  .chat-bubble:hover { background: var(--red-dark); transform: scale(1.06); box-shadow: 0 6px 28px rgba(217,30,30,0.55); }
-  .chat-bubble svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 2; }
+  .chat-bubble:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 36px rgba(124,58,237,0.7), 0 4px 14px rgba(0,0,0,0.3);
+    animation-play-state: paused;
+  }
+  .chat-bubble svg { width: 36px; height: 36px; }
+  @keyframes chatJump {
+    0%, 55%, 100% { transform: translateY(0) scale(1); }
+    63%  { transform: translateY(-20px) scale(1.06); }
+    72%  { transform: translateY(0)     scale(0.96); }
+    80%  { transform: translateY(-10px) scale(1.03); }
+    88%  { transform: translateY(0)     scale(1); }
+    93%  { transform: translateY(-5px)  scale(1.01); }
+    97%  { transform: translateY(0)     scale(1); }
+  }
   .chat-bubble-ring {
-    position: absolute; inset: -5px; border-radius: 50%;
-    border: 2px solid rgba(217,30,30,0.5); opacity: 0;
-    animation: chatRing 2.4s ease-out 1.5s 3;
+    position: absolute; inset: -8px; border-radius: 50%;
+    border: 3px solid rgba(124,58,237,0.5); opacity: 0;
+    animation: chatRing 2.2s ease-out 1s infinite;
   }
   @keyframes chatRing {
-    0%   { transform: scale(1);   opacity: 0.7; }
-    100% { transform: scale(1.5); opacity: 0; }
+    0%   { transform: scale(1);   opacity: 0.8; }
+    100% { transform: scale(1.6); opacity: 0; }
   }
 
+  /* CHAT CALLOUT */
+  .chat-callout {
+    position: absolute;
+    bottom: 50px;
+    right: 114px;
+    background: white;
+    border-radius: 14px;
+    padding: 12px 36px 12px 16px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.13), 0 0 0 1px rgba(0,0,0,0.05);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateX(12px) scale(0.94);
+    animation: calloutIn 0.45s cubic-bezier(0.34,1.56,0.64,1) 2.5s forwards;
+    min-width: 180px;
+  }
+  .chat-callout.hidden {
+    opacity: 0 !important;
+    transform: translateX(12px) scale(0.94) !important;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  @keyframes calloutIn {
+    to { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  /* speech bubble tail pointing right toward bubble */
+  .chat-callout::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    bottom: 22px;
+    width: 0; height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid white;
+  }
+  .chat-callout-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7c3aed;
+    margin-bottom: 3px;
+    font-family: var(--font-display);
+  }
+  .chat-callout-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+    transition: opacity 0.3s ease;
+  }
+  .chat-callout-dismiss {
+    position: absolute;
+    top: 8px; right: 8px;
+    background: none; border: none;
+    font-size: 16px; line-height: 1;
+    color: var(--gray-400); cursor: pointer; padding: 2px 4px;
+    transition: color 0.15s;
+  }
+  .chat-callout-dismiss:hover { color: var(--text); }
+
   @media (max-width: 480px) {
+    .chat-callout {
+      bottom: 108px;
+      right: 16px;
+      min-width: 0;
+      max-width: 190px;
+    }
+    .chat-callout::after {
+      right: 30px;
+      bottom: -15px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid white;
+      border-bottom: none;
+    }
     .chat-panel {
       right: 12px;
-      bottom: 80px;
+      bottom: 108px;
       width: calc(100vw - 24px);
       height: clamp(360px, 65vh, 560px);
     }
@@ -1185,14 +1278,14 @@
           <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         </div>
         <div>
-          <div class="chat-agent-name">SpeedPro Assistant</div>
+          <div class="chat-agent-name">Speedy ⚡</div>
           <div class="chat-online">Online now</div>
         </div>
       </div>
       <button class="chat-close-btn" id="chat-close" aria-label="Close chat">&times;</button>
     </div>
     <div class="chat-messages" id="chat-messages">
-      <div class="chat-msg bot">Hi! I'm the SpeedPro Niagara assistant. Ask me about our services, pricing, turnaround times, or anything else — I'm happy to help!</div>
+      <div class="chat-msg bot">Hey there! ⚡ I'm Speedy, your SpeedPro Niagara assistant. Ask me anything about our services, pricing, turnaround times — I'll get you sorted fast!</div>
     </div>
     <div class="chat-input-area">
       <input class="chat-input" id="chat-input" type="text" placeholder="Ask a question…" autocomplete="off" maxlength="500"/>
@@ -1201,10 +1294,20 @@
       </button>
     </div>
   </div>
+  <div class="chat-callout" id="chat-callout">
+    <div class="chat-callout-label">Speedy ⚡</div>
+    <div class="chat-callout-text" id="chat-callout-text">Hi, I'm Speedy! What do you need?</div>
+    <button class="chat-callout-dismiss" id="chat-callout-dismiss" aria-label="Dismiss">&times;</button>
+  </div>
   <button class="chat-bubble" id="chat-bubble" aria-label="Open chat">
     <div class="chat-bubble-ring"></div>
-    <svg id="chat-icon-open" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-    <svg id="chat-icon-close" viewBox="0 0 24 24" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <svg id="chat-icon-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 2L5.5 12.5H11.5L9.5 22L19.5 11H13L14 2Z" fill="white"/>
+      <path d="M14 2L5.5 12.5H11.5L9.5 22L19.5 11H13L14 2Z" stroke="rgba(255,255,255,0.3)" stroke-width="0.5" stroke-linejoin="round"/>
+    </svg>
+    <svg id="chat-icon-close" viewBox="0 0 24 24" fill="none" style="display:none">
+      <path d="M6 6L18 18M18 6L6 18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
   </button>
 </div>
 
@@ -1286,11 +1389,36 @@
   var sendBtn   = document.getElementById('chat-send');
   var iconOpen  = document.getElementById('chat-icon-open');
   var iconClose = document.getElementById('chat-icon-close');
+  var callout     = document.getElementById('chat-callout');
+  var calloutText = document.getElementById('chat-callout-text');
+
+  var calloutMsgs = [
+    "Hi, I'm Speedy! What do you need?",
+    "Ask me anything — I'm quick! ⚡",
+    "Speak with me now 👋",
+    "Got a project in mind? Let's go!"
+  ];
+  var calloutIdx = 0;
+  setTimeout(function() {
+    setInterval(function() {
+      calloutText.style.opacity = '0';
+      setTimeout(function() {
+        calloutIdx = (calloutIdx + 1) % calloutMsgs.length;
+        calloutText.textContent = calloutMsgs[calloutIdx];
+        calloutText.style.opacity = '1';
+      }, 300);
+    }, 3200);
+  }, 3000);
+
+  document.getElementById('chat-callout-dismiss').addEventListener('click', function() {
+    callout.classList.add('hidden');
+  });
 
   function openChat() {
     widget.classList.add('is-open');
     iconOpen.style.display  = 'none';
     iconClose.style.display = '';
+    callout.classList.add('hidden');
     input.focus();
     messages.scrollTop = messages.scrollHeight;
   }
