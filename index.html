@@ -236,7 +236,7 @@
 
   /* FORM SECTION */
   .form-section {
-    padding: 40px 20px 64px;
+    padding: 32px 12px 48px;
     background: var(--white);
   }
 
@@ -245,7 +245,7 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 24px;
   }
 
   .form-top-label {
@@ -290,9 +290,12 @@
   /* TALLY WRAPPER — key fix for mobile scroll */
   .tally-wrapper {
     background: var(--gray-100);
-    border-radius: 12px;
-    padding: 24px 20px;
+    border-radius: 0;
+    padding: 16px 4px;
     border: 1px solid var(--gray-200);
+    border-left-width: 0;
+    border-right-width: 0;
+    margin: 0 -12px;
     scroll-margin-top: calc(var(--nav-h) + 16px);
   }
 
@@ -306,8 +309,8 @@
   /* CONTACT CARDS */
   .contact-cards {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .contact-card {
@@ -371,6 +374,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .call-cta-left { flex: 1; }
@@ -631,6 +636,13 @@
     display: inline-block;
   }
 
+  /* VERY SMALL SCREENS */
+  @media (max-width: 400px) {
+    .form-section { padding: 24px 8px 40px; }
+    .tally-wrapper { padding: 12px 4px; margin: 0 -8px; }
+    .hero { padding: 32px 12px 48px; }
+  }
+
   /* DESKTOP OVERRIDES */
   @media (min-width: 768px) {
     :root { --nav-h: 64px; }
@@ -661,6 +673,13 @@
     .trust-inner { min-width: unset; }
 
     .form-section { padding: 64px 48px 80px; }
+    .tally-wrapper {
+      padding: 32px 36px;
+      border-radius: 12px;
+      border-left-width: 1px;
+      border-right-width: 1px;
+      margin: 0;
+    }
 
     .form-section-inner {
       display: grid;
@@ -668,8 +687,6 @@
       gap: 48px;
       align-items: start;
     }
-
-    .tally-wrapper { padding: 32px 36px; }
 
     .form-sidebar {
       position: sticky;
