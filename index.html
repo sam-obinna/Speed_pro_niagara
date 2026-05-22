@@ -730,6 +730,189 @@
   @media (min-width: 1024px) {
     .services-grid { grid-template-columns: repeat(6, 1fr); }
   }
+
+  /* CHAT WIDGET */
+  .chat-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .chat-panel {
+    width: 348px;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.06);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    transform-origin: bottom right;
+  }
+  .chat-widget.is-open .chat-panel {
+    display: flex;
+    animation: chatSlideUp 0.22s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes chatSlideUp {
+    from { opacity: 0; transform: scale(0.92) translateY(12px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .chat-header {
+    background: var(--black);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .chat-header-info { display: flex; align-items: center; gap: 10px; }
+  .chat-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%; background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; box-shadow: 0 0 0 2px rgba(217,30,30,0.3);
+  }
+  .chat-avatar svg { width: 16px; height: 16px; stroke: white; fill: none; stroke-width: 2; }
+  .chat-agent-name {
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--white); line-height: 1.1; margin-bottom: 2px;
+  }
+  .chat-online {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 10px; color: rgba(255,255,255,0.4);
+  }
+  .chat-online::before {
+    content: ''; width: 6px; height: 6px;
+    border-radius: 50%; background: #22c55e;
+    display: block; box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
+  }
+  .chat-close-btn {
+    background: rgba(255,255,255,0.06); border: none; cursor: pointer;
+    color: rgba(255,255,255,0.5); width: 28px; height: 28px;
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; line-height: 1; transition: all 0.2s; flex-shrink: 0;
+  }
+  .chat-close-btn:hover { background: rgba(255,255,255,0.12); color: white; }
+
+  .chat-messages {
+    flex: 1; overflow-y: auto;
+    padding: 16px; display: flex;
+    flex-direction: column; gap: 10px;
+    min-height: 240px; max-height: 320px;
+    scroll-behavior: smooth;
+  }
+  .chat-messages::-webkit-scrollbar { width: 3px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 3px; }
+
+  .chat-msg {
+    max-width: 88%; padding: 10px 13px;
+    border-radius: 14px; font-size: 13px; line-height: 1.6;
+    word-break: break-word;
+  }
+  .chat-msg.bot {
+    background: var(--gray-100); color: var(--text);
+    align-self: flex-start; border-bottom-left-radius: 4px;
+  }
+  .chat-msg.bot p { margin: 0 0 7px; }
+  .chat-msg.bot p:last-child { margin-bottom: 0; }
+  .chat-msg.user {
+    background: var(--red); color: white;
+    align-self: flex-end; border-bottom-right-radius: 4px;
+  }
+
+  .chat-typing {
+    display: flex; align-items: center; gap: 4px;
+    padding: 12px 14px; background: var(--gray-100);
+    border-radius: 14px; border-bottom-left-radius: 4px;
+    align-self: flex-start; width: fit-content;
+  }
+  .chat-typing span {
+    width: 6px; height: 6px;
+    background: var(--gray-400); border-radius: 50%;
+    animation: chatBounce 1.2s ease-in-out infinite;
+  }
+  .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes chatBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+    30% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  .chat-error-msg {
+    align-self: flex-start;
+    background: #fff5f5; border: 1px solid #fecdcd;
+    border-radius: 14px; border-bottom-left-radius: 4px;
+    padding: 10px 13px; font-size: 12px; color: #b91c1c;
+    max-width: 88%; display: flex; flex-direction: column; gap: 8px;
+  }
+  .chat-retry-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--red); color: white; border: none;
+    border-radius: 6px; padding: 5px 11px;
+    font-size: 11px; font-weight: 600; font-family: var(--font-body);
+    cursor: pointer; transition: background 0.18s; align-self: flex-start;
+  }
+  .chat-retry-btn:hover { background: var(--red-dark); }
+  .chat-retry-btn svg { width: 11px; height: 11px; stroke: white; fill: none; stroke-width: 2.5; }
+
+  .chat-input-area {
+    padding: 12px; border-top: 1px solid var(--gray-200);
+    display: flex; gap: 8px; align-items: center; flex-shrink: 0;
+    background: var(--white);
+  }
+  .chat-input {
+    flex: 1; border: 1px solid var(--gray-200);
+    border-radius: 8px; padding: 9px 12px;
+    font-family: var(--font-body); font-size: 13px; color: var(--text);
+    outline: none; transition: border-color 0.2s, background 0.2s;
+    background: var(--gray-100);
+  }
+  .chat-input:focus { border-color: var(--red); background: white; }
+  .chat-input:disabled { opacity: 0.45; cursor: not-allowed; }
+  .chat-send {
+    width: 36px; height: 36px; background: var(--red); border: none;
+    border-radius: 8px; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+    transition: background 0.2s, opacity 0.2s; -webkit-tap-highlight-color: transparent;
+  }
+  .chat-send:hover { background: var(--red-dark); }
+  .chat-send:disabled { background: var(--gray-200); cursor: not-allowed; opacity: 0.6; }
+  .chat-send svg { width: 15px; height: 15px; stroke: white; fill: none; stroke-width: 2.5; }
+
+  .chat-bubble {
+    width: 56px; height: 56px; position: relative;
+    border-radius: 50%; background: var(--red); border: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(217,30,30,0.45);
+    transition: all 0.2s; flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .chat-bubble:hover { background: var(--red-dark); transform: scale(1.06); box-shadow: 0 6px 28px rgba(217,30,30,0.55); }
+  .chat-bubble svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 2; transition: transform 0.2s; }
+  .chat-bubble-ring {
+    position: absolute; inset: -5px; border-radius: 50%;
+    border: 2px solid rgba(217,30,30,0.5); opacity: 0;
+    animation: chatRing 2.4s ease-out 1.5s 3;
+  }
+  @keyframes chatRing {
+    0%   { transform: scale(1);   opacity: 0.7; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  @media (max-width: 380px) {
+    .chat-widget { right: 16px; bottom: 16px; }
+    .chat-panel { width: calc(100vw - 32px); }
+    .chat-messages { max-height: calc(100dvh - 300px); min-height: 160px; }
+  }
 </style>
 </head>
 <body>
@@ -970,6 +1153,38 @@
   </div>
 </footer>
 
+<!-- CHAT WIDGET -->
+<div class="chat-widget" id="chat-widget">
+  <div class="chat-panel">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div>
+          <div class="chat-agent-name">SpeedPro Assistant</div>
+          <div class="chat-online">Online now</div>
+        </div>
+      </div>
+      <button class="chat-close-btn" id="chat-close" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-msg bot">Hi! I'm the SpeedPro Niagara assistant. Ask me about our services, pricing, turnaround times, or anything else — I'm happy to help!</div>
+    </div>
+    <div class="chat-input-area">
+      <input class="chat-input" id="chat-input" type="text" placeholder="Ask a question…" autocomplete="off" maxlength="500"/>
+      <button class="chat-send" id="chat-send" aria-label="Send message">
+        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
+      </button>
+    </div>
+  </div>
+  <button class="chat-bubble" id="chat-bubble" aria-label="Open chat">
+    <div class="chat-bubble-ring"></div>
+    <svg id="chat-icon-open" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    <svg id="chat-icon-close" viewBox="0 0 24 24" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+</div>
+
 <!-- TALLY EMBED + MOBILE SCROLL FIX -->
 <script>
   // Load Tally embed script
@@ -1028,6 +1243,142 @@
 
   var iframe = document.getElementById('tally-iframe');
   if (iframe) observer.observe(iframe);
+</script>
+
+<!-- CHAT LOGIC -->
+<script>
+(function() {
+  var WEBHOOK    = 'https://switchboardhq.app.n8n.cloud/webhook/ai-webhook';
+  var TIMEOUT_MS = 20000;
+
+  var sessionId = sessionStorage.getItem('sp_chat_sid');
+  if (!sessionId) {
+    sessionId = 'sp_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+    sessionStorage.setItem('sp_chat_sid', sessionId);
+  }
+
+  var widget    = document.getElementById('chat-widget');
+  var messages  = document.getElementById('chat-messages');
+  var input     = document.getElementById('chat-input');
+  var sendBtn   = document.getElementById('chat-send');
+  var iconOpen  = document.getElementById('chat-icon-open');
+  var iconClose = document.getElementById('chat-icon-close');
+
+  function openChat() {
+    widget.classList.add('is-open');
+    iconOpen.style.display  = 'none';
+    iconClose.style.display = '';
+    input.focus();
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function closeChat() {
+    widget.classList.remove('is-open');
+    iconOpen.style.display  = '';
+    iconClose.style.display = 'none';
+  }
+
+  function scrollBottom() { messages.scrollTop = messages.scrollHeight; }
+
+  function formatReply(text) {
+    var s = text
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    var parts = s.split(/\n{2,}/);
+    if (parts.length > 1) {
+      return parts.map(function(p) { return '<p>' + p.replace(/\n/g, '<br>') + '</p>'; }).join('');
+    }
+    return s.replace(/\n/g, '<br>');
+  }
+
+  function appendMsg(text, type) {
+    var div = document.createElement('div');
+    div.className = 'chat-msg ' + type;
+    if (type === 'bot') { div.innerHTML = formatReply(text); }
+    else { div.textContent = text; }
+    messages.appendChild(div);
+    scrollBottom();
+  }
+
+  function appendError(errText, retryText) {
+    var div = document.createElement('div');
+    div.className = 'chat-error-msg';
+    var span = document.createElement('span');
+    span.textContent = errText;
+    div.appendChild(span);
+    var btn = document.createElement('button');
+    btn.className = 'chat-retry-btn';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg> Retry';
+    btn.addEventListener('click', function() { div.remove(); send(retryText); });
+    div.appendChild(btn);
+    messages.appendChild(div);
+    scrollBottom();
+  }
+
+  function showTyping() {
+    var el = document.createElement('div');
+    el.className = 'chat-typing'; el.id = 'chat-typing-ind';
+    el.innerHTML = '<span></span><span></span><span></span>';
+    messages.appendChild(el);
+    scrollBottom();
+  }
+
+  function hideTyping() {
+    var el = document.getElementById('chat-typing-ind');
+    if (el) el.remove();
+  }
+
+  function setLoading(on) { sendBtn.disabled = on; input.disabled = on; }
+
+  async function send(retryText) {
+    var text = retryText || input.value.trim();
+    if (!text || sendBtn.disabled) return;
+    if (!retryText) input.value = '';
+    setLoading(true);
+    if (!retryText) appendMsg(text, 'user');
+    showTyping();
+
+    var controller = new AbortController();
+    var timeoutId  = setTimeout(function() { controller.abort(); }, TIMEOUT_MS);
+
+    try {
+      var res = await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chatInput: text, sessionId: sessionId }),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      var raw = await res.text();
+      hideTyping();
+      var reply = '';
+      if (raw) {
+        try {
+          var data = JSON.parse(raw);
+          reply = data.output || data.reply || data.text || data.message || data.response || '';
+        } catch (e) {}
+      }
+      if (reply) { appendMsg(reply, 'bot'); }
+      else { appendError("No response received.", text); }
+    } catch (err) {
+      clearTimeout(timeoutId);
+      hideTyping();
+      appendError(
+        err.name === 'AbortError' ? "Response timed out after 20s." : "Couldn't reach the assistant.",
+        text
+      );
+    }
+    setLoading(false);
+    input.focus();
+  }
+
+  document.getElementById('chat-bubble').addEventListener('click', function() {
+    widget.classList.contains('is-open') ? closeChat() : openChat();
+  });
+  document.getElementById('chat-close').addEventListener('click', closeChat);
+  sendBtn.addEventListener('click', function() { send(); });
+  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') send(); });
+})();
 </script>
 
 </body>
