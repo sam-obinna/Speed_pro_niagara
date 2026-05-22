@@ -237,7 +237,7 @@
   /* FORM SECTION */
   .form-section {
     padding: 32px 12px 48px;
-    background: var(--white);
+    background: var(--black);
   }
 
   .form-section-inner {
@@ -275,24 +275,25 @@
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.01em;
-    color: var(--text);
+    color: var(--white);
     line-height: 1;
     margin-bottom: 8px;
   }
 
   .form-desc {
     font-size: 14px;
-    color: var(--gray-400);
+    color: rgba(255,255,255,0.45);
     line-height: 1.6;
     margin-bottom: 24px;
   }
 
   /* TALLY WRAPPER — key fix for mobile scroll */
   .tally-wrapper {
-    background: var(--gray-100);
+    background: var(--white);
     border-radius: 0;
     padding: 16px 4px;
-    border: 1px solid var(--gray-200);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-top: 4px solid var(--red);
     border-left-width: 0;
     border-right-width: 0;
     margin: 0 -12px;
@@ -366,7 +367,7 @@
 
   /* CALL CTA */
   .call-cta {
-    background: var(--black);
+    background: var(--red);
     border-radius: 10px;
     padding: 20px;
     text-decoration: none;
@@ -385,7 +386,7 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.7);
     margin-bottom: 4px;
   }
 
@@ -398,12 +399,12 @@
     line-height: 1.1;
   }
 
-  .call-cta-text span { color: var(--red); }
+  .call-cta-text span { color: var(--white); }
 
   .call-cta-btn {
     width: 44px;
     height: 44px;
-    background: var(--red);
+    background: rgba(0,0,0,0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -672,12 +673,14 @@
     .trust-bar { padding: 0 48px; height: 48px; }
     .trust-inner { min-width: unset; }
 
-    .form-section { padding: 64px 48px 80px; }
+    .form-section { padding: 64px 48px 80px; background: var(--black); }
     .tally-wrapper {
       padding: 32px 36px;
-      border-radius: 12px;
+      border-radius: 0 0 12px 12px;
       border-left-width: 1px;
       border-right-width: 1px;
+      border-bottom-width: 1px;
+      border-color: rgba(255,255,255,0.1);
       margin: 0;
     }
 
