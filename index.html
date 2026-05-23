@@ -799,6 +799,7 @@
     font-size: 14px; font-weight: 700;
     text-transform: uppercase; letter-spacing: 0.04em;
     color: var(--white); line-height: 1.1; margin-bottom: 3px;
+    transform: scale(1.8);
   }
   .chat-online {
     display: flex; align-items: center; gap: 5px;
@@ -833,9 +834,22 @@
     border-radius: 16px; font-size: 14px; line-height: 1.65;
     word-break: break-word;
   }
+  .chat-msg-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    align-self: flex-start;
+  }
+  .chat-msg-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%; object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--white);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.14);
+  }
   .chat-msg.bot {
     background: var(--white); color: var(--text);
-    align-self: flex-start; border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.07);
   }
   .chat-msg.bot p { margin: 0 0 8px; }
@@ -850,7 +864,7 @@
     display: flex; align-items: center; gap: 5px;
     padding: 12px 16px; background: var(--white);
     border-radius: 16px; border-bottom-left-radius: 4px;
-    align-self: flex-start; width: fit-content;
+    width: fit-content;
     box-shadow: 0 1px 4px rgba(0,0,0,0.07);
   }
   .chat-typing span {
@@ -912,19 +926,31 @@
     bottom: 24px; right: 24px;
     width: 80px; height: 80px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #7c3aed 0%, #c026d3 100%);
-    border: none;
+    background: var(--white);
+    border: 3px solid #7c3aed;
     cursor: pointer; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 28px rgba(124,58,237,0.6), 0 2px 10px rgba(0,0,0,0.25);
+    box-shadow: 0 8px 28px rgba(124,58,237,0.5), 0 2px 10px rgba(0,0,0,0.2);
     pointer-events: auto; -webkit-tap-highlight-color: transparent;
+    overflow: hidden; padding: 0;
     animation: chatJump 3.8s cubic-bezier(0.28,0.84,0.42,1) 2s infinite;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  .chat-bubble.is-close-mode {
+    background: linear-gradient(135deg, #7c3aed, #c026d3);
+    border-color: transparent;
+    overflow: visible;
   }
   .chat-bubble:hover {
     transform: scale(1.08);
-    box-shadow: 0 12px 36px rgba(124,58,237,0.7), 0 4px 14px rgba(0,0,0,0.3);
+    box-shadow: 0 12px 36px rgba(124,58,237,0.65), 0 4px 14px rgba(0,0,0,0.25);
     animation-play-state: paused;
   }
-  .chat-bubble svg { width: 36px; height: 36px; }
+  .chat-bubble svg { width: 32px; height: 32px; }
+  .chat-bubble-img {
+    width: 100%; height: 100%;
+    object-fit: cover; border-radius: 50%;
+    display: block;
+  }
   @keyframes chatJump {
     0%, 55%, 100% { transform: translateY(0) scale(1); }
     63%  { transform: translateY(-20px) scale(1.06); }
@@ -1275,7 +1301,7 @@
     <div class="chat-header">
       <div class="chat-header-info">
         <div class="chat-avatar">
-          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <img src="speedy.png" alt="Speedy" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/>
         </div>
         <div>
           <div class="chat-agent-name">Speedy ⚡</div>
@@ -1285,7 +1311,10 @@
       <button class="chat-close-btn" id="chat-close" aria-label="Close chat">&times;</button>
     </div>
     <div class="chat-messages" id="chat-messages">
-      <div class="chat-msg bot">Hey there! ⚡ I'm Speedy, your SpeedPro Niagara assistant. Ask me anything about our services, pricing, turnaround times — I'll get you sorted fast!</div>
+      <div class="chat-msg-row">
+        <img src="speedy.png" class="chat-msg-avatar" alt="Speedy"/>
+        <div class="chat-msg bot">Hey there! I'm Speedy, your SpeedPro Niagara assistant. Ask me anything about our services, pricing, or turnaround times — I'll get you sorted fast! 😊</div>
+      </div>
     </div>
     <div class="chat-input-area">
       <input class="chat-input" id="chat-input" type="text" placeholder="Ask a question…" autocomplete="off" maxlength="500"/>
@@ -1301,10 +1330,7 @@
   </div>
   <button class="chat-bubble" id="chat-bubble" aria-label="Open chat">
     <div class="chat-bubble-ring"></div>
-    <svg id="chat-icon-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M14 2L5.5 12.5H11.5L9.5 22L19.5 11H13L14 2Z" fill="white"/>
-      <path d="M14 2L5.5 12.5H11.5L9.5 22L19.5 11H13L14 2Z" stroke="rgba(255,255,255,0.3)" stroke-width="0.5" stroke-linejoin="round"/>
-    </svg>
+    <img id="chat-icon-open" src="speedy.png" class="chat-bubble-img" alt="Speedy"/>
     <svg id="chat-icon-close" viewBox="0 0 24 24" fill="none" style="display:none">
       <path d="M6 6L18 18M18 6L6 18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
     </svg>
@@ -1387,10 +1413,12 @@
   var messages  = document.getElementById('chat-messages');
   var input     = document.getElementById('chat-input');
   var sendBtn   = document.getElementById('chat-send');
+  var bubble    = document.getElementById('chat-bubble');
   var iconOpen  = document.getElementById('chat-icon-open');
   var iconClose = document.getElementById('chat-icon-close');
   var callout     = document.getElementById('chat-callout');
   var calloutText = document.getElementById('chat-callout-text');
+  var SPEEDY_IMG  = 'speedy.png';
 
   var calloutMsgs = [
     "Hi, I'm Speedy! What do you need?",
@@ -1416,6 +1444,7 @@
 
   function openChat() {
     widget.classList.add('is-open');
+    bubble.classList.add('is-close-mode');
     iconOpen.style.display  = 'none';
     iconClose.style.display = '';
     callout.classList.add('hidden');
@@ -1425,6 +1454,7 @@
 
   function closeChat() {
     widget.classList.remove('is-open');
+    bubble.classList.remove('is-close-mode');
     iconOpen.style.display  = '';
     iconClose.style.display = 'none';
   }
@@ -1442,16 +1472,36 @@
     return s.replace(/\n/g, '<br>');
   }
 
+  function mkAvatar() {
+    var img = document.createElement('img');
+    img.src = SPEEDY_IMG; img.alt = 'Speedy';
+    img.className = 'chat-msg-avatar';
+    return img;
+  }
+
   function appendMsg(text, type) {
-    var div = document.createElement('div');
-    div.className = 'chat-msg ' + type;
-    if (type === 'bot') { div.innerHTML = formatReply(text); }
-    else { div.textContent = text; }
-    messages.appendChild(div);
+    if (type === 'bot') {
+      var row = document.createElement('div');
+      row.className = 'chat-msg-row';
+      row.appendChild(mkAvatar());
+      var div = document.createElement('div');
+      div.className = 'chat-msg bot';
+      div.innerHTML = formatReply(text);
+      row.appendChild(div);
+      messages.appendChild(row);
+    } else {
+      var div = document.createElement('div');
+      div.className = 'chat-msg user';
+      div.textContent = text;
+      messages.appendChild(div);
+    }
     scrollBottom();
   }
 
   function appendError(errText, retryText) {
+    var row = document.createElement('div');
+    row.className = 'chat-msg-row';
+    row.appendChild(mkAvatar());
     var div = document.createElement('div');
     div.className = 'chat-error-msg';
     var span = document.createElement('span');
@@ -1460,17 +1510,22 @@
     var btn = document.createElement('button');
     btn.className = 'chat-retry-btn';
     btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg> Retry';
-    btn.addEventListener('click', function() { div.remove(); send(retryText); });
+    btn.addEventListener('click', function() { row.remove(); send(retryText); });
     div.appendChild(btn);
-    messages.appendChild(div);
+    row.appendChild(div);
+    messages.appendChild(row);
     scrollBottom();
   }
 
   function showTyping() {
+    var row = document.createElement('div');
+    row.className = 'chat-msg-row'; row.id = 'chat-typing-ind';
+    row.appendChild(mkAvatar());
     var el = document.createElement('div');
-    el.className = 'chat-typing'; el.id = 'chat-typing-ind';
+    el.className = 'chat-typing';
     el.innerHTML = '<span></span><span></span><span></span>';
-    messages.appendChild(el);
+    row.appendChild(el);
+    messages.appendChild(row);
     scrollBottom();
   }
 
