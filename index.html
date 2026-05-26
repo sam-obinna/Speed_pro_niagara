@@ -799,7 +799,6 @@
     font-size: 14px; font-weight: 700;
     text-transform: uppercase; letter-spacing: 0.04em;
     color: var(--white); line-height: 1.1; margin-bottom: 3px;
-    transform: scale(1.8);
   }
   .chat-online {
     display: flex; align-items: center; gap: 5px;
@@ -841,7 +840,7 @@
     align-self: flex-start;
   }
   .chat-msg-avatar {
-    width: 40px; height: 40px;
+    width: 32px; height: 32px;
     border-radius: 50%; object-fit: cover;
     flex-shrink: 0;
     border: 2px solid var(--white);
@@ -1313,7 +1312,7 @@
     <div class="chat-messages" id="chat-messages">
       <div class="chat-msg-row">
         <img src="speedy.png" class="chat-msg-avatar" alt="Speedy"/>
-        <div class="chat-msg bot">Hey there! I'm Speedy, your SpeedPro Niagara assistant. Ask me anything about our services, pricing, or turnaround times — I'll get you sorted fast! 😊</div>
+        <div class="chat-msg bot">Hey there! I'm Speedy, your SpeedPro assistant. Ask me anything about our services.😊</div>
       </div>
     </div>
     <div class="chat-input-area">
@@ -1400,7 +1399,8 @@
 <!-- CHAT LOGIC -->
 <script>
 (function() {
-  var WEBHOOK    = 'https://switchboardhq.app.n8n.cloud/webhook/ai-webhook';
+  // var WEBHOOK    = 'https://switchboardhq.app.n8n.cloud/webhook/ai-webhook';
+  var WEBHOOK = 'https://sazzycloudofficial4life.app.n8n.cloud/webhook/499666c3-d807-4bb7-8195-43932f64a91f/chat'
   var TIMEOUT_MS = 20000;
 
   var sessionId = sessionStorage.getItem('sp_chat_sid');
