@@ -1,1592 +1,2237 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<title>Contact — SpeedPro Niagara</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --red: #D91E1E;
-    --red-dark: #A81616;
-    --black: #0E0E0E;
-    --white: #FFFFFF;
-    --gray-100: #F5F4F2;
-    --gray-200: #E8E6E1;
-    --gray-400: #9C9890;
-    --gray-600: #5A5750;
-    --text: #1A1917;
-    --font-display: 'Barlow Condensed', sans-serif;
-    --font-body: 'Barlow', sans-serif;
-    --nav-h: 56px;
-  }
-
-  html { scroll-behavior: smooth; }
-  body { font-family: var(--font-body); color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-
-  /* NAV */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--black);
-    padding: 0 20px;
-    height: var(--nav-h);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
-
-  .nav-logo img { height: 28px; width: auto; display: block; filter: brightness(0) invert(1); }
-
-  .nav-phone {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: rgba(255,255,255,0.5);
-    text-decoration: none;
-  }
-
-  .nav-phone span { color: rgba(255,255,255,0.85); font-weight: 600; }
-
-  .nav-phone svg { width: 14px; height: 14px; stroke: var(--red); fill: none; stroke-width: 2; }
-
-  .nav-links {
-    display: none;
-    align-items: center;
-    gap: 24px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.5);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--white); }
-
-  .nav-cta {
-    background: var(--red) !important;
-    color: var(--white) !important;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-weight: 600 !important;
-    font-size: 12px !important;
-  }
-
-  /* HERO */
-  .hero {
-    background: var(--black);
-    padding: 40px 20px 56px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 39px,
-      rgba(255,255,255,0.02) 39px,
-      rgba(255,255,255,0.02) 40px
-    );
-    pointer-events: none;
-  }
-
-  .hero-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 16px;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    width: 20px;
-    height: 2px;
-    background: var(--red);
-    display: block;
-  }
-
-  .hero-h1 {
-    font-family: var(--font-display);
-    font-size: clamp(40px, 10vw, 80px);
-    font-weight: 800;
-    line-height: 0.92;
-    letter-spacing: -0.015em;
-    color: var(--white);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .hero-h1 .accent { color: var(--red); }
-
-  .hero-sub {
-    font-size: 14px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.45);
-    max-width: 480px;
-    margin-bottom: 28px;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .hero-stat {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .hero-stat-num {
-    font-family: var(--font-display);
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--white);
-    line-height: 1;
-  }
-
-  .hero-stat-label {
-    font-size: 11px;
-    color: rgba(255,255,255,0.35);
-    letter-spacing: 0.04em;
-    margin-top: 2px;
-  }
-
-  /* TRUST BAR */
-  .trust-bar {
-    background: var(--red);
-    padding: 0 20px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .trust-bar::-webkit-scrollbar { display: none; }
-
-  .trust-inner {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    min-width: max-content;
-  }
-
-  .trust-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-  }
-
-  .trust-item svg {
-    width: 13px;
-    height: 13px;
-    stroke: rgba(255,255,255,0.8);
-    fill: none;
-    stroke-width: 2.2;
-    flex-shrink: 0;
-  }
-
-  .trust-item span {
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--white);
-  }
-
-  .trust-sep {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.35);
-    flex-shrink: 0;
-  }
-
-  /* FORM SECTION */
-  .form-section {
-    padding: 32px 12px 48px;
-    background: var(--black);
-  }
-
-  .form-section-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .form-top-label {
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .form-top-label::before {
-    content: '';
-    width: 18px;
-    height: 2px;
-    background: var(--red);
-    display: block;
-  }
-
-  .form-title {
-    font-family: var(--font-display);
-    font-size: clamp(26px, 6vw, 36px);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .form-desc {
-    font-size: 14px;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.6;
-    margin-bottom: 24px;
-  }
-
-  /* TALLY WRAPPER — key fix for mobile scroll */
-  .tally-wrapper {
-    background: var(--white);
-    border-radius: 0;
-    padding: 16px 4px;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-top: 4px solid var(--red);
-    border-left-width: 0;
-    border-right-width: 0;
-    margin: 0 -12px;
-    scroll-margin-top: calc(var(--nav-h) + 16px);
-  }
-
-  .tally-wrapper iframe {
-    display: block;
-    width: 100%;
-    border: none;
-    min-height: 400px;
-  }
-
-  /* CONTACT CARDS */
-  .contact-cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .contact-card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 10px;
-    padding: 16px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .cc-icon {
-    width: 32px;
-    height: 32px;
-    background: var(--gray-100);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .cc-icon svg {
-    width: 14px;
-    height: 14px;
-    stroke: var(--red);
-    fill: none;
-    stroke-width: 1.8;
-  }
-
-  .cc-label {
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--gray-400);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 2px;
-  }
-
-  .cc-val {
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.4;
-  }
-
-  .cc-val a {
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  .cc-val a:hover { color: var(--red); }
-
-  /* CALL CTA */
-  .call-cta {
-    background: var(--red);
-    border-radius: 10px;
-    padding: 20px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .call-cta-left { flex: 1; }
-
-  .call-cta-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 4px;
-  }
-
-  .call-cta-text {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--white);
-    line-height: 1.1;
-  }
-
-  .call-cta-text span { color: var(--white); }
-
-  .call-cta-btn {
-    width: 44px;
-    height: 44px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .call-cta-btn svg {
-    width: 18px;
-    height: 18px;
-    stroke: var(--white);
-    fill: none;
-    stroke-width: 2;
-  }
-
-  /* SERVICES */
-  .services-section {
-    background: var(--gray-100);
-    padding: 48px 20px;
-    border-top: 1px solid var(--gray-200);
-  }
-
-  .services-inner { max-width: 1100px; margin: 0 auto; }
-
-  .section-label {
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .section-label::before {
-    content: '';
-    width: 18px;
-    height: 2px;
-    background: var(--red);
-    display: block;
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(26px, 6vw, 48px);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    line-height: 1;
-    margin-bottom: 32px;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    background: var(--gray-200);
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--gray-200);
-  }
-
-  .service-card {
-    background: var(--white);
-    padding: 20px 16px;
-    transition: background 0.18s;
-  }
-
-  .service-card:hover { background: var(--black); }
-
-  .sc-icon {
-    width: 34px;
-    height: 34px;
-    border: 1px solid var(--gray-200);
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 12px;
-    transition: all 0.18s;
-  }
-
-  .sc-icon svg {
-    width: 15px;
-    height: 15px;
-    stroke: var(--gray-600);
-    fill: none;
-    stroke-width: 1.8;
-    transition: stroke 0.18s;
-  }
-
-  .service-card:hover .sc-icon { border-color: rgba(217,30,30,0.3); background: rgba(217,30,30,0.1); }
-  .service-card:hover .sc-icon svg { stroke: var(--red); }
-
-  .sc-name {
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--text);
-    margin-bottom: 5px;
-    transition: color 0.18s;
-  }
-
-  .service-card:hover .sc-name { color: var(--white); }
-
-  .sc-desc {
-    font-size: 12px;
-    color: var(--gray-400);
-    line-height: 1.5;
-    transition: color 0.18s;
-  }
-
-  .service-card:hover .sc-desc { color: rgba(255,255,255,0.4); }
-
-  /* FOOTER */
-  footer {
-    background: var(--black);
-    padding: 40px 20px 28px;
-  }
-
-  .footer-inner { max-width: 1100px; margin: 0 auto; }
-
-  .footer-brand {
-    margin-bottom: 28px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
-
-  .footer-brand img {
-    height: 28px;
-    width: auto;
-    margin-bottom: 12px;
-    filter: brightness(0) invert(1);
-    display: block;
-  }
-
-  .footer-brand p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.3);
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
-
-  .footer-social { display: flex; gap: 8px; margin-bottom: 24px; }
-
-  .social-link {
-    width: 36px;
-    height: 36px;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    text-decoration: none;
-  }
-
-  .social-link:hover { border-color: var(--red); background: rgba(217,30,30,0.1); }
-  .social-link svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.4); transition: fill 0.2s; }
-  .social-link:hover svg { fill: var(--red); }
-
-  .footer-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-    margin-bottom: 28px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
-
-  .footer-col h4 {
-    font-family: var(--font-display);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.25);
-    margin-bottom: 14px;
-  }
-
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-
-  .footer-col a {
-    font-size: 13px;
-    color: rgba(255,255,255,0.45);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-col a:hover { color: var(--white); }
-
-  .footer-contact p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.4);
-    line-height: 1.8;
-  }
-
-  .footer-contact a {
-    color: rgba(255,255,255,0.4);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-contact a:hover { color: var(--red); }
-
-  .footer-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.18); }
-
-  .footer-badge {
-    font-family: var(--font-display);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.18);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 4px 10px;
-    border-radius: 4px;
-    display: inline-block;
-  }
-
-  /* VERY SMALL SCREENS */
-  @media (max-width: 400px) {
-    .form-section { padding: 24px 8px 40px; }
-    .tally-wrapper { padding: 12px 4px; margin: 0 -8px; }
-    .hero { padding: 32px 12px 48px; }
-  }
-
-  /* DESKTOP OVERRIDES */
-  @media (min-width: 768px) {
-    :root { --nav-h: 64px; }
-
-    nav { padding: 0 48px; }
-    .nav-links { display: flex; }
-    .nav-phone { display: none; }
-
-    .hero { padding: 72px 48px 64px; }
-
-    .hero-inner {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 48px;
-    }
-
-    .hero-stats {
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 20px;
-      flex-shrink: 0;
-    }
-
-    .hero-stat { align-items: flex-end; }
-
-    .trust-bar { padding: 0 48px; height: 48px; }
-    .trust-inner { min-width: unset; }
-
-    .form-section { padding: 64px 48px 80px; background: var(--black); }
-    .tally-wrapper {
-      padding: 32px 36px;
-      border-radius: 0 0 12px 12px;
-      border-left-width: 1px;
-      border-right-width: 1px;
-      border-bottom-width: 1px;
-      border-color: rgba(255,255,255,0.1);
-      margin: 0;
-    }
-
-    .form-section-inner {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 48px;
-      align-items: start;
-    }
-
-    .form-sidebar {
-      position: sticky;
-      top: calc(var(--nav-h) + 24px);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .contact-cards { grid-template-columns: 1fr; }
-
-    .services-section { padding: 72px 48px; }
-    .services-grid { grid-template-columns: repeat(3, 1fr); }
-
-    footer { padding: 56px 48px 32px; }
-
-    .footer-brand { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-
-    .footer-top-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap: 48px;
-      padding-bottom: 40px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      margin-bottom: 28px;
-    }
-
-    .footer-cols { display: contents; }
-    .footer-social { margin-bottom: 0; }
-
-    .footer-bottom {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .services-grid { grid-template-columns: repeat(6, 1fr); }
-  }
-
-  /* CHAT WIDGET */
-  .chat-widget {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    pointer-events: none;
-  }
-  .chat-widget.is-open { pointer-events: auto; }
-
-  .chat-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(14,14,14,0.25);
-    opacity: 0;
-    transition: opacity 0.25s ease;
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
-    cursor: pointer;
-  }
-  .chat-widget.is-open .chat-backdrop { opacity: 1; }
-
-  .chat-panel {
-    position: absolute;
-    bottom: 116px;
-    right: 24px;
-    width: 380px;
-    max-width: calc(100vw - 32px);
-    height: clamp(420px, 72vh, 680px);
-    background: var(--white);
-    display: flex;
-    flex-direction: column;
-    border-radius: 16px;
-    box-shadow: 0 12px 48px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.06);
-    overflow: hidden;
-    pointer-events: auto;
-    transform: translateY(16px) scale(0.97);
-    opacity: 0;
-    transition: transform 0.28s cubic-bezier(0.34,1.4,0.64,1), opacity 0.22s ease;
-  }
-  .chat-widget.is-open .chat-panel {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-
-  .chat-header {
-    background: var(--black);
-    padding: 20px 20px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-shrink: 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .chat-header-info { display: flex; align-items: center; gap: 12px; }
-  .chat-avatar {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #7c3aed, #c026d3);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; box-shadow: 0 0 0 3px rgba(124,58,237,0.25);
-  }
-  .chat-avatar svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 2; }
-  .chat-agent-name {
-    font-family: var(--font-display);
-    font-size: 14px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.04em;
-    color: var(--white); line-height: 1.1; margin-bottom: 3px;
-  }
-  .chat-online {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 11px; color: rgba(255,255,255,0.4);
-  }
-  .chat-online::before {
-    content: ''; width: 7px; height: 7px;
-    border-radius: 50%; background: #22c55e;
-    display: block; box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
-  }
-  .chat-close-btn {
-    background: rgba(255,255,255,0.07); border: none; cursor: pointer;
-    color: rgba(255,255,255,0.5); width: 32px; height: 32px;
-    border-radius: 8px; display: flex; align-items: center; justify-content: center;
-    font-size: 20px; line-height: 1; transition: all 0.2s; flex-shrink: 0;
-  }
-  .chat-close-btn:hover { background: rgba(255,255,255,0.14); color: white; }
-
-  .chat-messages {
-    flex: 1; overflow-y: auto;
-    padding: 20px; display: flex;
-    flex-direction: column; gap: 12px;
-    scroll-behavior: smooth;
-    background: var(--gray-100);
-  }
-  .chat-messages::-webkit-scrollbar { width: 3px; }
-  .chat-messages::-webkit-scrollbar-track { background: transparent; }
-  .chat-messages::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 3px; }
-
-  .chat-msg {
-    max-width: 88%; padding: 12px 15px;
-    border-radius: 16px; font-size: 14px; line-height: 1.65;
-    word-break: break-word;
-  }
-  .chat-msg-row {
-    display: flex;
-    align-items: flex-end;
-    gap: 8px;
-    align-self: flex-start;
-  }
-  .chat-msg-avatar {
-    width: 32px; height: 32px;
-    border-radius: 50%; object-fit: cover;
-    flex-shrink: 0;
-    border: 2px solid var(--white);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.14);
-  }
-  .chat-msg.bot {
-    background: var(--white); color: var(--text);
-    border-bottom-left-radius: 4px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-  }
-  .chat-msg.bot p { margin: 0 0 8px; }
-  .chat-msg.bot p:last-child { margin-bottom: 0; }
-  .chat-msg.user {
-    background: linear-gradient(135deg, #7c3aed, #c026d3);
-    color: white;
-    align-self: flex-end; border-bottom-right-radius: 4px;
-  }
-
-  .chat-typing {
-    display: flex; align-items: center; gap: 5px;
-    padding: 12px 16px; background: var(--white);
-    border-radius: 16px; border-bottom-left-radius: 4px;
-    width: fit-content;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-  }
-  .chat-typing span {
-    width: 7px; height: 7px;
-    background: var(--gray-400); border-radius: 50%;
-    animation: chatBounce 1.2s ease-in-out infinite;
-  }
-  .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
-  .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes chatBounce {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
-    30% { transform: translateY(-6px); opacity: 1; }
-  }
-
-  .chat-error-msg {
-    align-self: flex-start;
-    background: #fff5f5; border: 1px solid #fecdcd;
-    border-radius: 16px; border-bottom-left-radius: 4px;
-    padding: 12px 15px; font-size: 13px; color: #b91c1c;
-    max-width: 88%; display: flex; flex-direction: column; gap: 8px;
-  }
-  .chat-retry-btn {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: var(--red); color: white; border: none;
-    border-radius: 6px; padding: 6px 12px;
-    font-size: 12px; font-weight: 600; font-family: var(--font-body);
-    cursor: pointer; transition: background 0.18s; align-self: flex-start;
-  }
-  .chat-retry-btn:hover { background: var(--red-dark); }
-  .chat-retry-btn svg { width: 11px; height: 11px; stroke: white; fill: none; stroke-width: 2.5; }
-
-  .chat-input-area {
-    padding: 16px; border-top: 1px solid var(--gray-200);
-    display: flex; gap: 10px; align-items: center; flex-shrink: 0;
-    background: var(--white);
-  }
-  .chat-input {
-    flex: 1; border: 1px solid var(--gray-200);
-    border-radius: 10px; padding: 11px 14px;
-    font-family: var(--font-body); font-size: 14px; color: var(--text);
-    outline: none; transition: border-color 0.2s, background 0.2s;
-    background: var(--gray-100);
-  }
-  .chat-input:focus { border-color: #7c3aed; background: white; }
-  .chat-input:disabled { opacity: 0.45; cursor: not-allowed; }
-  .chat-send {
-    width: 42px; height: 42px;
-    background: linear-gradient(135deg, #7c3aed, #c026d3);
-    border: none; border-radius: 10px; cursor: pointer; display: flex;
-    align-items: center; justify-content: center; flex-shrink: 0;
-    transition: opacity 0.2s, transform 0.15s; -webkit-tap-highlight-color: transparent;
-  }
-  .chat-send:hover { opacity: 0.88; transform: scale(1.05); }
-  .chat-send:disabled { background: var(--gray-200); cursor: not-allowed; opacity: 1; transform: none; }
-  .chat-send svg { width: 16px; height: 16px; stroke: white; fill: none; stroke-width: 2.5; }
-
-  .chat-bubble {
-    position: absolute;
-    bottom: 24px; right: 24px;
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    background: var(--white);
-    border: 3px solid #7c3aed;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 28px rgba(124,58,237,0.5), 0 2px 10px rgba(0,0,0,0.2);
-    pointer-events: auto; -webkit-tap-highlight-color: transparent;
-    overflow: hidden; padding: 0;
-    animation: chatJump 3.8s cubic-bezier(0.28,0.84,0.42,1) 2s infinite;
-    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-  }
-  .chat-bubble.is-close-mode {
-    background: linear-gradient(135deg, #7c3aed, #c026d3);
-    border-color: transparent;
-    overflow: visible;
-  }
-  .chat-bubble:hover {
-    transform: scale(1.08);
-    box-shadow: 0 12px 36px rgba(124,58,237,0.65), 0 4px 14px rgba(0,0,0,0.25);
-    animation-play-state: paused;
-  }
-  .chat-bubble svg { width: 32px; height: 32px; }
-  .chat-bubble-img {
-    width: 100%; height: 100%;
-    object-fit: cover; border-radius: 50%;
-    display: block;
-  }
-  @keyframes chatJump {
-    0%, 55%, 100% { transform: translateY(0) scale(1); }
-    63%  { transform: translateY(-20px) scale(1.06); }
-    72%  { transform: translateY(0)     scale(0.96); }
-    80%  { transform: translateY(-10px) scale(1.03); }
-    88%  { transform: translateY(0)     scale(1); }
-    93%  { transform: translateY(-5px)  scale(1.01); }
-    97%  { transform: translateY(0)     scale(1); }
-  }
-  .chat-bubble-ring {
-    position: absolute; inset: -8px; border-radius: 50%;
-    border: 3px solid rgba(124,58,237,0.5); opacity: 0;
-    animation: chatRing 2.2s ease-out 1s infinite;
-  }
-  @keyframes chatRing {
-    0%   { transform: scale(1);   opacity: 0.8; }
-    100% { transform: scale(1.6); opacity: 0; }
-  }
-
-  /* CHAT CALLOUT */
-  .chat-callout {
-    position: absolute;
-    bottom: 50px;
-    right: 114px;
-    background: white;
-    border-radius: 14px;
-    padding: 12px 36px 12px 16px;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.13), 0 0 0 1px rgba(0,0,0,0.05);
-    pointer-events: auto;
-    opacity: 0;
-    transform: translateX(12px) scale(0.94);
-    animation: calloutIn 0.45s cubic-bezier(0.34,1.56,0.64,1) 2.5s forwards;
-    min-width: 180px;
-  }
-  .chat-callout.hidden {
-    opacity: 0 !important;
-    transform: translateX(12px) scale(0.94) !important;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-  }
-  @keyframes calloutIn {
-    to { opacity: 1; transform: translateX(0) scale(1); }
-  }
-  /* speech bubble tail pointing right toward bubble */
-  .chat-callout::after {
-    content: '';
-    position: absolute;
-    right: -8px;
-    bottom: 22px;
-    width: 0; height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-left: 8px solid white;
-  }
-  .chat-callout-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #7c3aed;
-    margin-bottom: 3px;
-    font-family: var(--font-display);
-  }
-  .chat-callout-text {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    line-height: 1.4;
-    transition: opacity 0.3s ease;
-  }
-  .chat-callout-dismiss {
-    position: absolute;
-    top: 8px; right: 8px;
-    background: none; border: none;
-    font-size: 16px; line-height: 1;
-    color: var(--gray-400); cursor: pointer; padding: 2px 4px;
-    transition: color 0.15s;
-  }
-  .chat-callout-dismiss:hover { color: var(--text); }
-
-  @media (max-width: 480px) {
-    .chat-callout {
-      bottom: 108px;
-      right: 16px;
-      min-width: 0;
-      max-width: 190px;
-    }
-    .chat-callout::after {
-      right: 30px;
-      bottom: -15px;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-top: 8px solid white;
-      border-bottom: none;
-    }
-    .chat-panel {
-      right: 12px;
-      bottom: 108px;
-      width: calc(100vw - 24px);
-      height: clamp(360px, 65vh, 560px);
-    }
-    .chat-bubble { bottom: 16px; right: 16px; }
-  }
-</style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="/">
-    <img src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png" alt="SpeedPro Niagara"/>
-  </a>
-  <a href="tel:9059372022" class="nav-phone">
-    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 4.18 2 2 0 012.05 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Need help? <span>905-937-2022</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="/value">Value</a></li>
-    <li><a href="/services">Services</a></li>
-    <li><a href="/insights">Insights</a></li>
-    <li><a href="/contact" class="nav-cta">Get a quote</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow">Project intake</div>
-      <h1 class="hero-h1">
-        Start your<br/>
-        project with<br/>
-        <span class="accent">SpeedPro</span><br/>
-        Niagara.
-      </h1>
-      <p class="hero-sub">Tell us what you need and our team will get back to you within 24 hours with a tailored quote.</p>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-num">24h</div>
-          <div class="hero-stat-label">Response time</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">6</div>
-          <div class="hero-stat-label">Services available</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">Local</div>
-          <div class="hero-stat-label">Niagara-based team</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="trust-inner">
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
-      <span>Response within 24 hours</span>
-    </div>
-    <div class="trust-sep"></div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <span>Tailored quotes</span>
-    </div>
-    <div class="trust-sep"></div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-      <span>No obligation</span>
-    </div>
-    <div class="trust-sep"></div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-      <span>Local Niagara team</span>
-    </div>
-    <div class="trust-sep"></div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
-      <span>Print + digital under one roof</span>
-    </div>
-  </div>
-</div>
-
-<!-- FORM SECTION -->
-<section class="form-section" id="form-section">
-  <div class="form-section-inner">
-
-    <!-- FORM -->
-    <div class="form-main">
-      <div class="form-top-label">Get a quote</div>
-      <h2 class="form-title">How can we help today?</h2>
-      <p class="form-desc">Whether you're requesting a quote or just exploring, fill in the details below and we'll take it from there.</p>
-      <div class="tally-wrapper" id="tally-wrapper">
-        <iframe id="tally-iframe" data-tally-src="https://tally.so/embed/RGVxAv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0" title="Speed Pro Niagara Request Form"></iframe>
-      </div>
-    </div>
-
-    <!-- SIDEBAR -->
-    <div class="form-sidebar">
-      <div class="contact-cards">
-        <div class="contact-card">
-          <div class="cc-icon">
-            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 4.18 2 2 0 012.05 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div>
-            <div class="cc-label">Phone</div>
-            <div class="cc-val"><a href="tel:9059372022">905-937-2022</a></div>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="cc-icon">
-            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div>
-            <div class="cc-label">Email</div>
-            <div class="cc-val"><a href="mailto:Sales@speedproniagara.com">Sales@speedproniagara.com</a></div>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="cc-icon">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div>
-            <div class="cc-label">Visit us</div>
-            <div class="cc-val"><a href="https://maps.app.goo.gl/UusiX1QaSoKWQPjj6" target="_blank">300 Welland Ave, Unit 1<br/>St. Catharines ON</a></div>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="cc-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/><polyline points="12,6 12,12 16,14" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div>
-            <div class="cc-label">Hours</div>
-            <div class="cc-val">Mon – Fri<br/>9:00 am – 5:00 pm</div>
-          </div>
-        </div>
-      </div>
-
-      <a href="tel:9059372022" class="call-cta">
-        <div class="call-cta-left">
-          <div class="call-cta-label">Prefer to talk?</div>
-          <div class="call-cta-text">Call us <span>directly.</span></div>
-        </div>
-        <div class="call-cta-btn">
-          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 4.18 2 2 0 012.05 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>Contact — SpeedPro Niagara</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --red: #d91e1e;
+        --red-dark: #a81616;
+        --black: #0e0e0e;
+        --white: #ffffff;
+        --gray-100: #f5f4f2;
+        --gray-200: #e8e6e1;
+        --gray-400: #9c9890;
+        --gray-600: #5a5750;
+        --text: #1a1917;
+        --font-display: "Barlow Condensed", sans-serif;
+        --font-body: "Barlow", sans-serif;
+        --nav-h: 56px;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-body);
+        color: var(--text);
+        background: var(--white);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      /* NAV */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--black);
+        padding: 0 20px;
+        height: var(--nav-h);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .nav-logo img {
+        height: 28px;
+        width: auto;
+        display: block;
+        filter: brightness(0) invert(1);
+      }
+
+      .nav-phone {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+      }
+
+      .nav-phone span {
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 600;
+      }
+
+      .nav-phone svg {
+        width: 14px;
+        height: 14px;
+        stroke: var(--red);
+        fill: none;
+        stroke-width: 2;
+      }
+
+      .nav-links {
+        display: none;
+        align-items: center;
+        gap: 24px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--white);
+      }
+
+      .nav-cta {
+        background: var(--red) !important;
+        color: var(--white) !important;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-weight: 600 !important;
+        font-size: 12px !important;
+      }
+
+      /* HERO */
+      .hero {
+        background: var(--black);
+        padding: 40px 20px 56px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 39px,
+          rgba(255, 255, 255, 0.02) 39px,
+          rgba(255, 255, 255, 0.02) 40px
+        );
+        pointer-events: none;
+      }
+
+      .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 16px;
+      }
+
+      .hero-eyebrow::before {
+        content: "";
+        width: 20px;
+        height: 2px;
+        background: var(--red);
+        display: block;
+      }
+
+      .hero-h1 {
+        font-family: var(--font-display);
+        font-size: clamp(40px, 10vw, 80px);
+        font-weight: 800;
+        line-height: 0.92;
+        letter-spacing: -0.015em;
+        color: var(--white);
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+
+      .hero-h1 .accent {
+        color: var(--red);
+      }
+
+      .hero-sub {
+        font-size: 14px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.45);
+        max-width: 480px;
+        margin-bottom: 28px;
+      }
+
+      .hero-stats {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .hero-stat {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero-stat-num {
+        font-family: var(--font-display);
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--white);
+        line-height: 1;
+      }
+
+      .hero-stat-label {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.35);
+        letter-spacing: 0.04em;
+        margin-top: 2px;
+      }
+
+      /* TRUST BAR */
+      .trust-bar {
+        background: var(--red);
+        padding: 0 20px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .trust-bar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .trust-inner {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        min-width: max-content;
+      }
+
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+
+      .trust-item svg {
+        width: 13px;
+        height: 13px;
+        stroke: rgba(255, 255, 255, 0.8);
+        fill: none;
+        stroke-width: 2.2;
+        flex-shrink: 0;
+      }
+
+      .trust-item span {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--white);
+      }
+
+      .trust-sep {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.35);
+        flex-shrink: 0;
+      }
+
+      /* FORM SECTION */
+      .form-section {
+        padding: 32px 12px 48px;
+        background: var(--black);
+      }
+
+      .form-section-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .form-top-label {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .form-top-label::before {
+        content: "";
+        width: 18px;
+        height: 2px;
+        background: var(--red);
+        display: block;
+      }
+
+      .form-title {
+        font-family: var(--font-display);
+        font-size: clamp(26px, 6vw, 36px);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        color: var(--white);
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .form-desc {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+
+      /* TALLY WRAPPER — key fix for mobile scroll */
+      .tally-wrapper {
+        background: var(--white);
+        border-radius: 0;
+        padding: 16px 4px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 4px solid var(--red);
+        border-left-width: 0;
+        border-right-width: 0;
+        margin: 0 -12px;
+        scroll-margin-top: calc(var(--nav-h) + 16px);
+      }
+
+      .tally-wrapper iframe {
+        display: block;
+        width: 100%;
+        border: none;
+        min-height: 400px;
+      }
+
+      /* CONTACT CARDS */
+      .contact-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .contact-card {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .cc-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--gray-100);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .cc-icon svg {
+        width: 14px;
+        height: 14px;
+        stroke: var(--red);
+        fill: none;
+        stroke-width: 1.8;
+      }
+
+      .cc-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--gray-400);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 2px;
+      }
+
+      .cc-val {
+        font-size: 13px;
+        color: var(--text);
+        line-height: 1.4;
+      }
+
+      .cc-val a {
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .cc-val a:hover {
+        color: var(--red);
+      }
+
+      /* CALL CTA */
+      .call-cta {
+        background: var(--red);
+        border-radius: 10px;
+        padding: 20px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .call-cta-left {
+        flex: 1;
+      }
+
+      .call-cta-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 4px;
+      }
+
+      .call-cta-text {
+        font-family: var(--font-display);
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--white);
+        line-height: 1.1;
+      }
+
+      .call-cta-text span {
+        color: var(--white);
+      }
+
+      .call-cta-btn {
+        width: 44px;
+        height: 44px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .call-cta-btn svg {
+        width: 18px;
+        height: 18px;
+        stroke: var(--white);
+        fill: none;
+        stroke-width: 2;
+      }
+
+      /* SERVICES */
+      .services-section {
+        background: var(--gray-100);
+        padding: 48px 20px;
+        border-top: 1px solid var(--gray-200);
+      }
+
+      .services-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .section-label {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .section-label::before {
+        content: "";
+        width: 18px;
+        height: 2px;
+        background: var(--red);
+        display: block;
+      }
+
+      .section-title {
+        font-family: var(--font-display);
+        font-size: clamp(26px, 6vw, 48px);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        line-height: 1;
+        margin-bottom: 32px;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+        background: var(--gray-200);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--gray-200);
+      }
+
+      .service-card {
+        background: var(--white);
+        padding: 20px 16px;
+        transition: background 0.18s;
+      }
+
+      .service-card:hover {
+        background: var(--black);
+      }
+
+      .sc-icon {
+        width: 34px;
+        height: 34px;
+        border: 1px solid var(--gray-200);
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        transition: all 0.18s;
+      }
+
+      .sc-icon svg {
+        width: 15px;
+        height: 15px;
+        stroke: var(--gray-600);
+        fill: none;
+        stroke-width: 1.8;
+        transition: stroke 0.18s;
+      }
+
+      .service-card:hover .sc-icon {
+        border-color: rgba(217, 30, 30, 0.3);
+        background: rgba(217, 30, 30, 0.1);
+      }
+      .service-card:hover .sc-icon svg {
+        stroke: var(--red);
+      }
+
+      .sc-name {
+        font-family: var(--font-display);
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        margin-bottom: 5px;
+        transition: color 0.18s;
+      }
+
+      .service-card:hover .sc-name {
+        color: var(--white);
+      }
+
+      .sc-desc {
+        font-size: 12px;
+        color: var(--gray-400);
+        line-height: 1.5;
+        transition: color 0.18s;
+      }
+
+      .service-card:hover .sc-desc {
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--black);
+        padding: 40px 20px 28px;
+      }
+
+      .footer-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .footer-brand {
+        margin-bottom: 28px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .footer-brand img {
+        height: 28px;
+        width: auto;
+        margin-bottom: 12px;
+        filter: brightness(0) invert(1);
+        display: block;
+      }
+
+      .footer-brand p {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.3);
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+
+      .social-link {
+        width: 36px;
+        height: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        text-decoration: none;
+      }
+
+      .social-link:hover {
+        border-color: var(--red);
+        background: rgba(217, 30, 30, 0.1);
+      }
+      .social-link svg {
+        width: 14px;
+        height: 14px;
+        fill: rgba(255, 255, 255, 0.4);
+        transition: fill 0.2s;
+      }
+      .social-link:hover svg {
+        fill: var(--red);
+      }
+
+      .footer-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        margin-bottom: 28px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .footer-col h4 {
+        font-family: var(--font-display);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.25);
+        margin-bottom: 14px;
+      }
+
+      .footer-col ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .footer-col a {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.45);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .footer-col a:hover {
+        color: var(--white);
+      }
+
+      .footer-contact p {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.8;
+      }
+
+      .footer-contact a {
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .footer-contact a:hover {
+        color: var(--red);
+      }
+
+      .footer-bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .footer-bottom p {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.18);
+      }
+
+      .footer-badge {
+        font-family: var(--font-display);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 4px 10px;
+        border-radius: 4px;
+        display: inline-block;
+      }
+
+      /* VERY SMALL SCREENS */
+      @media (max-width: 400px) {
+        .form-section {
+          padding: 24px 8px 40px;
+        }
+        .tally-wrapper {
+          padding: 12px 4px;
+          margin: 0 -8px;
+        }
+        .hero {
+          padding: 32px 12px 48px;
+        }
+      }
+
+      /* DESKTOP OVERRIDES */
+      @media (min-width: 768px) {
+        :root {
+          --nav-h: 64px;
+        }
+
+        nav {
+          padding: 0 48px;
+        }
+        .nav-links {
+          display: flex;
+        }
+        .nav-phone {
+          display: none;
+        }
+
+        .hero {
+          padding: 72px 48px 64px;
+        }
+
+        .hero-inner {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 48px;
+        }
+
+        .hero-stats {
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 20px;
+          flex-shrink: 0;
+        }
+
+        .hero-stat {
+          align-items: flex-end;
+        }
+
+        .trust-bar {
+          padding: 0 48px;
+          height: 48px;
+        }
+        .trust-inner {
+          min-width: unset;
+        }
+
+        .form-section {
+          padding: 64px 48px 80px;
+          background: var(--black);
+        }
+        .tally-wrapper {
+          padding: 32px 36px;
+          border-radius: 0 0 12px 12px;
+          border-left-width: 1px;
+          border-right-width: 1px;
+          border-bottom-width: 1px;
+          border-color: rgba(255, 255, 255, 0.1);
+          margin: 0;
+        }
+
+        .form-section-inner {
+          display: grid;
+          grid-template-columns: 1fr 320px;
+          gap: 48px;
+          align-items: start;
+        }
+
+        .form-sidebar {
+          position: sticky;
+          top: calc(var(--nav-h) + 24px);
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .contact-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .services-section {
+          padding: 72px 48px;
+        }
+        .services-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        footer {
+          padding: 56px 48px 32px;
+        }
+
+        .footer-brand {
+          margin-bottom: 0;
+          padding-bottom: 0;
+          border-bottom: none;
+        }
+
+        .footer-top-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 1fr 1fr;
+          gap: 48px;
+          padding-bottom: 40px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+          margin-bottom: 28px;
+        }
+
+        .footer-cols {
+          display: contents;
+        }
+        .footer-social {
+          margin-bottom: 0;
+        }
+
+        .footer-bottom {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .services-grid {
+          grid-template-columns: repeat(6, 1fr);
+        }
+      }
+
+      /* CHAT WIDGET */
+      .chat-widget {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        pointer-events: none;
+      }
+      .chat-widget.is-open {
+        pointer-events: auto;
+      }
+
+      .chat-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(14, 14, 14, 0.25);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        backdrop-filter: blur(1px);
+        -webkit-backdrop-filter: blur(1px);
+        cursor: pointer;
+      }
+      .chat-widget.is-open .chat-backdrop {
+        opacity: 1;
+      }
+
+      .chat-panel {
+        position: absolute;
+        bottom: 116px;
+        right: 24px;
+        width: 380px;
+        max-width: calc(100vw - 32px);
+        height: clamp(420px, 72vh, 680px);
+        background: var(--white);
+        display: flex;
+        flex-direction: column;
+        border-radius: 16px;
+        box-shadow:
+          0 12px 48px rgba(0, 0, 0, 0.2),
+          0 0 0 1px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+        pointer-events: auto;
+        transform: translateY(16px) scale(0.97);
+        opacity: 0;
+        transition:
+          transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1),
+          opacity 0.22s ease;
+      }
+      .chat-widget.is-open .chat-panel {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+
+      .chat-header {
+        background: var(--black);
+        padding: 20px 20px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-shrink: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .chat-header-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .chat-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #7c3aed, #c026d3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25);
+      }
+      .chat-avatar svg {
+        width: 18px;
+        height: 18px;
+        stroke: white;
+        fill: none;
+        stroke-width: 2;
+      }
+      .chat-agent-name {
+        font-family: var(--font-display);
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--white);
+        line-height: 1.1;
+        margin-bottom: 3px;
+      }
+      .chat-online {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .chat-online::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #22c55e;
+        display: block;
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+      }
+      .chat-close-btn {
+        background: rgba(255, 255, 255, 0.07);
+        border: none;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.5);
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        line-height: 1;
+        transition: all 0.2s;
+        flex-shrink: 0;
+      }
+      .chat-close-btn:hover {
+        background: rgba(255, 255, 255, 0.14);
+        color: white;
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        scroll-behavior: smooth;
+        background: var(--gray-100);
+      }
+      .chat-messages::-webkit-scrollbar {
+        width: 3px;
+      }
+      .chat-messages::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .chat-messages::-webkit-scrollbar-thumb {
+        background: var(--gray-200);
+        border-radius: 3px;
+      }
+
+      .chat-msg {
+        max-width: 88%;
+        padding: 12px 15px;
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 1.65;
+        word-break: break-word;
+      }
+      .chat-msg-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        align-self: flex-start;
+      }
+      .chat-msg-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+        border: 2px solid var(--white);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+      }
+      .chat-msg.bot {
+        background: var(--white);
+        color: var(--text);
+        border-bottom-left-radius: 4px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+      }
+      .chat-msg.bot p {
+        margin: 0 0 8px;
+      }
+      .chat-msg.bot p:last-child {
+        margin-bottom: 0;
+      }
+      .chat-msg.user {
+        background: linear-gradient(135deg, #7c3aed, #c026d3);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+      }
+
+      .chat-typing {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 12px 16px;
+        background: var(--white);
+        border-radius: 16px;
+        border-bottom-left-radius: 4px;
+        width: fit-content;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+      }
+      .chat-typing span {
+        width: 7px;
+        height: 7px;
+        background: var(--gray-400);
+        border-radius: 50%;
+        animation: chatBounce 1.2s ease-in-out infinite;
+      }
+      .chat-typing span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .chat-typing span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes chatBounce {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.45;
+        }
+        30% {
+          transform: translateY(-6px);
+          opacity: 1;
+        }
+      }
+
+      .chat-error-msg {
+        align-self: flex-start;
+        background: #fff5f5;
+        border: 1px solid #fecdcd;
+        border-radius: 16px;
+        border-bottom-left-radius: 4px;
+        padding: 12px 15px;
+        font-size: 13px;
+        color: #b91c1c;
+        max-width: 88%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .chat-retry-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: var(--red);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        font-family: var(--font-body);
+        cursor: pointer;
+        transition: background 0.18s;
+        align-self: flex-start;
+      }
+      .chat-retry-btn:hover {
+        background: var(--red-dark);
+      }
+      .chat-retry-btn svg {
+        width: 11px;
+        height: 11px;
+        stroke: white;
+        fill: none;
+        stroke-width: 2.5;
+      }
+
+      .chat-input-area {
+        padding: 16px;
+        border-top: 1px solid var(--gray-200);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-shrink: 0;
+        background: var(--white);
+      }
+      .chat-input {
+        flex: 1;
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 11px 14px;
+        font-family: var(--font-body);
+        font-size: 14px;
+        color: var(--text);
+        outline: none;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        background: var(--gray-100);
+      }
+      .chat-input:focus {
+        border-color: #7c3aed;
+        background: white;
+      }
+      .chat-input:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .chat-send {
+        width: 42px;
+        height: 42px;
+        background: linear-gradient(135deg, #7c3aed, #c026d3);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition:
+          opacity 0.2s,
+          transform 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .chat-send:hover {
+        opacity: 0.88;
+        transform: scale(1.05);
+      }
+      .chat-send:disabled {
+        background: var(--gray-200);
+        cursor: not-allowed;
+        opacity: 1;
+        transform: none;
+      }
+      .chat-send svg {
+        width: 16px;
+        height: 16px;
+        stroke: white;
+        fill: none;
+        stroke-width: 2.5;
+      }
+
+      .chat-bubble {
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--white);
+        border: 3px solid #7c3aed;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow:
+          0 8px 28px rgba(124, 58, 237, 0.5),
+          0 2px 10px rgba(0, 0, 0, 0.2);
+        pointer-events: auto;
+        -webkit-tap-highlight-color: transparent;
+        overflow: hidden;
+        padding: 0;
+        animation: chatJump 3.8s cubic-bezier(0.28, 0.84, 0.42, 1) 2s infinite;
+        transition:
+          border-color 0.2s,
+          background 0.2s,
+          box-shadow 0.2s;
+      }
+      .chat-bubble.is-close-mode {
+        background: linear-gradient(135deg, #7c3aed, #c026d3);
+        border-color: transparent;
+        overflow: visible;
+      }
+      .chat-bubble:hover {
+        transform: scale(1.08);
+        box-shadow:
+          0 12px 36px rgba(124, 58, 237, 0.65),
+          0 4px 14px rgba(0, 0, 0, 0.25);
+        animation-play-state: paused;
+      }
+      .chat-bubble svg {
+        width: 32px;
+        height: 32px;
+      }
+      .chat-bubble-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+      }
+      @keyframes chatJump {
+        0%,
+        55%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        63% {
+          transform: translateY(-20px) scale(1.06);
+        }
+        72% {
+          transform: translateY(0) scale(0.96);
+        }
+        80% {
+          transform: translateY(-10px) scale(1.03);
+        }
+        88% {
+          transform: translateY(0) scale(1);
+        }
+        93% {
+          transform: translateY(-5px) scale(1.01);
+        }
+        97% {
+          transform: translateY(0) scale(1);
+        }
+      }
+      .chat-bubble-ring {
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        border: 3px solid rgba(124, 58, 237, 0.5);
+        opacity: 0;
+        animation: chatRing 2.2s ease-out 1s infinite;
+      }
+      @keyframes chatRing {
+        0% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        100% {
+          transform: scale(1.6);
+          opacity: 0;
+        }
+      }
+
+      /* CHAT CALLOUT */
+      .chat-callout {
+        position: absolute;
+        bottom: 50px;
+        right: 114px;
+        background: white;
+        border-radius: 14px;
+        padding: 12px 36px 12px 16px;
+        box-shadow:
+          0 6px 24px rgba(0, 0, 0, 0.13),
+          0 0 0 1px rgba(0, 0, 0, 0.05);
+        pointer-events: auto;
+        opacity: 0;
+        transform: translateX(12px) scale(0.94);
+        animation: calloutIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 2.5s
+          forwards;
+        min-width: 180px;
+      }
+      .chat-callout.hidden {
+        opacity: 0 !important;
+        transform: translateX(12px) scale(0.94) !important;
+        pointer-events: none;
+        transition:
+          opacity 0.2s ease,
+          transform 0.2s ease;
+      }
+      @keyframes calloutIn {
+        to {
+          opacity: 1;
+          transform: translateX(0) scale(1);
+        }
+      }
+      /* speech bubble tail pointing right toward bubble */
+      .chat-callout::after {
+        content: "";
+        position: absolute;
+        right: -8px;
+        bottom: 22px;
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 8px solid white;
+      }
+      .chat-callout-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #7c3aed;
+        margin-bottom: 3px;
+        font-family: var(--font-display);
+      }
+      .chat-callout-text {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.4;
+        transition: opacity 0.3s ease;
+      }
+      .chat-callout-dismiss {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: none;
+        border: none;
+        font-size: 16px;
+        line-height: 1;
+        color: var(--gray-400);
+        cursor: pointer;
+        padding: 2px 4px;
+        transition: color 0.15s;
+      }
+      .chat-callout-dismiss:hover {
+        color: var(--text);
+      }
+
+      @media (max-width: 480px) {
+        .chat-callout {
+          bottom: 108px;
+          right: 16px;
+          min-width: 0;
+          max-width: 190px;
+        }
+        .chat-callout::after {
+          right: 30px;
+          bottom: -15px;
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-top: 8px solid white;
+          border-bottom: none;
+        }
+        .chat-panel {
+          right: 12px;
+          bottom: 108px;
+          width: calc(100vw - 24px);
+          height: clamp(360px, 65vh, 560px);
+        }
+        .chat-bubble {
+          bottom: 16px;
+          right: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a class="nav-logo" href="/">
+        <img
+          src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png"
+          alt="SpeedPro Niagara"
+        />
       </a>
-    </div>
+      <a href="tel:9059372022" class="nav-phone">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 4.18 2 2 0 012.05 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Need help? <span>905-937-2022</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/value">Value</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/insights">Insights</a></li>
+        <li><a href="./calculator.html" class="nav-cta">Calculate a quote</a></li>
+      </ul>
+    </nav>
 
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section class="services-section">
-  <div class="services-inner">
-    <div class="section-label">What we do</div>
-    <h2 class="section-title">Everything you need to get<br/>seen, trusted, and chosen.</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="sc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div>
-        <div class="sc-name">Brand Lab</div>
-        <p class="sc-desc">AI-enhanced creative that makes your business impossible to ignore.</p>
-      </div>
-      <div class="service-card">
-        <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div>
-        <div class="sc-name">Signage</div>
-        <p class="sc-desc">Indoor, outdoor and illuminated signs that get results.</p>
-      </div>
-      <div class="service-card">
-        <div class="sc-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8l5 3-5 3V8z"/></svg></div>
-        <div class="sc-name">Vehicle & Fleet</div>
-        <p class="sc-desc">Full and partial wraps that turn every vehicle into a moving billboard.</p>
-      </div>
-      <div class="service-card">
-        <div class="sc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-        <div class="sc-name">Tint & PPF</div>
-        <p class="sc-desc">Window tinting and paint protection that keeps vehicles sharp.</p>
-      </div>
-      <div class="service-card">
-        <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
-        <div class="sc-name">Large Format</div>
-        <p class="sc-desc">Murals, banners, and backdrops printed large and bold.</p>
-      </div>
-      <div class="service-card">
-        <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M3 9h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M3 9l2.45-4.9A2 2 0 017.24 3h9.52a2 2 0 011.8 1.1L21 9"/><path d="M12 3v6"/></svg></div>
-        <div class="sc-name">Trade Show</div>
-        <p class="sc-desc">Booth displays and event graphics that make you the standout.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top-grid">
-      <div class="footer-brand">
-        <img src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f24f80d16c85ec13fafab3_Logo-SpeedPro-global.png" alt="SpeedPro Niagara"/>
-        <p>Print and visual branding solutions for businesses across the Niagara region.</p>
-        <div class="footer-social">
-          <a href="https://www.facebook.com/SpeedproNiagara" target="_blank" class="social-link" aria-label="Facebook">
-            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/speedproniagara/" target="_blank" class="social-link" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-          <a href="https://www.linkedin.com/company/speedpro-niagara/" target="_blank" class="social-link" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h4>Services</h4>
-          <ul>
-            <li><a href="/fractional-services-copy">Brand Lab</a></li>
-            <li><a href="/signage-solutions">Signage Solutions</a></li>
-            <li><a href="/vehicle-fleet">Vehicle & Fleet</a></li>
-            <li><a href="/tint-ppf">Tint & PPF</a></li>
-            <li><a href="/large-format-graphic">Large Format</a></li>
-            <li><a href="/trade-show">Trade Show</a></li>
-          </ul>
-        </div>
-        <div class="footer-col footer-contact">
-          <h4>Find us</h4>
-          <p>
-            Monday – Friday<br/>
-            9:00 am – 5:00 pm<br/><br/>
-            <a href="https://maps.app.goo.gl/UusiX1QaSoKWQPjj6" target="_blank">300 Welland Avenue, Unit 1<br/>St. Catharines ON, L2R 7L9</a><br/><br/>
-            <a href="mailto:Sales@speedproniagara.com">Sales@speedproniagara.com</a><br/>
-            <a href="tel:9059372022">905-937-2022</a>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-eyebrow">Project intake</div>
+          <h1 class="hero-h1">
+            Start your<br />
+            project with<br />
+            <span class="accent">SpeedPro</span><br />
+            Niagara.
+          </h1>
+          <p class="hero-sub">
+            Tell us what you need and our team will get back to you within 24
+            hours with a tailored quote.
           </p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-num">24h</div>
+              <div class="hero-stat-label">Response time</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">6</div>
+              <div class="hero-stat-label">Services available</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">Local</div>
+              <div class="hero-stat-label">Niagara-based team</div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 SpeedPro Niagara. All rights reserved.</p>
-      <div class="footer-badge">Built by TAGAPS</div>
-    </div>
-  </div>
-</footer>
+    </section>
 
-<!-- CHAT WIDGET -->
-<div class="chat-widget" id="chat-widget">
-  <div class="chat-backdrop" id="chat-backdrop"></div>
-  <div class="chat-panel">
-    <div class="chat-header">
-      <div class="chat-header-info">
-        <div class="chat-avatar">
-          <img src="speedy.png" alt="Speedy" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/>
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <div class="trust-inner">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12" /></svg>
+          <span>Response within 24 hours</span>
         </div>
-        <div>
-          <div class="chat-agent-name">Speedy ⚡</div>
-          <div class="chat-online">Online now</div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          <span>Tailored quotes</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+            <line x1="9" y1="9" x2="9.01" y2="9" />
+            <line x1="15" y1="9" x2="15.01" y2="9" />
+          </svg>
+          <span>No obligation</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 00-3-3.87" />
+            <path d="M16 3.13a4 4 0 010 7.75" />
+          </svg>
+          <span>Local Niagara team</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24">
+            <polygon
+              points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
+            />
+          </svg>
+          <span>Print + digital under one roof</span>
         </div>
       </div>
-      <button class="chat-close-btn" id="chat-close" aria-label="Close chat">&times;</button>
     </div>
-    <div class="chat-messages" id="chat-messages">
-      <div class="chat-msg-row">
-        <img src="speedy.png" class="chat-msg-avatar" alt="Speedy"/>
-        <div class="chat-msg bot">Hey there! I'm Speedy, your SpeedPro assistant. Ask me anything about our services.😊</div>
+
+    <!-- FORM SECTION -->
+    <section class="form-section" id="form-section">
+      <div class="form-section-inner">
+        <!-- FORM -->
+        <div class="form-main">
+          <div class="form-top-label">Get a quote</div>
+          <h2 class="form-title">How can we help today?</h2>
+          <p class="form-desc">
+            Whether you're requesting a quote or just exploring, fill in the
+            details below and we'll take it from there.
+          </p>
+          <div class="tally-wrapper" id="tally-wrapper">
+            <iframe
+              id="tally-iframe"
+              data-tally-src="https://tally.so/embed/RGVxAv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+              loading="lazy"
+              width="100%"
+              height="800"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              title="Speed Pro Niagara Request Form"
+            ></iframe>
+          </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="form-sidebar">
+          <div class="contact-cards">
+            <div class="contact-card">
+              <div class="cc-icon">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 4.18 2 2 0 012.05 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div>
+                <div class="cc-label">Phone</div>
+                <div class="cc-val">
+                  <a href="tel:9059372022">905-937-2022</a>
+                </div>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="cc-icon">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <polyline
+                    points="22,6 12,13 2,6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div>
+                <div class="cc-label">Email</div>
+                <div class="cc-val">
+                  <a href="mailto:Sales@speedproniagara.com"
+                    >Sales@speedproniagara.com</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="cc-icon">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <circle
+                    cx="12"
+                    cy="10"
+                    r="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div>
+                <div class="cc-label">Visit us</div>
+                <div class="cc-val">
+                  <a
+                    href="https://maps.app.goo.gl/UusiX1QaSoKWQPjj6"
+                    target="_blank"
+                    >300 Welland Ave, Unit 1<br />St. Catharines ON</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="cc-icon">
+                <svg viewBox="0 0 24 24">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <polyline
+                    points="12,6 12,12 16,14"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div>
+                <div class="cc-label">Hours</div>
+                <div class="cc-val">Mon – Fri<br />9:00 am – 5:00 pm</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="tel:9059372022" class="call-cta">
+            <div class="call-cta-left">
+              <div class="call-cta-label">Prefer to talk?</div>
+              <div class="call-cta-text">Call us <span>directly.</span></div>
+            </div>
+            <div class="call-cta-btn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 4.18 2 2 0 012.05 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="chat-input-area">
-      <input class="chat-input" id="chat-input" type="text" placeholder="Ask a question…" autocomplete="off" maxlength="500"/>
-      <button class="chat-send" id="chat-send" aria-label="Send message">
-        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services-section">
+      <div class="services-inner">
+        <div class="section-label">What we do</div>
+        <h2 class="section-title">
+          Everything you need to get<br />seen, trusted, and chosen.
+        </h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="sc-icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M9 9h6M9 12h6M9 15h4" />
+              </svg>
+            </div>
+            <div class="sc-name">Brand Lab</div>
+            <p class="sc-desc">
+              AI-enhanced creative that makes your business impossible to
+              ignore.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="sc-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                <polyline points="9,22 9,12 15,12 15,22" />
+              </svg>
+            </div>
+            <div class="sc-name">Signage</div>
+            <p class="sc-desc">
+              Indoor, outdoor and illuminated signs that get results.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="sc-icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="1" y="3" width="15" height="13" rx="1" />
+                <path d="M16 8l5 3-5 3V8z" />
+              </svg>
+            </div>
+            <div class="sc-name">Vehicle & Fleet</div>
+            <p class="sc-desc">
+              Full and partial wraps that turn every vehicle into a moving
+              billboard.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="sc-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 8v4l3 3" />
+              </svg>
+            </div>
+            <div class="sc-name">Tint & PPF</div>
+            <p class="sc-desc">
+              Window tinting and paint protection that keeps vehicles sharp.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="sc-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
+                />
+                <line x1="4" y1="22" x2="4" y2="15" />
+              </svg>
+            </div>
+            <div class="sc-name">Large Format</div>
+            <p class="sc-desc">
+              Murals, banners, and backdrops printed large and bold.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="sc-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 9h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                <path
+                  d="M3 9l2.45-4.9A2 2 0 017.24 3h9.52a2 2 0 011.8 1.1L21 9"
+                />
+                <path d="M12 3v6" />
+              </svg>
+            </div>
+            <div class="sc-name">Trade Show</div>
+            <p class="sc-desc">
+              Booth displays and event graphics that make you the standout.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-top-grid">
+          <div class="footer-brand">
+            <img
+              src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f24f80d16c85ec13fafab3_Logo-SpeedPro-global.png"
+              alt="SpeedPro Niagara"
+            />
+            <p>
+              Print and visual branding solutions for businesses across the
+              Niagara region.
+            </p>
+            <div class="footer-social">
+              <a
+                href="https://www.facebook.com/SpeedproNiagara"
+                target="_blank"
+                class="social-link"
+                aria-label="Facebook"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://www.instagram.com/speedproniagara/"
+                target="_blank"
+                class="social-link"
+                aria-label="Instagram"
+              >
+                <svg viewBox="0 0 24 24">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/speedpro-niagara/"
+                target="_blank"
+                class="social-link"
+                aria-label="LinkedIn"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"
+                  />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="footer-cols">
+            <div class="footer-col">
+              <h4>Services</h4>
+              <ul>
+                <li><a href="/fractional-services-copy">Brand Lab</a></li>
+                <li><a href="/signage-solutions">Signage Solutions</a></li>
+                <li><a href="/vehicle-fleet">Vehicle & Fleet</a></li>
+                <li><a href="/tint-ppf">Tint & PPF</a></li>
+                <li><a href="/large-format-graphic">Large Format</a></li>
+                <li><a href="/trade-show">Trade Show</a></li>
+              </ul>
+            </div>
+            <div class="footer-col footer-contact">
+              <h4>Find us</h4>
+              <p>
+                Monday – Friday<br />
+                9:00 am – 5:00 pm<br /><br />
+                <a
+                  href="https://maps.app.goo.gl/UusiX1QaSoKWQPjj6"
+                  target="_blank"
+                  >300 Welland Avenue, Unit 1<br />St. Catharines ON, L2R 7L9</a
+                ><br /><br />
+                <a href="mailto:Sales@speedproniagara.com"
+                  >Sales@speedproniagara.com</a
+                ><br />
+                <a href="tel:9059372022">905-937-2022</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 SpeedPro Niagara. All rights reserved.</p>
+          <div class="footer-badge">Built by TAGAPS</div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CHAT WIDGET -->
+    <div class="chat-widget" id="chat-widget">
+      <div class="chat-backdrop" id="chat-backdrop"></div>
+      <div class="chat-panel">
+        <div class="chat-header">
+          <div class="chat-header-info">
+            <div class="chat-avatar">
+              <img
+                src="speedy.png"
+                alt="Speedy"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  border-radius: 50%;
+                  display: block;
+                "
+              />
+            </div>
+            <div>
+              <div class="chat-agent-name">Speedy ⚡</div>
+              <div class="chat-online">Online now</div>
+            </div>
+          </div>
+          <button
+            class="chat-close-btn"
+            id="chat-close"
+            aria-label="Close chat"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+          <div class="chat-msg-row">
+            <img src="speedy.png" class="chat-msg-avatar" alt="Speedy" />
+            <div class="chat-msg bot">
+              Hey there! I'm Speedy, your SpeedPro assistant. Ask me anything
+              about our services.😊
+            </div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input
+            class="chat-input"
+            id="chat-input"
+            type="text"
+            placeholder="Ask a question…"
+            autocomplete="off"
+            maxlength="500"
+          />
+          <button class="chat-send" id="chat-send" aria-label="Send message">
+            <svg viewBox="0 0 24 24">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22,2 15,22 11,13 2,9" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="chat-callout" id="chat-callout">
+        <div class="chat-callout-label">Speedy ⚡</div>
+        <div class="chat-callout-text" id="chat-callout-text">
+          Hi, I'm Speedy! What do you need?
+        </div>
+        <button
+          class="chat-callout-dismiss"
+          id="chat-callout-dismiss"
+          aria-label="Dismiss"
+        >
+          &times;
+        </button>
+      </div>
+      <button class="chat-bubble" id="chat-bubble" aria-label="Open chat">
+        <div class="chat-bubble-ring"></div>
+        <img
+          id="chat-icon-open"
+          src="speedy.png"
+          class="chat-bubble-img"
+          alt="Speedy"
+        />
+        <svg
+          id="chat-icon-close"
+          viewBox="0 0 24 24"
+          fill="none"
+          style="display: none"
+        >
+          <path
+            d="M6 6L18 18M18 6L6 18"
+            stroke="white"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+        </svg>
       </button>
     </div>
-  </div>
-  <div class="chat-callout" id="chat-callout">
-    <div class="chat-callout-label">Speedy ⚡</div>
-    <div class="chat-callout-text" id="chat-callout-text">Hi, I'm Speedy! What do you need?</div>
-    <button class="chat-callout-dismiss" id="chat-callout-dismiss" aria-label="Dismiss">&times;</button>
-  </div>
-  <button class="chat-bubble" id="chat-bubble" aria-label="Open chat">
-    <div class="chat-bubble-ring"></div>
-    <img id="chat-icon-open" src="speedy.png" class="chat-bubble-img" alt="Speedy"/>
-    <svg id="chat-icon-close" viewBox="0 0 24 24" fill="none" style="display:none">
-      <path d="M6 6L18 18M18 6L6 18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-    </svg>
-  </button>
-</div>
 
-<!-- TALLY EMBED + MOBILE SCROLL FIX -->
-<script>
-  // Load Tally embed script
-  var d = document, w = "https://tally.so/widgets/embed.js",
-  v = function() {
-    "undefined" != typeof Tally
-      ? Tally.loadEmbeds()
-      : d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e) {
-          e.src = e.dataset.tallySrc;
-        });
-  };
-  if ("undefined" != typeof Tally) v();
-  else if (d.querySelector('script[src="' + w + '"]') == null) {
-    var s = d.createElement("script");
-    s.src = w; s.onload = v; s.onerror = v;
-    d.body.appendChild(s);
-  }
-
-  // MOBILE SCROLL FIX
-  // When Tally navigates to the next page inside the iframe,
-  // scroll the browser back to the top of the form wrapper
-  var tallyWrapper = document.getElementById('tally-wrapper');
-  var lastHeight = 0;
-
-  function scrollToForm() {
-    var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 56;
-    var wrapperTop = tallyWrapper.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: wrapperTop - navH - 12, behavior: 'smooth' });
-  }
-
-  // Listen for Tally page change events via postMessage
-  window.addEventListener('message', function(e) {
-    if (e.data && typeof e.data === 'object') {
-      // Tally fires this event on page navigation
-      if (e.data.type === 'tally-form-page-changed' ||
-          e.data.type === 'tally-page-changed' ||
-          e.data.event === 'Tally.FormPageChanged') {
-        scrollToForm();
+    <!-- TALLY EMBED + MOBILE SCROLL FIX -->
+    <script>
+      // Load Tally embed script
+      var d = document,
+        w = "https://tally.so/widgets/embed.js",
+        v = function () {
+          "undefined" != typeof Tally
+            ? Tally.loadEmbeds()
+            : d
+                .querySelectorAll("iframe[data-tally-src]:not([src])")
+                .forEach(function (e) {
+                  e.src = e.dataset.tallySrc;
+                });
+        };
+      if ("undefined" != typeof Tally) v();
+      else if (d.querySelector('script[src="' + w + '"]') == null) {
+        var s = d.createElement("script");
+        s.src = w;
+        s.onload = v;
+        s.onerror = v;
+        d.body.appendChild(s);
       }
-    }
-  });
 
-  // Fallback: watch for iframe height changes
-  // When Tally moves to a new page the height resets briefly
-  // We detect that and scroll back to the form
-  var observer = new ResizeObserver(function(entries) {
-    for (var entry of entries) {
-      var newHeight = entry.contentRect.height;
-      // If height dropped significantly it means a page transition happened
-      if (lastHeight > 200 && newHeight < lastHeight - 100) {
-        setTimeout(scrollToForm, 100);
+      // MOBILE SCROLL FIX
+      // When Tally navigates to the next page inside the iframe,
+      // scroll the browser back to the top of the form wrapper
+      var tallyWrapper = document.getElementById("tally-wrapper");
+      var lastHeight = 0;
+
+      function scrollToForm() {
+        var navH =
+          parseInt(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--nav-h",
+            ),
+          ) || 56;
+        var wrapperTop =
+          tallyWrapper.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: wrapperTop - navH - 12, behavior: "smooth" });
       }
-      lastHeight = newHeight;
-    }
-  });
 
-  var iframe = document.getElementById('tally-iframe');
-  if (iframe) observer.observe(iframe);
-</script>
-
-<!-- CHAT LOGIC -->
-<script>
-(function() {
-  // var WEBHOOK    = 'https://switchboardhq.app.n8n.cloud/webhook/ai-webhook';
-  var WEBHOOK = 'https://sazzycloudofficial4life.app.n8n.cloud/webhook/499666c3-d807-4bb7-8195-43932f64a91f/chat'
-  var TIMEOUT_MS = 20000;
-
-  var sessionId = sessionStorage.getItem('sp_chat_sid');
-  if (!sessionId) {
-    sessionId = 'sp_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-    sessionStorage.setItem('sp_chat_sid', sessionId);
-  }
-
-  var widget    = document.getElementById('chat-widget');
-  var messages  = document.getElementById('chat-messages');
-  var input     = document.getElementById('chat-input');
-  var sendBtn   = document.getElementById('chat-send');
-  var bubble    = document.getElementById('chat-bubble');
-  var iconOpen  = document.getElementById('chat-icon-open');
-  var iconClose = document.getElementById('chat-icon-close');
-  var callout     = document.getElementById('chat-callout');
-  var calloutText = document.getElementById('chat-callout-text');
-  var SPEEDY_IMG  = 'speedy.png';
-
-  var calloutMsgs = [
-    "Hi, I'm Speedy! What do you need?",
-    "Ask me anything — I'm quick! ⚡",
-    "Speak with me now 👋",
-    "Got a project in mind? Let's go!"
-  ];
-  var calloutIdx = 0;
-  setTimeout(function() {
-    setInterval(function() {
-      calloutText.style.opacity = '0';
-      setTimeout(function() {
-        calloutIdx = (calloutIdx + 1) % calloutMsgs.length;
-        calloutText.textContent = calloutMsgs[calloutIdx];
-        calloutText.style.opacity = '1';
-      }, 300);
-    }, 3200);
-  }, 3000);
-
-  document.getElementById('chat-callout-dismiss').addEventListener('click', function() {
-    callout.classList.add('hidden');
-  });
-
-  function openChat() {
-    widget.classList.add('is-open');
-    bubble.classList.add('is-close-mode');
-    iconOpen.style.display  = 'none';
-    iconClose.style.display = '';
-    callout.classList.add('hidden');
-    input.focus();
-    messages.scrollTop = messages.scrollHeight;
-  }
-
-  function closeChat() {
-    widget.classList.remove('is-open');
-    bubble.classList.remove('is-close-mode');
-    iconOpen.style.display  = '';
-    iconClose.style.display = 'none';
-  }
-
-  function scrollBottom() { messages.scrollTop = messages.scrollHeight; }
-
-  function formatReply(text) {
-    var s = text
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    var parts = s.split(/\n{2,}/);
-    if (parts.length > 1) {
-      return parts.map(function(p) { return '<p>' + p.replace(/\n/g, '<br>') + '</p>'; }).join('');
-    }
-    return s.replace(/\n/g, '<br>');
-  }
-
-  function mkAvatar() {
-    var img = document.createElement('img');
-    img.src = SPEEDY_IMG; img.alt = 'Speedy';
-    img.className = 'chat-msg-avatar';
-    return img;
-  }
-
-  function appendMsg(text, type) {
-    if (type === 'bot') {
-      var row = document.createElement('div');
-      row.className = 'chat-msg-row';
-      row.appendChild(mkAvatar());
-      var div = document.createElement('div');
-      div.className = 'chat-msg bot';
-      div.innerHTML = formatReply(text);
-      row.appendChild(div);
-      messages.appendChild(row);
-    } else {
-      var div = document.createElement('div');
-      div.className = 'chat-msg user';
-      div.textContent = text;
-      messages.appendChild(div);
-    }
-    scrollBottom();
-  }
-
-  function appendError(errText, retryText) {
-    var row = document.createElement('div');
-    row.className = 'chat-msg-row';
-    row.appendChild(mkAvatar());
-    var div = document.createElement('div');
-    div.className = 'chat-error-msg';
-    var span = document.createElement('span');
-    span.textContent = errText;
-    div.appendChild(span);
-    var btn = document.createElement('button');
-    btn.className = 'chat-retry-btn';
-    btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg> Retry';
-    btn.addEventListener('click', function() { row.remove(); send(retryText); });
-    div.appendChild(btn);
-    row.appendChild(div);
-    messages.appendChild(row);
-    scrollBottom();
-  }
-
-  function showTyping() {
-    var row = document.createElement('div');
-    row.className = 'chat-msg-row'; row.id = 'chat-typing-ind';
-    row.appendChild(mkAvatar());
-    var el = document.createElement('div');
-    el.className = 'chat-typing';
-    el.innerHTML = '<span></span><span></span><span></span>';
-    row.appendChild(el);
-    messages.appendChild(row);
-    scrollBottom();
-  }
-
-  function hideTyping() {
-    var el = document.getElementById('chat-typing-ind');
-    if (el) el.remove();
-  }
-
-  function setLoading(on) { sendBtn.disabled = on; input.disabled = on; }
-
-  async function send(retryText) {
-    var text = retryText || input.value.trim();
-    if (!text || sendBtn.disabled) return;
-    if (!retryText) input.value = '';
-    setLoading(true);
-    if (!retryText) appendMsg(text, 'user');
-    showTyping();
-
-    var controller = new AbortController();
-    var timeoutId  = setTimeout(function() { controller.abort(); }, TIMEOUT_MS);
-
-    try {
-      var res = await fetch(WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chatInput: text, sessionId: sessionId }),
-        signal: controller.signal
+      // Listen for Tally page change events via postMessage
+      window.addEventListener("message", function (e) {
+        if (e.data && typeof e.data === "object") {
+          // Tally fires this event on page navigation
+          if (
+            e.data.type === "tally-form-page-changed" ||
+            e.data.type === "tally-page-changed" ||
+            e.data.event === "Tally.FormPageChanged"
+          ) {
+            scrollToForm();
+          }
+        }
       });
-      clearTimeout(timeoutId);
-      var raw = await res.text();
-      hideTyping();
-      var reply = '';
-      if (raw) {
-        try {
-          var data = JSON.parse(raw);
-          reply = data.output || data.reply || data.text || data.message || data.response || '';
-        } catch (e) {}
-      }
-      if (reply) { appendMsg(reply, 'bot'); }
-      else { appendError("No response received.", text); }
-    } catch (err) {
-      clearTimeout(timeoutId);
-      hideTyping();
-      appendError(
-        err.name === 'AbortError' ? "Response timed out after 20s." : "Couldn't reach the assistant.",
-        text
-      );
-    }
-    setLoading(false);
-    input.focus();
-  }
 
-  document.getElementById('chat-bubble').addEventListener('click', function() {
-    widget.classList.contains('is-open') ? closeChat() : openChat();
-  });
-  document.getElementById('chat-close').addEventListener('click', closeChat);
-  document.getElementById('chat-backdrop').addEventListener('click', closeChat);
-  sendBtn.addEventListener('click', function() { send(); });
-  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') send(); });
-})();
-</script>
+      // Fallback: watch for iframe height changes
+      // When Tally moves to a new page the height resets briefly
+      // We detect that and scroll back to the form
+      var observer = new ResizeObserver(function (entries) {
+        for (var entry of entries) {
+          var newHeight = entry.contentRect.height;
+          // If height dropped significantly it means a page transition happened
+          if (lastHeight > 200 && newHeight < lastHeight - 100) {
+            setTimeout(scrollToForm, 100);
+          }
+          lastHeight = newHeight;
+        }
+      });
 
-</body>
+      var iframe = document.getElementById("tally-iframe");
+      if (iframe) observer.observe(iframe);
+    </script>
+
+    <!-- CHAT LOGIC -->
+    <script>
+      (function () {
+        // var WEBHOOK    = 'https://switchboardhq.app.n8n.cloud/webhook/ai-webhook';
+        var WEBHOOK =
+          "https://sazzycloudofficial4life.app.n8n.cloud/webhook/499666c3-d807-4bb7-8195-43932f64a91f/chat";
+        var TIMEOUT_MS = 20000;
+
+        var sessionId = sessionStorage.getItem("sp_chat_sid");
+        if (!sessionId) {
+          sessionId =
+            "sp_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
+          sessionStorage.setItem("sp_chat_sid", sessionId);
+        }
+
+        var widget = document.getElementById("chat-widget");
+        var messages = document.getElementById("chat-messages");
+        var input = document.getElementById("chat-input");
+        var sendBtn = document.getElementById("chat-send");
+        var bubble = document.getElementById("chat-bubble");
+        var iconOpen = document.getElementById("chat-icon-open");
+        var iconClose = document.getElementById("chat-icon-close");
+        var callout = document.getElementById("chat-callout");
+        var calloutText = document.getElementById("chat-callout-text");
+        var SPEEDY_IMG = "speedy.png";
+
+        var calloutMsgs = [
+          "Hi, I'm Speedy! What do you need?",
+          "Ask me anything — I'm quick! ⚡",
+          "Speak with me now 👋",
+          "Got a project in mind? Let's go!",
+        ];
+        var calloutIdx = 0;
+        setTimeout(function () {
+          setInterval(function () {
+            calloutText.style.opacity = "0";
+            setTimeout(function () {
+              calloutIdx = (calloutIdx + 1) % calloutMsgs.length;
+              calloutText.textContent = calloutMsgs[calloutIdx];
+              calloutText.style.opacity = "1";
+            }, 300);
+          }, 3200);
+        }, 3000);
+
+        document
+          .getElementById("chat-callout-dismiss")
+          .addEventListener("click", function () {
+            callout.classList.add("hidden");
+          });
+
+        function openChat() {
+          widget.classList.add("is-open");
+          bubble.classList.add("is-close-mode");
+          iconOpen.style.display = "none";
+          iconClose.style.display = "";
+          callout.classList.add("hidden");
+          input.focus();
+          messages.scrollTop = messages.scrollHeight;
+        }
+
+        function closeChat() {
+          widget.classList.remove("is-open");
+          bubble.classList.remove("is-close-mode");
+          iconOpen.style.display = "";
+          iconClose.style.display = "none";
+        }
+
+        function scrollBottom() {
+          messages.scrollTop = messages.scrollHeight;
+        }
+
+        function formatReply(text) {
+          var s = text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+          var parts = s.split(/\n{2,}/);
+          if (parts.length > 1) {
+            return parts
+              .map(function (p) {
+                return "<p>" + p.replace(/\n/g, "<br>") + "</p>";
+              })
+              .join("");
+          }
+          return s.replace(/\n/g, "<br>");
+        }
+
+        function mkAvatar() {
+          var img = document.createElement("img");
+          img.src = SPEEDY_IMG;
+          img.alt = "Speedy";
+          img.className = "chat-msg-avatar";
+          return img;
+        }
+
+        function appendMsg(text, type) {
+          if (type === "bot") {
+            var row = document.createElement("div");
+            row.className = "chat-msg-row";
+            row.appendChild(mkAvatar());
+            var div = document.createElement("div");
+            div.className = "chat-msg bot";
+            div.innerHTML = formatReply(text);
+            row.appendChild(div);
+            messages.appendChild(row);
+          } else {
+            var div = document.createElement("div");
+            div.className = "chat-msg user";
+            div.textContent = text;
+            messages.appendChild(div);
+          }
+          scrollBottom();
+        }
+
+        function appendError(errText, retryText) {
+          var row = document.createElement("div");
+          row.className = "chat-msg-row";
+          row.appendChild(mkAvatar());
+          var div = document.createElement("div");
+          div.className = "chat-error-msg";
+          var span = document.createElement("span");
+          span.textContent = errText;
+          div.appendChild(span);
+          var btn = document.createElement("button");
+          btn.className = "chat-retry-btn";
+          btn.innerHTML =
+            '<svg viewBox="0 0 24 24"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg> Retry';
+          btn.addEventListener("click", function () {
+            row.remove();
+            send(retryText);
+          });
+          div.appendChild(btn);
+          row.appendChild(div);
+          messages.appendChild(row);
+          scrollBottom();
+        }
+
+        function showTyping() {
+          var row = document.createElement("div");
+          row.className = "chat-msg-row";
+          row.id = "chat-typing-ind";
+          row.appendChild(mkAvatar());
+          var el = document.createElement("div");
+          el.className = "chat-typing";
+          el.innerHTML = "<span></span><span></span><span></span>";
+          row.appendChild(el);
+          messages.appendChild(row);
+          scrollBottom();
+        }
+
+        function hideTyping() {
+          var el = document.getElementById("chat-typing-ind");
+          if (el) el.remove();
+        }
+
+        function setLoading(on) {
+          sendBtn.disabled = on;
+          input.disabled = on;
+        }
+
+        async function send(retryText) {
+          var text = retryText || input.value.trim();
+          if (!text || sendBtn.disabled) return;
+          if (!retryText) input.value = "";
+          setLoading(true);
+          if (!retryText) appendMsg(text, "user");
+          showTyping();
+
+          var controller = new AbortController();
+          var timeoutId = setTimeout(function () {
+            controller.abort();
+          }, TIMEOUT_MS);
+
+          try {
+            var res = await fetch(WEBHOOK, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ chatInput: text, sessionId: sessionId }),
+              signal: controller.signal,
+            });
+            clearTimeout(timeoutId);
+            var raw = await res.text();
+            hideTyping();
+            var reply = "";
+            if (raw) {
+              try {
+                var data = JSON.parse(raw);
+                reply =
+                  data.output ||
+                  data.reply ||
+                  data.text ||
+                  data.message ||
+                  data.response ||
+                  "";
+              } catch (e) {}
+            }
+            if (reply) {
+              appendMsg(reply, "bot");
+            } else {
+              appendError("No response received.", text);
+            }
+          } catch (err) {
+            clearTimeout(timeoutId);
+            hideTyping();
+            appendError(
+              err.name === "AbortError"
+                ? "Response timed out after 20s."
+                : "Couldn't reach the assistant.",
+              text,
+            );
+          }
+          setLoading(false);
+          input.focus();
+        }
+
+        document
+          .getElementById("chat-bubble")
+          .addEventListener("click", function () {
+            widget.classList.contains("is-open") ? closeChat() : openChat();
+          });
+        document
+          .getElementById("chat-close")
+          .addEventListener("click", closeChat);
+        document
+          .getElementById("chat-backdrop")
+          .addEventListener("click", closeChat);
+        sendBtn.addEventListener("click", function () {
+          send();
+        });
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") send();
+        });
+      })();
+    </script>
+  </body>
 </html>
