@@ -44,23 +44,6 @@
         align-items: center;
         margin-bottom: 18px;
       }
-      .brand .b1 {
-        font-size: 24px;
-        font-weight: 900;
-        font-style: italic;
-        letter-spacing: -0.02em;
-        line-height: 1;
-      }
-      .brand .b1 .pro {
-        color: var(--red);
-      }
-      .brand .b2 {
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.4em;
-        text-transform: uppercase;
-        margin-top: 2px;
-      }
       .settings-btn {
         background: none;
         border: 1px solid var(--line);
@@ -430,23 +413,6 @@
         gap: 16px;
         flex-wrap: wrap;
       }
-      .logo .logo-main {
-        font-size: 30px;
-        font-weight: 900;
-        font-style: italic;
-        letter-spacing: -0.02em;
-        line-height: 1;
-      }
-      .logo .logo-main .pro {
-        color: var(--red);
-      }
-      .logo .logo-sub {
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.42em;
-        text-transform: uppercase;
-        margin-top: 4px;
-      }
       .logo .logo-tag {
         font-size: 9px;
         font-weight: 700;
@@ -667,8 +633,11 @@
     <div class="wrap">
       <div class="top">
         <div class="brand">
-          <div class="b1">SPEED<span class="pro">PRO</span></div>
-          <div class="b2">Niagara</div>
+          <img
+            src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png"
+            alt="SpeedPro Niagara"
+            style="height: 32px; width: auto; display: block"
+          />
         </div>
         <button
           class="settings-btn"
@@ -909,12 +878,14 @@
       <div class="q-inner">
         <div class="q-header">
           <div class="logo">
-            <div class="logo-main">
-              SPEED<span class="pro">PRO</span
-              ><span style="font-size: 12px; vertical-align: top">&reg;</span>
+            <img
+              src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png"
+              alt="SpeedPro Niagara"
+              style="height: 40px; width: auto; display: block"
+            />
+            <div class="logo-tag" style="margin-top: 6px">
+              Great. Big. Graphics.
             </div>
-            <div class="logo-sub">Niagara</div>
-            <div class="logo-tag">Great. Big. Graphics.</div>
           </div>
           <div class="q-title">
             <h1>Quote</h1>
@@ -1057,7 +1028,13 @@
         { id: "polepockets", name: "Pole pockets", per: "banner", price: 20 },
         { id: "windslits", name: "Wind slits", per: "banner", price: 15 },
         { id: "doubleside", name: "Double-sided", per: "sqft", price: 2 },
-        { id: "design", name: "Design service", per: "order", price: 75 },
+        { id: "design", name: "Design service and printing", per: "order", price: 75 },
+        {
+          id: "customdesign",
+          name: "Custom graphic design",
+          per: "order",
+          price: 150,
+        },
         { id: "install", name: "Installation", per: "order", price: 120 },
         { id: "rush", name: "Rush (24–48h)", per: "order", price: 50 },
       ];
