@@ -3,721 +3,191 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SpeedPro Niagara — Banner Quote</title>
+    <title>Large Format Printing Calculator | SpeedPro Niagara</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68e571eb62bf9f595b5e7439_SpeedPro%20logo-red%20(32x32).png" />
+    <link rel="apple-touch-icon" sizes="256x256" href="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68e571b7b25cb94d437be19d_SpeedPro%20logo-red%20(256x256).png" />
     <style>
-      :root {
-        --red: #d0061d;
-        --red-dark: #a30517;
-        --ink: #141414;
-        --slate: #5b6068;
-        --mist: #f3f4f6;
-        --line: #e2e4e8;
-        --paper: #ffffff;
-      }
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: var(--mist);
-        color: var(--ink);
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        padding-bottom: 96px;
-      }
-
-      .wrap {
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 20px 16px;
-      }
+      :root { --red:#d0061d; --red-dark:#a30517; --ink:#141414; --slate:#5b6068; --mist:#f3f4f6; --line:#e2e4e8; --paper:#ffffff; }
+      * { box-sizing:border-box; margin:0; padding:0; }
+      html { scroll-behavior:smooth; }
+      body { font-family:Arial,Helvetica,sans-serif; background:var(--mist); color:var(--ink); -webkit-print-color-adjust:exact; print-color-adjust:exact; padding-bottom:96px; }
+      .wrap { max-width:680px; margin:0 auto; padding:20px 16px; }
 
       /* ---------- header ---------- */
-      .top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 18px;
-      }
-      .settings-btn {
-        background: none;
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        padding: 8px 14px;
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--slate);
-        cursor: pointer;
-        font-family: inherit;
-      }
-      .settings-btn:hover {
-        border-color: var(--red);
-        color: var(--red);
-      }
+      .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+      .top img { height:48px; width:auto; display:block; }
+      .page-title { font-size:20px; font-weight:900; margin-bottom:16px; }
+      .page-title .slash { color:var(--red); font-style:italic; }
+      .settings-btn { background:none; border:1px solid var(--line); border-radius:20px; padding:8px 14px; font-size:12px; font-weight:700; color:var(--slate); cursor:pointer; font-family:inherit; }
+      .settings-btn:hover { border-color:var(--red); color:var(--red); }
 
       /* ---------- step cards ---------- */
-      .card {
-        background: var(--paper);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 18px;
-        margin-bottom: 14px;
-      }
-      .step-label {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--slate);
-        margin-bottom: 14px;
-      }
-      .step-label .slash {
-        color: var(--red);
-        font-style: italic;
-        font-weight: 900;
-      }
+      .card { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px; margin-bottom:14px; }
+      .step-label { display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--slate); margin-bottom:14px; }
+      .step-label .slash { color:var(--red); font-style:italic; font-weight:900; }
 
       /* material cards */
-      .mat-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-      .mat-card {
-        border: 2px solid var(--line);
-        border-radius: 12px;
-        padding: 14px;
-        cursor: pointer;
-        background: #fff;
-        text-align: left;
-        font-family: inherit;
-        transition:
-          border-color 0.15s,
-          transform 0.1s;
-      }
-      .mat-card:active {
-        transform: scale(0.98);
-      }
-      .mat-card.on {
-        border-color: var(--red);
-        background: #fff6f7;
-      }
-      .mat-card .m-name {
-        font-size: 15px;
-        font-weight: 900;
-      }
-      .mat-card .m-use {
-        font-size: 11.5px;
-        color: var(--slate);
-        margin-top: 3px;
-        line-height: 1.4;
-      }
-      .mat-card .m-rate {
-        font-size: 13px;
-        font-weight: 700;
-        color: var(--red);
-        margin-top: 8px;
-      }
+      .mat-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      .mat-card { border:2px solid var(--line); border-radius:12px; padding:14px; cursor:pointer; background:#fff; text-align:left; font-family:inherit; transition:border-color .15s, transform .1s; }
+      .mat-card:active { transform:scale(.98); }
+      .mat-card.on { border-color:var(--red); background:#fff6f7; }
+      .mat-card .m-name { font-size:15px; font-weight:900; }
+      .mat-card .m-use { font-size:11.5px; color:var(--slate); margin-top:3px; line-height:1.4; }
+      .mat-card .m-rate { font-size:13px; font-weight:700; color:var(--red); margin-top:8px; }
 
       /* size presets */
-      .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .chip {
-        border: 1.5px solid var(--line);
-        border-radius: 20px;
-        padding: 8px 14px;
-        background: #fff;
-        font-size: 13px;
-        font-weight: 700;
-        cursor: pointer;
-        font-family: inherit;
-        transition: all 0.12s;
-      }
-      .chip:active {
-        transform: scale(0.95);
-      }
-      .chip.on {
-        border-color: var(--red);
-        background: var(--red);
-        color: #fff;
-      }
-      .custom-size {
-        display: none;
-        margin-top: 12px;
-        gap: 10px;
-        grid-template-columns: 1fr 1fr;
-      }
-      .custom-size.show {
-        display: grid;
-      }
-      .field label {
-        display: block;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--slate);
-        margin-bottom: 5px;
-      }
-      .field input,
-      .field select {
-        width: 100%;
-        padding: 10px;
-        border: 1.5px solid var(--line);
-        border-radius: 8px;
-        font-size: 15px;
-        font-family: inherit;
-        color: var(--ink);
-      }
-      .field input:focus {
-        outline: none;
-        border-color: var(--red);
-      }
+      .chips { display:flex; flex-wrap:wrap; gap:8px; }
+      .chip { border:1.5px solid var(--line); border-radius:20px; padding:8px 14px; background:#fff; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .12s; }
+      .chip:active { transform:scale(.95); }
+      .chip.on { border-color:var(--red); background:var(--red); color:#fff; }
+      .custom-size { display:none; margin-top:12px; gap:10px; grid-template-columns:1fr 1fr; }
+      .custom-size.show { display:grid; }
+      .field label { display:block; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--slate); margin-bottom:5px; }
+      .field input, .field select { width:100%; padding:10px; border:1.5px solid var(--line); border-radius:8px; font-size:15px; font-family:inherit; color:var(--ink); }
+      .field input:focus { outline:none; border-color:var(--red); }
 
       /* qty stepper */
-      .qty-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .stepper {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-      .stepper button {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        border: 1.5px solid var(--line);
-        background: #fff;
-        font-size: 20px;
-        font-weight: 700;
-        cursor: pointer;
-        color: var(--ink);
-        font-family: inherit;
-      }
-      .stepper button:active {
-        border-color: var(--red);
-        color: var(--red);
-      }
-      .stepper .qv {
-        font-size: 20px;
-        font-weight: 900;
-        min-width: 32px;
-        text-align: center;
-      }
+      .qty-row { display:flex; align-items:center; justify-content:space-between; }
+      .stepper { display:flex; align-items:center; gap:14px; }
+      .stepper button { width:42px; height:42px; border-radius:50%; border:1.5px solid var(--line); background:#fff; font-size:20px; font-weight:700; cursor:pointer; color:var(--ink); font-family:inherit; }
+      .stepper button:active { border-color:var(--red); color:var(--red); }
+      .stepper .qv { font-size:20px; font-weight:900; min-width:32px; text-align:center; }
 
       /* addons */
-      .addon {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        border: 1.5px solid var(--line);
-        border-radius: 10px;
-        padding: 12px 14px;
-        margin-bottom: 8px;
-        cursor: pointer;
-        background: #fff;
-        transition: border-color 0.12s;
-      }
-      .addon.on {
-        border-color: var(--red);
-        background: #fff6f7;
-      }
-      .addon .a-left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .addon .a-check {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        border: 2px solid var(--line);
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        color: #fff;
-        font-weight: 900;
-      }
-      .addon.on .a-check {
-        background: var(--red);
-        border-color: var(--red);
-      }
-      .addon .a-name {
-        font-size: 14px;
-        font-weight: 700;
-      }
-      .addon .a-per {
-        font-size: 11px;
-        color: var(--slate);
-      }
-      .addon .a-price {
-        font-size: 14px;
-        font-weight: 900;
-        color: var(--ink);
-        white-space: nowrap;
-      }
-      .addon.on .a-price {
-        color: var(--red);
-      }
+      .addon { display:flex; align-items:center; justify-content:space-between; gap:10px; border:1.5px solid var(--line); border-radius:10px; padding:12px 14px; margin-bottom:8px; cursor:pointer; background:#fff; transition:border-color .12s; }
+      .addon.on { border-color:var(--red); background:#fff6f7; }
+      .addon .a-left { display:flex; align-items:center; gap:10px; }
+      .addon .a-check { width:20px; height:20px; border-radius:50%; border:2px solid var(--line); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:12px; color:#fff; font-weight:900; }
+      .addon.on .a-check { background:var(--red); border-color:var(--red); }
+      .addon .a-name { font-size:14px; font-weight:700; }
+      .addon .a-per { font-size:11px; color:var(--slate); }
+      .addon .a-price { font-size:14px; font-weight:900; color:var(--ink); white-space:nowrap; }
+      .addon.on .a-price { color:var(--red); }
 
       /* live math line */
-      .math {
-        background: var(--ink);
-        color: #fff;
-        border-radius: 10px;
-        padding: 12px 14px;
-        font-size: 13px;
-        margin-top: 14px;
-        line-height: 1.5;
-      }
-      .math b {
-        color: #ff8a96;
-      }
+      .math { background:var(--ink); color:#fff; border-radius:10px; padding:12px 14px; font-size:13px; margin-top:14px; line-height:1.5; }
+      .math b { color:#ff8a96; }
 
       /* settings drawer */
-      .drawer {
-        display: none;
-        margin-bottom: 14px;
-      }
-      .drawer.show {
-        display: block;
-      }
-      .drawer .card {
-        border-left: 4px solid var(--red);
-      }
-      .row3 {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 10px;
-      }
-      .row2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-      .hint {
-        font-size: 10.5px;
-        color: var(--slate);
-        margin-top: 3px;
-      }
+      .drawer { display:none; margin-bottom:14px; }
+      .drawer.show { display:block; }
+      .drawer .card { border-left:4px solid var(--red); }
+      .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+      .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      .hint { font-size:10.5px; color:var(--slate); margin-top:3px; }
 
       /* sticky total bar */
-      .total-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 50;
-        background: var(--ink);
-        color: #fff;
-        padding: 12px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 14px;
-        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.18);
-      }
-      .total-bar .t-nums {
-        line-height: 1.2;
-      }
-      .total-bar .t-label {
-        font-size: 10px;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: #9aa0a8;
-      }
-      .total-bar .t-value {
-        font-size: 24px;
-        font-weight: 900;
-      }
-      .total-bar .t-value.bump {
-        animation: bump 0.25s ease;
-      }
-      @keyframes bump {
-        50% {
-          transform: scale(1.12);
-          color: #ff8a96;
-        }
-      }
-      .pdf-btn {
-        background: var(--red);
-        color: #fff;
-        border: none;
-        border-radius: 10px;
-        padding: 13px 20px;
-        font-size: 14px;
-        font-weight: 900;
-        cursor: pointer;
-        font-family: inherit;
-        letter-spacing: 0.03em;
-        white-space: nowrap;
-      }
-      .pdf-btn:active {
-        background: var(--red-dark);
-      }
+      .total-bar { position:fixed; bottom:0; left:0; right:0; z-index:50; background:var(--ink); color:#fff; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:14px; box-shadow:0 -4px 16px rgba(0,0,0,.18); }
+      .total-bar .t-nums { line-height:1.2; }
+      .total-bar .t-label { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#9aa0a8; }
+      .total-bar .t-value { font-size:24px; font-weight:900; }
+      .total-bar .t-value.bump { animation:bump .25s ease; }
+      @keyframes bump { 50% { transform:scale(1.12); color:#ff8a96; } }
+      .pdf-btn { background:var(--red); color:#fff; border:none; border-radius:10px; padding:13px 20px; font-size:14px; font-weight:900; cursor:pointer; font-family:inherit; letter-spacing:.03em; white-space:nowrap; }
+      .pdf-btn:active { background:var(--red-dark); }
 
-      /* customer modal-ish card */
-      #custCard {
-        display: none;
-      }
-      #custCard.show {
-        display: block;
-      }
+      /* customer card fold */
+      #custCard { display:none; }
+      #custCard.show { display:block; }
 
-      /* ================= QUOTE DOCUMENT (print only + preview) ================= */
-      .quote-page {
-        background: var(--paper);
-        max-width: 680px;
-        margin: 20px auto 0;
-        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
-        display: none;
-      }
-      .quote-page.show {
-        display: block;
-      }
-      .q-band {
-        height: 8px;
-        background: var(--red);
-      }
-      .q-inner {
-        padding: 40px 44px 32px;
-        display: flex;
-        flex-direction: column;
-      }
-      @media (max-width: 600px) {
-        .q-inner {
-          padding: 26px 20px;
-        }
-      }
-      .q-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 16px;
-        flex-wrap: wrap;
-      }
-      .logo .logo-tag {
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--red);
-        margin-top: 5px;
-      }
-      .q-title {
-        text-align: right;
-      }
-      .q-title h1 {
-        font-size: 26px;
-        font-weight: 900;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-      .q-meta {
-        margin-top: 6px;
-        font-size: 11.5px;
-        color: var(--slate);
-        line-height: 1.7;
-      }
-      .q-meta b {
-        color: var(--ink);
-      }
-      .q-parties {
-        display: flex;
-        gap: 28px;
-        margin-top: 28px;
-        flex-wrap: wrap;
-      }
-      .party {
-        flex: 1;
-        min-width: 200px;
-      }
-      .party h3 {
-        font-size: 9.5px;
-        font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--red);
-        border-bottom: 2px solid var(--ink);
-        padding-bottom: 4px;
-        margin-bottom: 7px;
-      }
-      .party p {
-        font-size: 12.5px;
-        line-height: 1.6;
-      }
-      .party .muted {
-        color: var(--slate);
-      }
-      .q-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 26px;
-      }
-      .q-table th {
-        background: var(--ink);
-        color: #fff;
-        font-size: 9.5px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        text-align: left;
-        padding: 8px 9px;
-      }
-      .q-table th.num,
-      .q-table td.num {
-        text-align: right;
-      }
-      .q-table td {
-        padding: 10px 9px;
-        font-size: 12.5px;
-        border-bottom: 1px solid var(--line);
-        vertical-align: top;
-      }
-      .q-table .desc-main {
-        font-weight: 700;
-      }
-      .q-table .desc-sub {
-        font-size: 11px;
-        color: var(--slate);
-        margin-top: 2px;
-      }
-      .q-totals {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 12px;
-      }
-      .totals-box {
-        width: 260px;
-      }
-      .totals-box .t-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 5px 9px;
-        font-size: 12.5px;
-      }
-      .totals-box .t-row .lab {
-        color: var(--slate);
-      }
-      .totals-box .t-row.grand {
-        background: var(--red);
-        color: #fff;
-        font-weight: 900;
-        font-size: 15px;
-        padding: 10px 9px;
-        margin-top: 5px;
-        border-radius: 4px;
-      }
-      .min-note {
-        font-size: 10.5px;
-        color: var(--red);
-        text-align: right;
-        margin-top: 5px;
-        font-weight: 700;
-      }
-      .q-terms {
-        margin-top: 28px;
-      }
-      .q-terms h3 {
-        font-size: 9.5px;
-        font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--red);
-        border-bottom: 2px solid var(--ink);
-        padding-bottom: 4px;
-        margin-bottom: 7px;
-      }
-      .q-terms ul {
-        list-style: none;
-        font-size: 10.5px;
-        color: var(--slate);
-        line-height: 1.8;
-      }
-      .q-terms li::before {
-        content: "— ";
-        color: var(--red);
-        font-weight: 700;
-      }
-      .q-sign {
-        display: flex;
-        gap: 34px;
-        margin-top: 32px;
-        flex-wrap: wrap;
-      }
-      .sign-block {
-        flex: 1;
-        min-width: 180px;
-      }
-      .sign-line {
-        border-bottom: 1.5px solid var(--ink);
-        height: 30px;
-      }
-      .sign-block p {
-        font-size: 9px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--slate);
-        margin-top: 5px;
-      }
-      .q-footer {
-        margin-top: 30px;
-        text-align: center;
-      }
-      .q-footer .rule {
-        height: 2px;
-        background: var(--ink);
-        margin-bottom: 10px;
-        position: relative;
-      }
-      .q-footer .rule::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 2px;
-        width: 56px;
-        background: var(--red);
-      }
-      .q-footer p {
-        font-size: 10px;
-        color: var(--slate);
-        line-height: 1.7;
-      }
-      .q-footer b {
-        color: var(--ink);
-      }
+      /* credit */
+      .credit { font-size:12px; font-weight:700; color:var(--ink); text-align:center; margin-bottom:16px; }
+      .credit a { color:var(--red); font-weight:700; }
+
+      /* ================= QUOTE DOCUMENT ================= */
+      .quote-page { background:var(--paper); max-width:680px; margin:20px auto 0; box-shadow:0 2px 16px rgba(0,0,0,.1); display:none; }
+      .quote-page.show { display:block; }
+      .q-band { height:8px; background:var(--red); }
+      .q-inner { padding:40px 44px 32px; display:flex; flex-direction:column; }
+      @media (max-width:600px) { .q-inner { padding:26px 20px; } }
+      .q-header { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+      .q-header img { height:54px; width:auto; display:block; }
+      .q-title { text-align:right; }
+      .q-title h1 { font-size:26px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+      .q-meta { margin-top:6px; font-size:11.5px; color:var(--slate); line-height:1.7; }
+      .q-meta b { color:var(--ink); }
+      .q-parties { display:flex; gap:28px; margin-top:28px; flex-wrap:wrap; }
+      .party { flex:1; min-width:200px; }
+      .party h3 { font-size:9.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--red); border-bottom:2px solid var(--ink); padding-bottom:4px; margin-bottom:7px; }
+      .party p { font-size:12.5px; line-height:1.6; }
+      .party .muted { color:var(--slate); }
+      .q-table { width:100%; border-collapse:collapse; margin-top:26px; }
+      .q-table th { background:var(--ink); color:#fff; font-size:9.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; text-align:left; padding:8px 9px; }
+      .q-table th.num, .q-table td.num { text-align:right; }
+      .q-table td { padding:10px 9px; font-size:12.5px; border-bottom:1px solid var(--line); vertical-align:top; }
+      .q-table .desc-main { font-weight:700; }
+      .q-table .desc-sub { font-size:11px; color:var(--slate); margin-top:2px; }
+      .q-totals { display:flex; justify-content:flex-end; margin-top:12px; }
+      .totals-box { width:260px; }
+      .totals-box .t-row { display:flex; justify-content:space-between; padding:5px 9px; font-size:12.5px; }
+      .totals-box .t-row .lab { color:var(--slate); }
+      .totals-box .t-row.grand { background:var(--red); color:#fff; font-weight:900; font-size:15px; padding:10px 9px; margin-top:5px; border-radius:4px; }
+      .min-note { font-size:10.5px; color:var(--red); text-align:right; margin-top:5px; font-weight:700; }
+      .q-terms { margin-top:28px; }
+      .q-terms h3 { font-size:9.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--red); border-bottom:2px solid var(--ink); padding-bottom:4px; margin-bottom:7px; }
+      .q-terms ul { list-style:none; font-size:10.5px; color:var(--slate); line-height:1.8; }
+      .q-terms li::before { content:"— "; color:var(--red); font-weight:700; }
+      .q-sign { display:flex; gap:34px; margin-top:32px; flex-wrap:wrap; }
+      .sign-block { flex:1; min-width:180px; }
+      .sign-line { border-bottom:1.5px solid var(--ink); height:30px; }
+      .sign-block p { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--slate); margin-top:5px; }
+      .q-footer { margin-top:30px; text-align:center; }
+      .q-footer .rule { height:2px; background:var(--ink); margin-bottom:10px; position:relative; }
+      .q-footer .rule::after { content:""; position:absolute; left:0; top:0; height:2px; width:56px; background:var(--red); }
+      .q-footer p { font-size:10px; color:var(--slate); line-height:1.7; }
+      .q-footer b { color:var(--ink); }
 
       @media print {
-        body {
-          background: #fff;
-          padding-bottom: 0;
-        }
-        .wrap,
-        .total-bar,
-        .no-print {
-          display: none !important;
-        }
-        .quote-page {
-          display: block !important;
-          box-shadow: none;
-          max-width: none;
-          margin: 0;
-          min-height: 100vh;
-        }
-        @page {
-          size: letter;
-          margin: 0;
-        }
+        body { background:#fff; padding-bottom:0; }
+        .wrap, .total-bar, .no-print { display:none !important; }
+        .quote-page { display:block !important; box-shadow:none; max-width:none; margin:0; min-height:100vh; }
+        @page { size:letter; margin:0; }
       }
     </style>
   </head>
   <body>
     <div class="wrap">
       <div class="top">
-        <div class="brand">
-          <img
-            src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png"
-            alt="SpeedPro Niagara"
-            style="height: 32px; width: auto; display: block"
-          />
-        </div>
-        <button
-          class="settings-btn"
-          onclick="document.getElementById('drawer').classList.toggle('show')"
-        >
-          ⚙ Rates
-        </button>
+        <a href="./index.html"><img src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png" alt="SpeedPro Niagara" /></a>
+        <button class="settings-btn" onclick="document.getElementById('drawer').classList.toggle('show')">⚙ Rates</button>
       </div>
+      <h1 class="page-title"><span class="slash">///</span> Large Format Printing Calculator</h1>
+
+      <p class="credit no-print">
+        Calculator format inspired by
+        <a href="https://northcoastbanners.com/band-banners/vinyl-banner-price-calculator/" target="_blank" rel="noopener">NorthCoast Banners' vinyl banner price calculator</a>.
+      </p>
 
       <!-- rates drawer -->
       <div class="drawer" id="drawer">
         <div class="card">
-          <div class="step-label">
-            <span class="slash">///</span> Rates &amp; settings
-          </div>
+          <div class="step-label"><span class="slash">///</span> Rates &amp; settings</div>
           <div class="row3">
             <div class="field">
-              <label>Vinyl $/sq ft</label
-              ><input
-                id="rateVinyl"
-                type="number"
-                step="0.25"
-                min="0"
-                value="5.50"
-              />
+              <label>Vinyl $/sq ft</label><input id="rateVinyl" type="number" step="0.25" min="0" value="5.50" />
               <div class="hint">CAD mkt: $3.60–8</div>
             </div>
             <div class="field">
-              <label>Mesh $/sq ft</label
-              ><input
-                id="rateMesh"
-                type="number"
-                step="0.25"
-                min="0"
-                value="6.50"
-              />
+              <label>Mesh $/sq ft</label><input id="rateMesh" type="number" step="0.25" min="0" value="6.50" />
               <div class="hint">Outdoor / windy</div>
             </div>
             <div class="field">
-              <label>Min. charge</label
-              ><input
-                id="minCharge"
-                type="number"
-                step="5"
-                min="0"
-                value="50"
-              />
+              <label>Min. charge</label><input id="minCharge" type="number" step="5" min="0" value="50" />
               <div class="hint">Order floor</div>
             </div>
           </div>
-          <div class="row2" style="margin-top: 6px">
-            <div class="field">
-              <label>HST %</label
-              ><input
-                id="taxRate"
-                type="number"
-                step="0.5"
-                min="0"
-                value="13"
-              />
-            </div>
-            <div class="field">
-              <label>Quote valid (days)</label
-              ><input id="validDays" type="number" min="1" value="30" />
-            </div>
+          <div class="row2" style="margin-top:6px">
+            <div class="field"><label>HST %</label><input id="taxRate" type="number" step="0.5" min="0" value="13" /></div>
+            <div class="field"><label>Quote valid (days)</label><input id="validDays" type="number" min="1" value="30" /></div>
           </div>
         </div>
       </div>
 
       <!-- STEP 1: material -->
       <div class="card">
-        <div class="step-label">
-          <span class="slash">///</span> 1 · Pick material
-        </div>
+        <div class="step-label"><span class="slash">///</span> 1 · Pick material</div>
         <div class="mat-grid">
-          <button
-            class="mat-card on"
-            id="mat-vinyl"
-            onclick="setMaterial('vinyl')"
-          >
+          <button class="mat-card on" id="mat-vinyl" onclick="setMaterial('vinyl')">
             <div class="m-name">Vinyl 13oz</div>
             <div class="m-use">Standard — indoor &amp; outdoor, most jobs</div>
             <div class="m-rate" id="matRateVinyl">$5.50 /sq ft</div>
@@ -732,144 +202,57 @@
 
       <!-- STEP 2: size -->
       <div class="card">
-        <div class="step-label">
-          <span class="slash">///</span> 2 · Pick size
-        </div>
+        <div class="step-label"><span class="slash">///</span> 2 · Pick size</div>
         <div class="chips" id="sizeChips"></div>
         <div class="custom-size" id="customSize">
-          <div class="field">
-            <label>Width (ft)</label
-            ><input
-              id="cw"
-              type="number"
-              min="0"
-              step="0.5"
-              value="4"
-              oninput="customChanged()"
-            />
-          </div>
-          <div class="field">
-            <label>Height (ft)</label
-            ><input
-              id="ch"
-              type="number"
-              min="0"
-              step="0.5"
-              value="8"
-              oninput="customChanged()"
-            />
-          </div>
+          <div class="field"><label>Width (ft)</label><input id="cw" type="number" min="0" step="0.5" value="4" oninput="customChanged()" /></div>
+          <div class="field"><label>Height (ft)</label><input id="ch" type="number" min="0" step="0.5" value="8" oninput="customChanged()" /></div>
         </div>
       </div>
 
       <!-- STEP 3: qty -->
       <div class="card">
-        <div class="step-label">
-          <span class="slash">///</span> 3 · How many?
-        </div>
+        <div class="step-label"><span class="slash">///</span> 3 · How many?</div>
         <div class="qty-row">
           <div class="stepper">
             <button onclick="bumpQty(-1)">−</button>
             <span class="qv" id="qtyVal">1</span>
             <button onclick="bumpQty(1)">+</button>
           </div>
-          <div
-            style="font-size: 12px; color: var(--slate); text-align: right"
-            id="qtyHint"
-          ></div>
+          <div style="font-size:12px;color:var(--slate);text-align:right" id="qtyHint"></div>
         </div>
       </div>
 
       <!-- STEP 4: addons -->
       <div class="card">
-        <div class="step-label">
-          <span class="slash">///</span> 4 · Add-ons (tap to add)
-        </div>
+        <div class="step-label"><span class="slash">///</span> 4 · Add-ons (tap to add)</div>
         <div id="addonList"></div>
         <div class="math" id="mathLine"></div>
       </div>
 
       <!-- STEP 5: customer (collapsible) -->
       <div class="card">
-        <div
-          class="step-label"
-          style="margin-bottom: 0; cursor: pointer"
-          onclick="document.getElementById('custCard').classList.toggle('show')"
-        >
+        <div class="step-label" style="margin-bottom:0;cursor:pointer" onclick="document.getElementById('custCard').classList.toggle('show')">
           <span class="slash">///</span> 5 · Customer details (for the PDF) ▾
         </div>
         <div id="custCard">
-          <div style="height: 14px"></div>
+          <div style="height:14px"></div>
           <div class="row2">
-            <div class="field">
-              <label>Name</label
-              ><input
-                id="custName"
-                type="text"
-                placeholder="Jane Smith"
-                oninput="renderQuote()"
-              />
-            </div>
-            <div class="field">
-              <label>Company</label
-              ><input
-                id="custCompany"
-                type="text"
-                placeholder="Company Inc."
-                oninput="renderQuote()"
-              />
-            </div>
+            <div class="field"><label>Name</label><input id="custName" type="text" placeholder="Jane Smith" oninput="renderQuote()" /></div>
+            <div class="field"><label>Company</label><input id="custCompany" type="text" placeholder="Company Inc." oninput="renderQuote()" /></div>
           </div>
           <div class="row2">
-            <div class="field">
-              <label>Email</label
-              ><input
-                id="custEmail"
-                type="text"
-                placeholder="jane@company.com"
-                oninput="renderQuote()"
-              />
-            </div>
-            <div class="field">
-              <label>Phone</label
-              ><input
-                id="custPhone"
-                type="text"
-                placeholder="905-555-0100"
-                oninput="renderQuote()"
-              />
-            </div>
+            <div class="field"><label>Email</label><input id="custEmail" type="text" placeholder="jane@company.com" oninput="renderQuote()" /></div>
+            <div class="field"><label>Phone</label><input id="custPhone" type="text" placeholder="905-555-0100" oninput="renderQuote()" /></div>
           </div>
           <div class="row2">
-            <div class="field">
-              <label>Quote #</label
-              ><input
-                id="quoteNum"
-                type="text"
-                placeholder="auto"
-                oninput="renderQuote()"
-              />
-            </div>
-            <div class="field">
-              <label>Prepared by</label
-              ><input
-                id="preparedBy"
-                type="text"
-                placeholder="Team member"
-                oninput="renderQuote()"
-              />
-            </div>
+            <div class="field"><label>Quote #</label><input id="quoteNum" type="text" placeholder="auto" oninput="renderQuote()" /></div>
+            <div class="field"><label>Prepared by</label><input id="preparedBy" type="text" placeholder="Team member" oninput="renderQuote()" /></div>
           </div>
         </div>
       </div>
 
-      <button
-        class="settings-btn no-print"
-        style="width: 100%; padding: 12px"
-        onclick="togglePreview()"
-      >
-        👁 Preview quote document
-      </button>
+      <button class="settings-btn no-print" style="width:100%;padding:12px" onclick="togglePreview()">👁 Preview quote document</button>
     </div>
 
     <!-- ================= QUOTE DOCUMENT ================= -->
@@ -877,16 +260,7 @@
       <div class="q-band"></div>
       <div class="q-inner">
         <div class="q-header">
-          <div class="logo">
-            <img
-              src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png"
-              alt="SpeedPro Niagara"
-              style="height: 40px; width: auto; display: block"
-            />
-            <div class="logo-tag" style="margin-top: 6px">
-              Great. Big. Graphics.
-            </div>
-          </div>
+          <img src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png" alt="SpeedPro Niagara" />
           <div class="q-title">
             <h1>Quote</h1>
             <div class="q-meta">
@@ -911,11 +285,7 @@
             <h3>From</h3>
             <p>
               <b>SpeedPro Niagara</b><br />
-              <span class="muted"
-                >300 Welland Avenue, Unit 1<br />
-                St. Catharines, ON L2R 7L9<br />
-                sales@speedproniagara.com · 905-937-2022</span
-              >
+              <span class="muted">300 Welland Avenue, Unit 1<br />St. Catharines, ON L2R 7L9<br />sales@speedproniagara.com · 905-937-2022</span>
             </p>
           </div>
         </div>
@@ -923,7 +293,7 @@
         <table class="q-table">
           <thead>
             <tr>
-              <th style="width: 44%">Description</th>
+              <th style="width:44%">Description</th>
               <th class="num">Size</th>
               <th class="num">Qty</th>
               <th class="num">Rate</th>
@@ -935,63 +305,32 @@
 
         <div class="q-totals">
           <div class="totals-box">
-            <div class="t-row">
-              <span class="lab">Subtotal</span><span id="pSubtotal">$0.00</span>
-            </div>
-            <div class="t-row" id="pTaxRow">
-              <span class="lab" id="pTaxLabel">HST (13%)</span
-              ><span id="pTax">$0.00</span>
-            </div>
-            <div class="t-row grand">
-              <span>Total (CAD)</span><span id="pTotal">$0.00</span>
-            </div>
+            <div class="t-row"><span class="lab">Subtotal</span><span id="pSubtotal">$0.00</span></div>
+            <div class="t-row" id="pTaxRow"><span class="lab" id="pTaxLabel">HST (13%)</span><span id="pTax">$0.00</span></div>
+            <div class="t-row grand"><span>Total (CAD)</span><span id="pTotal">$0.00</span></div>
           </div>
         </div>
-        <div class="min-note" id="pMinNote" style="display: none">
-          Minimum order charge applied.
-        </div>
+        <div class="min-note" id="pMinNote" style="display:none">Minimum order charge applied.</div>
 
         <div class="q-terms">
           <h3>Terms &amp; conditions</h3>
           <ul>
-            <li>
-              This quote is valid until the date shown above. Pricing may change
-              thereafter.
-            </li>
-            <li>
-              A 50% deposit is required to begin production; balance due on
-              completion.
-            </li>
-            <li>
-              Production begins after written artwork approval.
-              Customer-supplied files must be print-ready.
-            </li>
-            <li>
-              Standard turnaround is 3–5 business days after artwork approval.
-              Rush options available.
-            </li>
+            <li>This quote is valid until the date shown above. Pricing may change thereafter.</li>
+            <li>A 50% deposit is required to begin production; balance due on completion.</li>
+            <li>Production begins after written artwork approval. Customer-supplied files must be print-ready.</li>
+            <li>Standard turnaround is 3–5 business days after artwork approval. Rush options available.</li>
             <li>Prices in Canadian dollars. Applicable taxes as shown.</li>
           </ul>
         </div>
 
         <div class="q-sign">
-          <div class="sign-block">
-            <div class="sign-line"></div>
-            <p>Customer acceptance / date</p>
-          </div>
-          <div class="sign-block">
-            <div class="sign-line"></div>
-            <p id="pPreparedBy">SpeedPro Niagara / date</p>
-          </div>
+          <div class="sign-block"><div class="sign-line"></div><p>Customer acceptance / date</p></div>
+          <div class="sign-block"><div class="sign-line"></div><p id="pPreparedBy">SpeedPro Niagara / date</p></div>
         </div>
 
         <div class="q-footer">
           <div class="rule"></div>
-          <p>
-            <b>SpeedPro Niagara</b> — Large format printing · Signage · Vehicle
-            graphics · Trade show displays<br />
-            speedproniagara.com · sales@speedproniagara.com · 905-937-2022
-          </p>
+          <p><b>SpeedPro Niagara</b> — Large format printing · Signage · Vehicle graphics · Trade show displays<br />speedproniagara.com · sales@speedproniagara.com · 905-937-2022</p>
         </div>
       </div>
     </div>
@@ -1007,54 +346,34 @@
 
     <script>
       /* ---------- state ---------- */
-      const state = {
-        material: "vinyl",
-        width: 4,
-        height: 8,
-        qty: 1,
-        sizeKey: "4x8",
-      };
+      const state = { material:"vinyl", width:4, height:8, qty:1, sizeKey:"4x8" };
 
       const SIZES = [
-        { key: "2x4", w: 2, h: 4, label: "2′ × 4′" },
-        { key: "2x6", w: 2, h: 6, label: "2′ × 6′" },
-        { key: "3x6", w: 3, h: 6, label: "3′ × 6′" },
-        { key: "4x8", w: 4, h: 8, label: "4′ × 8′" },
-        { key: "4x10", w: 4, h: 10, label: "4′ × 10′" },
-        { key: "custom", label: "Custom…" },
+        { key:"2x4", w:2, h:4, label:"2′ × 4′" },
+        { key:"2x6", w:2, h:6, label:"2′ × 6′" },
+        { key:"3x6", w:3, h:6, label:"3′ × 6′" },
+        { key:"4x8", w:4, h:8, label:"4′ × 8′" },
+        { key:"4x10", w:4, h:10, label:"4′ × 10′" },
+        { key:"custom", label:"Custom…" },
       ];
 
       const ADDONS = [
-        { id: "polepockets", name: "Pole pockets", per: "banner", price: 20 },
-        { id: "windslits", name: "Wind slits", per: "banner", price: 15 },
-        { id: "doubleside", name: "Double-sided", per: "sqft", price: 2 },
-        { id: "design", name: "Design service and printing", per: "order", price: 75 },
-        {
-          id: "customdesign",
-          name: "Custom graphic design",
-          per: "order",
-          price: 150,
-        },
-        { id: "install", name: "Installation", per: "order", price: 120 },
-        { id: "rush", name: "Rush (24–48h)", per: "order", price: 50 },
+        { id:"polepockets", name:"Pole pockets", per:"banner", price:20 },
+        { id:"windslits", name:"Wind slits", per:"banner", price:15 },
+        { id:"doubleside", name:"Double-sided", per:"sqft", price:2 },
+        { id:"design", name:"Design service and printing", per:"order", price:75 },
+        { id:"customdesign", name:"Custom graphic design", per:"order", price:150 },
+        { id:"install", name:"Installation", per:"order", price:120 },
+        { id:"rush", name:"Rush (24–48h)", per:"order", price:50 },
       ];
       const addonState = {};
       ADDONS.forEach((a) => (addonState[a.id] = false));
 
       /* ---------- helpers ---------- */
       const $ = (id) => document.getElementById(id);
-      const money = (n) =>
-        "$" +
-        n.toLocaleString("en-CA", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        });
-      const num = (v) => {
-        const n = parseFloat(v);
-        return isNaN(n) ? 0 : n;
-      };
-      const rateFor = (m) =>
-        m === "mesh" ? num($("rateMesh").value) : num($("rateVinyl").value);
+      const money = (n) => "$" + n.toLocaleString("en-CA", { minimumFractionDigits:2, maximumFractionDigits:2 });
+      const num = (v) => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
+      const rateFor = (m) => (m === "mesh" ? num($("rateMesh").value) : num($("rateVinyl").value));
 
       /* ---------- interactions ---------- */
       function setMaterial(m) {
@@ -1065,9 +384,7 @@
       }
       function pickSize(key) {
         state.sizeKey = key;
-        document
-          .querySelectorAll("#sizeChips .chip")
-          .forEach((c) => c.classList.toggle("on", c.dataset.key === key));
+        document.querySelectorAll("#sizeChips .chip").forEach((c) => c.classList.toggle("on", c.dataset.key === key));
         if (key === "custom") {
           $("customSize").classList.add("show");
           state.width = num($("cw").value);
@@ -1092,18 +409,14 @@
       }
       function toggleAddon(id) {
         addonState[id] = !addonState[id];
-        document
-          .getElementById("ad_" + id)
-          .classList.toggle("on", addonState[id]);
-        document.querySelector("#ad_" + id + " .a-check").textContent =
-          addonState[id] ? "✓" : "";
+        document.getElementById("ad_" + id).classList.toggle("on", addonState[id]);
+        document.querySelector("#ad_" + id + " .a-check").textContent = addonState[id] ? "✓" : "";
         update();
       }
       function togglePreview() {
         const q = $("quotePage");
         q.classList.toggle("show");
-        if (q.classList.contains("show"))
-          q.scrollIntoView({ behavior: "smooth" });
+        if (q.classList.contains("show")) q.scrollIntoView({ behavior:"smooth" });
       }
       function downloadPDF() {
         $("quotePage").classList.add("show");
@@ -1115,70 +428,33 @@
         const sqft = state.width * state.height;
         const rate = rateFor(state.material);
         const bannerAmt = sqft * rate * state.qty;
-        const lines = [
-          {
-            main:
-              state.material === "mesh" ? "Mesh banner" : "Vinyl banner (13oz)",
-            sub: "Full-colour print · hemmed edges · grommets every 2 ft",
-            size: `${state.width}′ × ${state.height}′ (${sqft.toFixed(1)} sq ft)`,
-            qty: state.qty,
-            rate: money(rate) + "/sq ft",
-            amount: bannerAmt,
-          },
-        ];
+        const lines = [{
+          main: state.material === "mesh" ? "Mesh banner" : "Vinyl banner (13oz)",
+          sub: "Full-colour print · hemmed edges · grommets every 2 ft",
+          size: `${state.width}′ × ${state.height}′ (${sqft.toFixed(1)} sq ft)`,
+          qty: state.qty,
+          rate: money(rate) + "/sq ft",
+          amount: bannerAmt,
+        }];
 
         let addonsAmt = 0;
         ADDONS.forEach((a) => {
           if (!addonState[a.id]) return;
-          let amt = 0,
-            qty = "—",
-            size = "—",
-            rateL = money(a.price);
-          if (a.per === "order") {
-            amt = a.price;
-            qty = 1;
-          }
-          if (a.per === "banner") {
-            amt = a.price * state.qty;
-            qty = state.qty;
-            rateL = money(a.price) + "/banner";
-          }
-          if (a.per === "sqft") {
-            amt = a.price * sqft * state.qty;
-            size = (sqft * state.qty).toFixed(1) + " sq ft";
-            rateL = money(a.price) + "/sq ft";
-          }
+          let amt = 0, qty = "—", size = "—", rateL = money(a.price);
+          if (a.per === "order") { amt = a.price; qty = 1; }
+          if (a.per === "banner") { amt = a.price * state.qty; qty = state.qty; rateL = money(a.price) + "/banner"; }
+          if (a.per === "sqft") { amt = a.price * sqft * state.qty; size = (sqft * state.qty).toFixed(1) + " sq ft"; rateL = money(a.price) + "/sq ft"; }
           addonsAmt += amt;
-          lines.push({
-            main: a.name,
-            sub: "",
-            size,
-            qty,
-            rate: rateL,
-            amount: amt,
-          });
+          lines.push({ main:a.name, sub:"", size, qty, rate:rateL, amount:amt });
         });
 
         let subtotal = bannerAmt + addonsAmt;
         const minC = num($("minCharge").value);
         let minApplied = false;
-        if (subtotal > 0 && subtotal < minC) {
-          subtotal = minC;
-          minApplied = true;
-        }
+        if (subtotal > 0 && subtotal < minC) { subtotal = minC; minApplied = true; }
         const taxRate = num($("taxRate").value);
         const tax = (subtotal * taxRate) / 100;
-        return {
-          lines,
-          sqft,
-          rate,
-          bannerAmt,
-          subtotal,
-          tax,
-          taxRate,
-          total: subtotal + tax,
-          minApplied,
-        };
+        return { lines, sqft, rate, bannerAmt, subtotal, tax, taxRate, total:subtotal + tax, minApplied };
       }
 
       /* ---------- render ---------- */
@@ -1186,32 +462,20 @@
       function update() {
         const c = calc();
 
-        /* rate labels on material cards */
-        $("matRateVinyl").textContent =
-          money(num($("rateVinyl").value)) + " /sq ft";
-        $("matRateMesh").textContent =
-          money(num($("rateMesh").value)) + " /sq ft";
+        $("matRateVinyl").textContent = money(num($("rateVinyl").value)) + " /sq ft";
+        $("matRateMesh").textContent = money(num($("rateMesh").value)) + " /sq ft";
 
-        /* qty hint + math line */
-        $("qtyHint").innerHTML =
-          `${c.sqft.toFixed(1)} sq ft each<br>${(c.sqft * state.qty).toFixed(1)} sq ft total`;
+        $("qtyHint").innerHTML = `${c.sqft.toFixed(1)} sq ft each<br>${(c.sqft * state.qty).toFixed(1)} sq ft total`;
         $("mathLine").innerHTML =
           `${state.width}′ × ${state.height}′ = <b>${c.sqft.toFixed(1)} sq ft</b> × <b>${money(c.rate)}</b>/sq ft × <b>${state.qty}</b>` +
           ` = <b>${money(c.bannerAmt)}</b>` +
-          (c.subtotal - c.bannerAmt > 0
-            ? ` &nbsp;+&nbsp; add-ons <b>${money(c.subtotal - c.bannerAmt)}</b>`
-            : "") +
-          (c.minApplied
-            ? ` &nbsp;→ min. charge <b>${money(c.subtotal)}</b>`
-            : "");
+          (c.subtotal - c.bannerAmt > 0 ? ` &nbsp;+&nbsp; add-ons <b>${money(c.subtotal - c.bannerAmt)}</b>` : "") +
+          (c.minApplied ? ` &nbsp;→ min. charge <b>${money(c.subtotal)}</b>` : "");
 
-        /* sticky bar with bump animation */
         const bt = $("barTotal");
         bt.textContent = money(c.total);
         if (lastTotal !== null && lastTotal !== c.total) {
-          bt.classList.remove("bump");
-          void bt.offsetWidth;
-          bt.classList.add("bump");
+          bt.classList.remove("bump"); void bt.offsetWidth; bt.classList.add("bump");
         }
         lastTotal = c.total;
 
@@ -1221,41 +485,23 @@
       function renderQuote(c) {
         c = c || calc();
         const today = new Date();
-        const valid = new Date(
-          today.getTime() + (num($("validDays").value) || 30) * 86400000,
-        );
-        const fmt = (d) =>
-          d.toLocaleDateString("en-CA", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          });
+        const valid = new Date(today.getTime() + (num($("validDays").value) || 30) * 86400000);
+        const fmt = (d) => d.toLocaleDateString("en-CA", { year:"numeric", month:"short", day:"numeric" });
         $("pDate").textContent = fmt(today);
         $("pValid").textContent = fmt(valid);
-        $("pQuoteNum").textContent =
-          $("quoteNum").value ||
-          "SPN-" +
-            today.getFullYear() +
-            String(today.getMonth() + 1).padStart(2, "0") +
-            String(today.getDate()).padStart(2, "0") +
-            "-01";
+        $("pQuoteNum").textContent = $("quoteNum").value ||
+          "SPN-" + today.getFullYear() + String(today.getMonth() + 1).padStart(2, "0") + String(today.getDate()).padStart(2, "0") + "-01";
 
         $("pCustName").textContent = $("custName").value || "Customer name";
         $("pCustCompany").textContent = $("custCompany").value;
         $("pCustEmail").textContent = $("custEmail").value;
         $("pCustPhone").textContent = $("custPhone").value;
-        $("pPreparedBy").textContent =
-          ($("preparedBy").value ? $("preparedBy").value + " — " : "") +
-          "SpeedPro Niagara / date";
+        $("pPreparedBy").textContent = ($("preparedBy").value ? $("preparedBy").value + " — " : "") + "SpeedPro Niagara / date";
 
-        $("pLines").innerHTML = c.lines
-          .map(
-            (l) => `
+        $("pLines").innerHTML = c.lines.map((l) => `
     <tr><td><div class="desc-main">${l.main}</div>${l.sub ? `<div class="desc-sub">${l.sub}</div>` : ""}</td>
     <td class="num">${l.size}</td><td class="num">${l.qty}</td><td class="num">${l.rate}</td>
-    <td class="num"><b>${money(l.amount)}</b></td></tr>`,
-          )
-          .join("");
+    <td class="num"><b>${money(l.amount)}</b></td></tr>`).join("");
 
         $("pSubtotal").textContent = money(c.subtotal);
         $("pTaxLabel").textContent = `HST (${c.taxRate}%)`;
@@ -1265,18 +511,12 @@
       }
 
       /* ---------- init ---------- */
-      $("sizeChips").innerHTML = SIZES.map(
-        (s) =>
-          `<button class="chip ${s.key === state.sizeKey ? "on" : ""}" data-key="${s.key}" onclick="pickSize('${s.key}')">${s.label}</button>`,
+      $("sizeChips").innerHTML = SIZES.map((s) =>
+        `<button class="chip ${s.key === state.sizeKey ? "on" : ""}" data-key="${s.key}" onclick="pickSize('${s.key}')">${s.label}</button>`
       ).join("");
 
       $("addonList").innerHTML = ADDONS.map((a) => {
-        const perLabel =
-          a.per === "sqft"
-            ? "+" + money(a.price) + "/sq ft"
-            : a.per === "banner"
-              ? "+" + money(a.price) + "/banner"
-              : "+" + money(a.price);
+        const perLabel = a.per === "sqft" ? "+" + money(a.price) + "/sq ft" : a.per === "banner" ? "+" + money(a.price) + "/banner" : "+" + money(a.price);
         return `<div class="addon" id="ad_${a.id}" onclick="toggleAddon('${a.id}')">
     <div class="a-left"><div class="a-check"></div>
       <div><div class="a-name">${a.name}</div><div class="a-per">${a.per === "order" ? "per order" : a.per === "banner" ? "per banner" : "per sq ft"}</div></div>
@@ -1285,9 +525,7 @@
   </div>`;
       }).join("");
 
-      ["rateVinyl", "rateMesh", "minCharge", "taxRate", "validDays"].forEach(
-        (id) => $(id).addEventListener("input", update),
-      );
+      ["rateVinyl", "rateMesh", "minCharge", "taxRate", "validDays"].forEach((id) => $(id).addEventListener("input", update));
       update();
     </script>
   </body>

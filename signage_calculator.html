@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signage Calculator | SpeedPro Niagara</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68e571eb62bf9f595b5e7439_SpeedPro%20logo-red%20(32x32).png" />
+    <link rel="apple-touch-icon" sizes="256x256" href="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68e571b7b25cb94d437be19d_SpeedPro%20logo-red%20(256x256).png" />
+    <style>
+      :root { --red:#d0061d; --red-dark:#a30517; --ink:#141414; --slate:#5b6068; --mist:#f3f4f6; --line:#e2e4e8; --paper:#ffffff; }
+      * { box-sizing:border-box; margin:0; padding:0; }
+      html { scroll-behavior:smooth; }
+      body { font-family:Arial,Helvetica,sans-serif; background:var(--mist); color:var(--ink); -webkit-print-color-adjust:exact; print-color-adjust:exact; padding-bottom:96px; }
+      .wrap { max-width:680px; margin:0 auto; padding:20px 16px; }
+
+      /* ---------- header ---------- */
+      .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+      .top img { height:48px; width:auto; display:block; }
+      .page-title { font-size:20px; font-weight:900; margin-bottom:16px; }
+      .page-title .slash { color:var(--red); font-style:italic; }
+      .settings-btn { background:none; border:1px solid var(--line); border-radius:20px; padding:8px 14px; font-size:12px; font-weight:700; color:var(--slate); cursor:pointer; font-family:inherit; }
+      .settings-btn:hover { border-color:var(--red); color:var(--red); }
+
+      /* ---------- cards ---------- */
+      .card { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px; margin-bottom:14px; }
+      .step-label { display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--slate); margin-bottom:14px; }
+      .step-label .slash { color:var(--red); font-style:italic; font-weight:900; }
+
+      .field label { display:block; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--slate); margin-bottom:5px; }
+      .field input, .field select { width:100%; padding:10px; border:1.5px solid var(--line); border-radius:8px; font-size:15px; font-family:inherit; color:var(--ink); background:#fff; }
+      .field input:focus, .field select:focus { outline:none; border-color:var(--red); }
+      .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+      .hint { font-size:10.5px; color:var(--slate); margin-top:3px; }
+      .frow { margin-bottom:12px; }
+      #customSizeRow { display:none; }
+      #customSizeRow.show { display:grid; }
+
+      /* tabs */
+      .tabs { display:flex; margin-bottom:16px; border-bottom:2px solid var(--line); }
+      .tab-btn { flex:1; padding:11px 8px; background:none; border:none; border-bottom:3px solid transparent; font-size:12px; font-weight:900; letter-spacing:.06em; text-transform:uppercase; color:var(--slate); cursor:pointer; font-family:inherit; margin-bottom:-2px; }
+      .tab-btn.on { color:var(--ink); border-bottom-color:var(--red); }
+      .tab-pane { display:none; }
+      .tab-pane.on { display:block; }
+
+      /* pills (printing, cutting) */
+      .pills { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      .pill { border:2px solid var(--line); border-radius:10px; padding:11px; background:#fff; font-size:13.5px; font-weight:700; cursor:pointer; font-family:inherit; text-align:center; transition:border-color .12s, transform .1s; }
+      .pill:active { transform:scale(.98); }
+      .pill small { display:block; font-weight:400; font-size:11px; color:var(--slate); margin-top:2px; }
+      .pill.on { border-color:var(--red); background:#fff6f7; }
+
+      /* presets */
+      .preset { display:flex; justify-content:space-between; align-items:center; gap:10px; border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; margin-bottom:8px; cursor:pointer; background:#fff; transition:border-color .12s; }
+      .preset:hover { border-color:var(--red); }
+      .preset .p-desc { font-size:12.5px; line-height:1.45; }
+      .preset .p-desc b { font-size:13px; }
+      .preset .p-price { font-size:14px; font-weight:900; color:var(--red); white-space:nowrap; text-align:right; }
+      .preset .p-price small { display:block; font-weight:400; color:var(--slate); font-size:10.5px; }
+
+      /* settings drawer */
+      .drawer { display:none; margin-bottom:14px; }
+      .drawer.show { display:block; }
+      .drawer .card { border-left:4px solid var(--red); margin-bottom:0; }
+      .rate-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); }
+      .rate-row:last-child { border-bottom:none; }
+      .rate-row .r-name { flex:1; font-size:13.5px; }
+      .rate-row .r-name small { display:block; color:var(--slate); font-size:11px; }
+      .rate-row input { width:90px; padding:7px 8px; border:1.5px solid var(--line); border-radius:6px; font-size:13px; text-align:right; font-family:inherit; }
+
+      /* live math line */
+      .math { background:var(--ink); color:#fff; border-radius:10px; padding:12px 14px; font-size:13px; margin-top:14px; line-height:1.5; }
+      .math b { color:#ff8a96; }
+
+      /* customer fold */
+      #custCard { display:none; }
+      #custCard.show { display:block; }
+
+      /* sticky total bar */
+      .total-bar { position:fixed; bottom:0; left:0; right:0; z-index:50; background:var(--ink); color:#fff; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:14px; box-shadow:0 -4px 16px rgba(0,0,0,.18); }
+      .total-bar .t-nums { line-height:1.2; }
+      .total-bar .t-label { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#9aa0a8; }
+      .total-bar .t-value { font-size:24px; font-weight:900; }
+      .total-bar .t-value.bump { animation:bump .25s ease; }
+      @keyframes bump { 50% { transform:scale(1.12); color:#ff8a96; } }
+      .pdf-btn { background:var(--red); color:#fff; border:none; border-radius:10px; padding:13px 20px; font-size:14px; font-weight:900; cursor:pointer; font-family:inherit; letter-spacing:.03em; white-space:nowrap; }
+      .pdf-btn:active { background:var(--red-dark); }
+
+      /* credit */
+      .credit { font-size:12px; font-weight:700; color:var(--ink); text-align:center; margin-bottom:16px; }
+      .credit a { color:var(--red); font-weight:700; }
+
+      /* ================= QUOTE DOCUMENT ================= */
+      .quote-page { background:var(--paper); max-width:680px; margin:20px auto 0; box-shadow:0 2px 16px rgba(0,0,0,.1); display:none; }
+      .quote-page.show { display:block; }
+      .q-band { height:8px; background:var(--red); }
+      .q-inner { padding:40px 44px 32px; display:flex; flex-direction:column; }
+      @media (max-width:600px) { .q-inner { padding:26px 20px; } }
+      .q-header { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+      .q-header img { height:54px; width:auto; display:block; }
+      .q-title { text-align:right; }
+      .q-title h1 { font-size:26px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+      .q-meta { margin-top:6px; font-size:11.5px; color:var(--slate); line-height:1.7; }
+      .q-meta b { color:var(--ink); }
+      .q-parties { display:flex; gap:28px; margin-top:28px; flex-wrap:wrap; }
+      .party { flex:1; min-width:200px; }
+      .party h3 { font-size:9.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--red); border-bottom:2px solid var(--ink); padding-bottom:4px; margin-bottom:7px; }
+      .party p { font-size:12.5px; line-height:1.6; }
+      .party .muted { color:var(--slate); }
+      .q-table { width:100%; border-collapse:collapse; margin-top:26px; }
+      .q-table th { background:var(--ink); color:#fff; font-size:9.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; text-align:left; padding:8px 9px; }
+      .q-table th.num, .q-table td.num { text-align:right; }
+      .q-table td { padding:10px 9px; font-size:12.5px; border-bottom:1px solid var(--line); vertical-align:top; }
+      .q-table .desc-main { font-weight:700; }
+      .q-table .desc-sub { font-size:11px; color:var(--slate); margin-top:2px; }
+      .q-totals { display:flex; justify-content:flex-end; margin-top:12px; }
+      .totals-box { width:260px; }
+      .totals-box .t-row { display:flex; justify-content:space-between; padding:5px 9px; font-size:12.5px; }
+      .totals-box .t-row .lab { color:var(--slate); }
+      .totals-box .t-row.grand { background:var(--red); color:#fff; font-weight:900; font-size:15px; padding:10px 9px; margin-top:5px; border-radius:4px; }
+      .min-note { font-size:10.5px; color:var(--red); text-align:right; margin-top:5px; font-weight:700; }
+      .q-terms { margin-top:28px; }
+      .q-terms h3 { font-size:9.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--red); border-bottom:2px solid var(--ink); padding-bottom:4px; margin-bottom:7px; }
+      .q-terms ul { list-style:none; font-size:10.5px; color:var(--slate); line-height:1.8; }
+      .q-terms li::before { content:"— "; color:var(--red); font-weight:700; }
+      .q-sign { display:flex; gap:34px; margin-top:32px; flex-wrap:wrap; }
+      .sign-block { flex:1; min-width:180px; }
+      .sign-line { border-bottom:1.5px solid var(--ink); height:30px; }
+      .sign-block p { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--slate); margin-top:5px; }
+      .q-footer { margin-top:30px; text-align:center; }
+      .q-footer .rule { height:2px; background:var(--ink); margin-bottom:10px; position:relative; }
+      .q-footer .rule::after { content:""; position:absolute; left:0; top:0; height:2px; width:56px; background:var(--red); }
+      .q-footer p { font-size:10px; color:var(--slate); line-height:1.7; }
+      .q-footer b { color:var(--ink); }
+
+      @media print {
+        body { background:#fff; padding-bottom:0; }
+        .wrap, .total-bar, .no-print { display:none !important; }
+        .quote-page { display:block !important; box-shadow:none; max-width:none; margin:0; min-height:100vh; }
+        @page { size:letter; margin:0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <a href="./index.html"><img src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png" alt="SpeedPro Niagara" /></a>
+        <button class="settings-btn" onclick="document.getElementById('drawer').classList.toggle('show')">⚙ Settings</button>
+      </div>
+      <h1 class="page-title"><span class="slash">///</span> Signage Calculator</h1>
+
+      <p class="credit no-print">
+        Calculator format inspired by
+        <a href="https://www.easysigns.com/products/details/coroplast-signs" target="_blank" rel="noopener">Easy Signs' Coroplast instant quote</a>.
+      </p>
+
+      <!-- settings drawer -->
+      <div class="drawer" id="drawer">
+        <div class="card">
+          <div class="step-label"><span class="slash">///</span> Rates &amp; settings</div>
+          <div class="rate-row"><span class="r-name">Coroplast 4mm<small>$/sq ft</small></span><input id="rate_coroplast" type="number" min="0" step="0.25" value="6.00" oninput="update()" /></div>
+          <div class="rate-row"><span class="r-name">PVC (Sintra) 3mm<small>$/sq ft</small></span><input id="rate_pvc" type="number" min="0" step="0.25" value="10.00" oninput="update()" /></div>
+          <div class="rate-row"><span class="r-name">Aluminum composite<small>$/sq ft</small></span><input id="rate_acm" type="number" min="0" step="0.25" value="14.00" oninput="update()" /></div>
+          <div class="rate-row"><span class="r-name">Extra design setup<small>per additional design</small></span><input id="fee_design" type="number" min="0" step="5" value="15" oninput="update()" /></div>
+          <div class="rate-row"><span class="r-name">Custom contour cut<small>per sign</small></span><input id="fee_contour" type="number" min="0" step="1" value="5" oninput="update()" /></div>
+          <div class="rate-row"><span class="r-name">H-stake<small>per stake</small></span><input id="fee_stake" type="number" min="0" step="0.5" value="3.50" oninput="update()" /></div>
+          <div class="rate-row"><span class="r-name">Minimum order<small>order floor</small></span><input id="minCharge" type="number" min="0" step="5" value="75" oninput="update()" /></div>
+          <div class="rate-row"><span class="r-name">HST<small>%</small></span><input id="taxRate" type="number" min="0" step="0.5" value="13" oninput="update()" /></div>
+        </div>
+      </div>
+
+      <!-- tabs card -->
+      <div class="card">
+        <div class="tabs no-print">
+          <button class="tab-btn on" id="tabbtn-quote" onclick="showTab('quote')">Get an instant quote</button>
+          <button class="tab-btn" id="tabbtn-requested" onclick="showTab('requested')">Most requested</button>
+        </div>
+
+        <div class="tab-pane on" id="tab-quote">
+
+          <div class="step-label"><span class="slash">///</span> 1 · Job details</div>
+          <div class="row2 frow">
+            <div class="field">
+              <label for="qty">Quantity</label>
+              <input id="qty" type="number" min="1" step="1" value="4" oninput="update()" />
+            </div>
+            <div class="field">
+              <label for="designs">Number of designs</label>
+              <input id="designs" type="number" min="1" step="1" value="1" oninput="update()" />
+              <div class="hint">Extra designs add a setup fee</div>
+            </div>
+          </div>
+
+          <div class="step-label" style="margin-top:16px"><span class="slash">///</span> 2 · Material &amp; size</div>
+          <div class="frow field">
+            <label for="material">Material</label>
+            <select id="material" onchange="update()">
+              <option value="coroplast">Coroplast 4mm — yard signs, events, temporary</option>
+              <option value="pvc">PVC (Sintra) 3mm — retail, semi-permanent</option>
+              <option value="acm">Aluminum composite (ACM) — permanent outdoor</option>
+            </select>
+          </div>
+          <div class="frow field">
+            <label for="sizeSel">Size</label>
+            <select id="sizeSel" onchange="sizeChanged()">
+              <option value="24x18">24" W × 18" H</option>
+              <option value="24x36" selected>24" W × 36" H</option>
+              <option value="36x24">36" W × 24" H</option>
+              <option value="18x12">18" W × 12" H</option>
+              <option value="48x48">48" W × 48" H</option>
+              <option value="96x48">96" W × 48" H (full sheet)</option>
+              <option value="custom">Custom size</option>
+            </select>
+          </div>
+          <div class="row2 frow" id="customSizeRow">
+            <div class="field">
+              <label for="cwin">Width (inches)</label>
+              <input id="cwin" type="number" min="6" step="1" value="24" oninput="update()" />
+            </div>
+            <div class="field">
+              <label for="chin">Height (inches)</label>
+              <input id="chin" type="number" min="6" step="1" value="36" oninput="update()" />
+              <div class="hint">Max single sheet: 96" × 48"</div>
+            </div>
+          </div>
+
+          <div class="step-label" style="margin-top:16px"><span class="slash">///</span> 3 · Printing &amp; finishing</div>
+          <div class="frow">
+            <div class="field" style="margin-bottom:10px"><label>Printing</label></div>
+            <div class="pills">
+              <button class="pill on" id="side-1" onclick="setSides(1)">Single sided</button>
+              <button class="pill" id="side-2" onclick="setSides(2)">Double sided<small>2nd side +65%</small></button>
+            </div>
+          </div>
+          <div class="frow field">
+            <label for="grommets">Grommets (included)</label>
+            <select id="grommets" onchange="update()">
+              <option value="none">No grommets</option>
+              <option value="4c" selected>4 × grommets (corners)</option>
+              <option value="2t">2 × grommets (top corners)</option>
+              <option value="2clr">2 × grommets (centre left and right)</option>
+              <option value="6tb">6 × grommets (3 each top and bottom)</option>
+              <option value="custom">Custom locations</option>
+            </select>
+          </div>
+          <div class="frow">
+            <div class="field" style="margin-bottom:10px"><label>Cutting</label></div>
+            <div class="pills">
+              <button class="pill on" id="cut-std" onclick="setCut('standard')">Standard<small>Square or rectangle</small></button>
+              <button class="pill" id="cut-cc" onclick="setCut('contour')">Custom contour<small>Circle, shape, rounded</small></button>
+            </div>
+          </div>
+          <div class="frow field">
+            <label for="stakes">H-stakes (for yard signs)</label>
+            <select id="stakes" onchange="update()">
+              <option value="0" selected>No stakes</option>
+              <option value="1">1 per sign</option>
+              <option value="2">2 per sign</option>
+            </select>
+          </div>
+
+          <div class="math" id="mathLine"></div>
+        </div><!-- /tab-quote -->
+
+        <div class="tab-pane" id="tab-requested">
+          <p style="font-size:12px;color:var(--slate);margin-bottom:12px;line-height:1.5">
+            Our most common orders at current rates. Tap one to load it into the
+            calculator (this replaces your current selections).
+          </p>
+          <div id="presetList"></div>
+        </div><!-- /tab-requested -->
+      </div>
+
+      <!-- customer (collapsible) -->
+      <div class="card">
+        <div class="step-label" style="margin-bottom:0;cursor:pointer" onclick="document.getElementById('custCard').classList.toggle('show')">
+          <span class="slash">///</span> 4 · Customer details (for the PDF) ▾
+        </div>
+        <div id="custCard">
+          <div style="height:14px"></div>
+          <div class="row2">
+            <div class="field"><label>Name</label><input id="custName" type="text" placeholder="Jane Smith" oninput="renderEstimate()" /></div>
+            <div class="field"><label>Company</label><input id="custCompany" type="text" placeholder="Company Inc." oninput="renderEstimate()" /></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Email</label><input id="custEmail" type="text" placeholder="jane@company.com" oninput="renderEstimate()" /></div>
+            <div class="field"><label>Phone</label><input id="custPhone" type="text" placeholder="905-555-0100" oninput="renderEstimate()" /></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="settings-btn no-print" style="width:100%;padding:12px" onclick="togglePreview()">👁 Preview estimate document</button>
+    </div>
+
+    <!-- ================= ESTIMATE DOCUMENT ================= -->
+    <div class="quote-page" id="quotePage">
+      <div class="q-band"></div>
+      <div class="q-inner">
+        <div class="q-header">
+          <img src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png" alt="SpeedPro Niagara" />
+          <div class="q-title">
+            <h1>Estimate</h1>
+            <div class="q-meta">
+              <div>Date: <b id="pDate">—</b></div>
+              <div>Estimate valid: <b>30 days</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="q-parties">
+          <div class="party" id="pCustBlock" style="display:none">
+            <h3>Prepared for</h3>
+            <p>
+              <b id="pCustName"></b><br />
+              <span id="pCustCompany" class="muted"></span><br />
+              <span id="pCustEmail" class="muted"></span><br />
+              <span id="pCustPhone" class="muted"></span>
+            </p>
+          </div>
+          <div class="party">
+            <h3>From</h3>
+            <p>
+              <b>SpeedPro Niagara</b><br />
+              <span class="muted">300 Welland Avenue, Unit 1<br />St. Catharines, ON L2R 7L9<br />sales@speedproniagara.com · 905-937-2022</span>
+            </p>
+          </div>
+        </div>
+
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:44%">Description</th>
+              <th class="num">Size</th>
+              <th class="num">Qty</th>
+              <th class="num">Rate</th>
+              <th class="num">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="pLines"></tbody>
+        </table>
+
+        <div class="q-totals">
+          <div class="totals-box">
+            <div class="t-row"><span class="lab">Subtotal</span><span id="pSubtotal">$0.00</span></div>
+            <div class="t-row"><span class="lab" id="pTaxLabel">HST (13%)</span><span id="pTax">$0.00</span></div>
+            <div class="t-row grand"><span>Estimated total (CAD)</span><span id="pTotal">$0.00</span></div>
+          </div>
+        </div>
+        <div class="min-note" id="pMinNote" style="display:none">Minimum order charge applied.</div>
+
+        <div class="q-terms">
+          <h3>Terms &amp; conditions</h3>
+          <ul>
+            <li>This is an estimate based on standard rates; the final quote is confirmed after artwork review.</li>
+            <li>Grommets and standard cutting included. Bulk discounts applied automatically by quantity.</li>
+            <li>Production begins after written artwork approval. Customer-supplied files must be print-ready.</li>
+            <li>Standard turnaround is 3–5 business days after artwork approval. Rush options available.</li>
+            <li>Prices in Canadian dollars. Applicable taxes as shown.</li>
+          </ul>
+        </div>
+
+        <div class="q-footer">
+          <div class="rule"></div>
+          <p><b>SpeedPro Niagara</b> — Large format printing · Signage · Vehicle graphics · Trade show displays<br />speedproniagara.com · sales@speedproniagara.com · 905-937-2022</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- sticky total -->
+    <div class="total-bar no-print">
+      <div class="t-nums">
+        <div class="t-label">Total incl. HST</div>
+        <div class="t-value" id="barTotal">$0.00</div>
+      </div>
+      <button class="pdf-btn" onclick="downloadEstimate()">Download PDF ↓</button>
+    </div>
+
+    <script>
+      /* ---------- settings ---------- */
+      const MATERIAL_NAMES = {
+        coroplast: "Coroplast sign (4mm)",
+        pvc: "PVC sign (Sintra 3mm)",
+        acm: "Aluminum composite sign (ACM)",
+      };
+      const QTY_TIERS = [ [1,1.00],[5,0.90],[10,0.80],[25,0.70],[50,0.60],[100,0.50] ];
+      const DOUBLE_SIDE_FACTOR = 0.65; /* second side printed at 65% of sq ft price */
+      const SIZES = { "24x18":[24,18], "24x36":[24,36], "36x24":[36,24], "18x12":[18,12], "48x48":[48,48], "96x48":[96,48] };
+
+      const PRESETS = [
+        { label:"4 × Coroplast yard signs", sub:'24" × 36", single sided', qty:4, mat:"coroplast", size:"24x36", sides:1 },
+        { label:"20 × Coroplast yard signs", sub:'24" × 36", single sided', qty:20, mat:"coroplast", size:"24x36", sides:1 },
+        { label:"10 × Coroplast signs", sub:'24" × 18", double sided', qty:10, mat:"coroplast", size:"24x18", sides:2 },
+        { label:"1 × ACM building sign", sub:'48" × 48", single sided', qty:1, mat:"acm", size:"48x48", sides:1 },
+      ];
+
+      /* ---------- state ---------- */
+      const state = { sides:1, cut:"standard" };
+
+      /* ---------- helpers ---------- */
+      const $ = (id) => document.getElementById(id);
+      const money = (n) => "$" + n.toLocaleString("en-CA", { minimumFractionDigits:2, maximumFractionDigits:2 });
+      const num = (v) => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
+      const baseRate = (mat) => num($("rate_" + mat).value);
+      function qtyMultiplier(q) { let m = 1; QTY_TIERS.forEach((t) => { if (q >= t[0]) m = t[1]; }); return m; }
+      function dims() {
+        const sel = $("sizeSel").value;
+        if (sel === "custom") return [num($("cwin").value), num($("chin").value)];
+        return SIZES[sel];
+      }
+
+      /* ---------- interactions ---------- */
+      function showTab(t) {
+        $("tab-quote").classList.toggle("on", t === "quote");
+        $("tab-requested").classList.toggle("on", t === "requested");
+        $("tabbtn-quote").classList.toggle("on", t === "quote");
+        $("tabbtn-requested").classList.toggle("on", t === "requested");
+      }
+      function sizeChanged() {
+        $("customSizeRow").classList.toggle("show", $("sizeSel").value === "custom");
+        update();
+      }
+      function setSides(n) {
+        state.sides = n;
+        $("side-1").classList.toggle("on", n === 1);
+        $("side-2").classList.toggle("on", n === 2);
+        update();
+      }
+      function setCut(c) {
+        state.cut = c;
+        $("cut-std").classList.toggle("on", c === "standard");
+        $("cut-cc").classList.toggle("on", c === "contour");
+        update();
+      }
+      function applyPreset(i) {
+        const p = PRESETS[i];
+        $("qty").value = p.qty; $("material").value = p.mat; $("sizeSel").value = p.size;
+        $("designs").value = 1; sizeChanged(); setSides(p.sides);
+        showTab("quote");
+      }
+      function togglePreview() {
+        const q = $("quotePage");
+        q.classList.toggle("show");
+        if (q.classList.contains("show")) q.scrollIntoView({ behavior:"smooth" });
+      }
+      function downloadEstimate() {
+        $("quotePage").classList.add("show");
+        setTimeout(() => window.print(), 60);
+      }
+
+      /* ---------- calc ---------- */
+      function calc() {
+        const qty = Math.max(1, num($("qty").value));
+        const designs = Math.max(1, num($("designs").value));
+        const [w, h] = dims();
+        const sqft = (w * h) / 144;
+        const mat = $("material").value;
+
+        const effRate = baseRate(mat) * qtyMultiplier(qty);
+        let perSign = sqft * effRate;
+        if (state.sides === 2) perSign += sqft * effRate * DOUBLE_SIDE_FACTOR;
+        const contourFee = state.cut === "contour" ? num($("fee_contour").value) : 0;
+        perSign += contourFee;
+
+        const signsAmt = perSign * qty;
+        const artAmt = Math.max(0, designs - 1) * num($("fee_design").value);
+        const stakesPer = num($("stakes").value);
+        const stakesQty = stakesPer * qty;
+        const accAmt = stakesQty * num($("fee_stake").value);
+
+        let subtotal = signsAmt + artAmt + accAmt;
+        const minC = num($("minCharge").value);
+        let minApplied = false;
+        if (subtotal > 0 && subtotal < minC) { subtotal = minC; minApplied = true; }
+        const taxRate = num($("taxRate").value);
+        const tax = (subtotal * taxRate) / 100;
+
+        const sideLbl = state.sides === 2 ? "double sided" : "single sided";
+        const cutLbl = state.cut === "contour" ? "custom contour cut" : "standard cut";
+        const gromLbl = $("grommets").options[$("grommets").selectedIndex].text.toLowerCase();
+        const lines = [{
+          main: MATERIAL_NAMES[mat],
+          sub: "Full-colour UV print · " + sideLbl + " · " + cutLbl + " · " + gromLbl,
+          size: w + '" × ' + h + '" (' + sqft.toFixed(2) + " sq ft)",
+          qty: qty, rate: money(perSign) + "/sign", amount: signsAmt,
+        }];
+        if (artAmt > 0) lines.push({ main:"Artwork setup — additional designs", sub:(designs - 1) + " extra design(s)", size:"—", qty:designs - 1, rate:money(num($("fee_design").value)) + "/design", amount:artAmt });
+        if (accAmt > 0) lines.push({ main:"H-stakes", sub:"", size:"—", qty:stakesQty, rate:money(num($("fee_stake").value)) + "/stake", amount:accAmt });
+
+        return { lines, qty, designs, sqft, w, h, perSign, signsAmt, artAmt, accAmt, subtotal, tax, taxRate, total:subtotal + tax, minApplied, mult:qtyMultiplier(qty), effRate };
+      }
+
+      /* ---------- render ---------- */
+      let lastTotal = null;
+      function update() {
+        const c = calc();
+
+        let mathStr =
+          c.w + '" × ' + c.h + '" = <b>' + c.sqft.toFixed(2) + " sq ft</b> × <b>" + money(c.effRate) + "</b>/sq ft" +
+          (state.sides === 2 ? " (+65% 2nd side)" : "") +
+          " = <b>" + money(c.perSign) + "</b>/sign × <b>" + c.qty + "</b> = <b>" + money(c.signsAmt) + "</b>";
+        if (c.mult < 1) mathStr += " &nbsp;·&nbsp; bulk discount <b>" + Math.round((1 - c.mult) * 100) + "% off</b>";
+        if (c.artAmt + c.accAmt > 0) mathStr += " &nbsp;+&nbsp; extras <b>" + money(c.artAmt + c.accAmt) + "</b>";
+        if (c.minApplied) mathStr += " &nbsp;→ min. charge <b>" + money(c.subtotal) + "</b>";
+        $("mathLine").innerHTML = mathStr;
+
+        const bt = $("barTotal");
+        bt.textContent = money(c.total);
+        if (lastTotal !== null && lastTotal !== c.total) {
+          bt.classList.remove("bump"); void bt.offsetWidth; bt.classList.add("bump");
+        }
+        lastTotal = c.total;
+
+        renderPresets();
+        renderEstimate(c);
+      }
+
+      function presetPrice(p) {
+        const [w, h] = SIZES[p.size];
+        const sqft = (w * h) / 144;
+        const effRate = baseRate(p.mat) * qtyMultiplier(p.qty);
+        let per = sqft * effRate;
+        if (p.sides === 2) per += sqft * effRate * DOUBLE_SIDE_FACTOR;
+        let total = per * p.qty;
+        if (total < num($("minCharge").value)) total = num($("minCharge").value);
+        return { per: total / p.qty, total };
+      }
+      function renderPresets() {
+        $("presetList").innerHTML = PRESETS.map((p, i) => {
+          const pr = presetPrice(p);
+          return '<div class="preset" onclick="applyPreset(' + i + ')">' +
+            '<div class="p-desc"><b>' + p.label + "</b><br>" + p.sub + "</div>" +
+            '<div class="p-price">' + money(pr.total) + "<small>" + money(pr.per) + " each</small></div>" +
+          "</div>";
+        }).join("");
+      }
+
+      function renderEstimate(c) {
+        c = c || calc();
+        $("pDate").textContent = new Date().toLocaleDateString("en-CA", { year:"numeric", month:"short", day:"numeric" });
+
+        const hasCust = $("custName").value || $("custCompany").value || $("custEmail").value || $("custPhone").value;
+        $("pCustBlock").style.display = hasCust ? "block" : "none";
+        $("pCustName").textContent = $("custName").value;
+        $("pCustCompany").textContent = $("custCompany").value;
+        $("pCustEmail").textContent = $("custEmail").value;
+        $("pCustPhone").textContent = $("custPhone").value;
+
+        $("pLines").innerHTML = c.lines.map((l) =>
+          '<tr><td><div class="desc-main">' + l.main + "</div>" + (l.sub ? '<div class="desc-sub">' + l.sub + "</div>" : "") + "</td>" +
+          '<td class="num">' + l.size + '</td><td class="num">' + l.qty + '</td><td class="num">' + l.rate + "</td>" +
+          '<td class="num"><b>' + money(l.amount) + "</b></td></tr>"
+        ).join("");
+
+        $("pSubtotal").textContent = money(c.subtotal);
+        $("pTaxLabel").textContent = "HST (" + c.taxRate + "%)";
+        $("pTax").textContent = money(c.tax);
+        $("pTotal").textContent = money(c.total);
+        $("pMinNote").style.display = c.minApplied ? "block" : "none";
+      }
+
+      /* ---------- init ---------- */
+      update();
+    </script>
+  </body>
+</html>
