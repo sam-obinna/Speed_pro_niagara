@@ -4,245 +4,1010 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vehicle Wrap Calculator | SpeedPro Niagara</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68e571eb62bf9f595b5e7439_SpeedPro%20logo-red%20(32x32).png" />
-    <link rel="apple-touch-icon" sizes="256x256" href="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68e571b7b25cb94d437be19d_SpeedPro%20logo-red%20(256x256).png" />
-    <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.1/dist/es-module-shims.js"></script>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68e571eb62bf9f595b5e7439_SpeedPro%20logo-red%20(32x32).png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="256x256"
+      href="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68e571b7b25cb94d437be19d_SpeedPro%20logo-red%20(256x256).png"
+    />
+    <script
+      async
+      src="https://ga.jspm.io/npm:es-module-shims@1.7.1/dist/es-module-shims.js"
+    ></script>
     <script type="importmap">
-      { "imports": {
+      {
+        "imports": {
           "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
-          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/" } }
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+        }
+      }
     </script>
     <style>
-      :root { --red:#d0061d; --red-dark:#a30517; --ink:#141414; --slate:#5b6068; --mist:#f3f4f6; --line:#e2e4e8; --paper:#ffffff; }
-      * { box-sizing:border-box; margin:0; padding:0; }
-      html { scroll-behavior:smooth; }
-      body { font-family:Arial,Helvetica,sans-serif; background:var(--mist); color:var(--ink); -webkit-print-color-adjust:exact; print-color-adjust:exact; padding-bottom:96px; }
-      .wrap { max-width:680px; margin:0 auto; padding:20px 16px; }
+      :root {
+        --red: #d0061d;
+        --red-dark: #a30517;
+        --ink: #141414;
+        --slate: #5b6068;
+        --mist: #f3f4f6;
+        --line: #e2e4e8;
+        --paper: #ffffff;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--mist);
+        color: var(--ink);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding-bottom: 96px;
+      }
+      .wrap {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 20px 16px;
+      }
 
       /* ---------- header ---------- */
-      .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
-      .top img { height:48px; width:auto; display:block; }
-      .page-title { font-size:20px; font-weight:900; margin-bottom:16px; }
-      .page-title .slash { color:var(--red); font-style:italic; }
-      .settings-btn { background:none; border:1px solid var(--line); border-radius:20px; padding:8px 14px; font-size:12px; font-weight:700; color:var(--slate); cursor:pointer; font-family:inherit; }
-      .settings-btn:hover { border-color:var(--red); color:var(--red); }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .top img {
+        height: 48px;
+        width: auto;
+        display: block;
+      }
+      .page-title {
+        font-size: 20px;
+        font-weight: 900;
+        margin-bottom: 16px;
+      }
+      .page-title .slash {
+        color: var(--red);
+        font-style: italic;
+      }
+      .settings-btn {
+        background: none;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 8px 14px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--slate);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .settings-btn:hover {
+        border-color: var(--red);
+        color: var(--red);
+      }
 
       /* ---------- step cards ---------- */
-      .card { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px; margin-bottom:14px; }
-      .step-label { display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--slate); margin-bottom:14px; }
-      .step-label .slash { color:var(--red); font-style:italic; font-weight:900; }
+      .card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px;
+        margin-bottom: 14px;
+      }
+      .step-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--slate);
+        margin-bottom: 14px;
+      }
+      .step-label .slash {
+        color: var(--red);
+        font-style: italic;
+        font-weight: 900;
+      }
 
-      .field label { display:block; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--slate); margin-bottom:5px; }
-      .field input, .field select { width:100%; padding:10px; border:1.5px solid var(--line); border-radius:8px; font-size:15px; font-family:inherit; color:var(--ink); background:#fff; }
-      .field input:focus, .field select:focus { outline:none; border-color:var(--red); }
-      .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-      .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
-      .hint { font-size:10.5px; color:var(--slate); margin-top:3px; }
-      .frow { margin-bottom:12px; }
+      .field label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--slate);
+        margin-bottom: 5px;
+      }
+      .field input,
+      .field select {
+        width: 100%;
+        padding: 10px;
+        border: 1.5px solid var(--line);
+        border-radius: 8px;
+        font-size: 15px;
+        font-family: inherit;
+        color: var(--ink);
+        background: #fff;
+      }
+      .field input:focus,
+      .field select:focus {
+        outline: none;
+        border-color: var(--red);
+      }
+      .row2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .row3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+      }
+      .hint {
+        font-size: 10.5px;
+        color: var(--slate);
+        margin-top: 3px;
+      }
+      .frow {
+        margin-bottom: 12px;
+      }
 
       /* chips */
-      .chips { display:flex; flex-wrap:wrap; gap:8px; }
-      .chip { border:1.5px solid var(--line); border-radius:20px; padding:8px 14px; background:#fff; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .12s; }
-      .chip:active { transform:scale(.95); }
-      .chip.on { border-color:var(--red); background:var(--red); color:#fff; }
-      .chip:disabled { opacity:.4; cursor:not-allowed; }
-      .class-hint { font-size:11px; color:var(--slate); margin-top:9px; }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .chip {
+        border: 1.5px solid var(--line);
+        border-radius: 20px;
+        padding: 8px 14px;
+        background: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.12s;
+      }
+      .chip:active {
+        transform: scale(0.95);
+      }
+      .chip.on {
+        border-color: var(--red);
+        background: var(--red);
+        color: #fff;
+      }
+      .chip:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .class-hint {
+        font-size: 11px;
+        color: var(--slate);
+        margin-top: 9px;
+      }
 
       /* material / film cards */
-      .mat-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-      .mat-card { border:2px solid var(--line); border-radius:12px; padding:14px; cursor:pointer; background:#fff; text-align:left; font-family:inherit; transition:border-color .15s, transform .1s; }
-      .mat-card:active { transform:scale(.98); }
-      .mat-card.on { border-color:var(--red); background:#fff6f7; }
-      .mat-card .m-name { font-size:14.5px; font-weight:900; }
-      .mat-card .m-use { font-size:11.5px; color:var(--slate); margin-top:3px; line-height:1.4; }
-      .mat-card .m-rate { font-size:13px; font-weight:700; color:var(--red); margin-top:8px; }
+      .mat-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .mat-card {
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        padding: 14px;
+        cursor: pointer;
+        background: #fff;
+        text-align: left;
+        font-family: inherit;
+        transition:
+          border-color 0.15s,
+          transform 0.1s;
+      }
+      .mat-card:active {
+        transform: scale(0.98);
+      }
+      .mat-card.on {
+        border-color: var(--red);
+        background: #fff6f7;
+      }
+      .mat-card .m-name {
+        font-size: 14.5px;
+        font-weight: 900;
+      }
+      .mat-card .m-use {
+        font-size: 11.5px;
+        color: var(--slate);
+        margin-top: 3px;
+        line-height: 1.4;
+      }
+      .mat-card .m-rate {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--red);
+        margin-top: 8px;
+      }
 
       /* swatches */
-      .swatch-row { display:flex; flex-wrap:wrap; gap:11px; margin:4px 0 16px; }
-      .swatch { width:32px; height:32px; border-radius:50%; border:2px solid var(--line); cursor:pointer; padding:0; position:relative; }
-      .swatch.on::after { content:""; position:absolute; inset:-5px; border:2px solid var(--ink); border-radius:50%; }
-      .finish-row { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px; }
+      .swatch-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 11px;
+        margin: 4px 0 16px;
+      }
+      .swatch {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid var(--line);
+        cursor: pointer;
+        padding: 0;
+        position: relative;
+      }
+      .swatch.on::after {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+      }
+      .finish-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 6px;
+      }
 
       /* addons / panel checklist */
-      .addon { display:flex; align-items:center; justify-content:space-between; gap:10px; border:1.5px solid var(--line); border-radius:10px; padding:12px 14px; margin-bottom:8px; cursor:pointer; background:#fff; transition:border-color .12s; }
-      .addon.on { border-color:var(--red); background:#fff6f7; }
-      .addon .a-left { display:flex; align-items:center; gap:10px; }
-      .addon .a-check { width:20px; height:20px; border-radius:50%; border:2px solid var(--line); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:12px; color:#fff; font-weight:900; }
-      .addon.on .a-check { background:var(--red); border-color:var(--red); }
-      .addon .a-name { font-size:14px; font-weight:700; }
-      .addon .a-per { font-size:11px; color:var(--slate); }
-      .addon .a-price { font-size:14px; font-weight:900; color:var(--ink); white-space:nowrap; }
-      .addon.on .a-price { color:var(--red); }
+      .addon {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        background: #fff;
+        transition: border-color 0.12s;
+      }
+      .addon.on {
+        border-color: var(--red);
+        background: #fff6f7;
+      }
+      .addon .a-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .addon .a-check {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid var(--line);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: #fff;
+        font-weight: 900;
+      }
+      .addon.on .a-check {
+        background: var(--red);
+        border-color: var(--red);
+      }
+      .addon .a-name {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .addon .a-per {
+        font-size: 11px;
+        color: var(--slate);
+      }
+      .addon .a-price {
+        font-size: 14px;
+        font-weight: 900;
+        color: var(--ink);
+        white-space: nowrap;
+      }
+      .addon.on .a-price {
+        color: var(--red);
+      }
 
       /* 3D viewer */
-      .viewer-wrap { position:relative; width:100%; aspect-ratio:4/3; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:linear-gradient(180deg,#eef0f3,#e2e5ea); }
-      .viewer-wrap canvas { width:100% !important; height:100% !important; display:block; touch-action:none; }
-      .viewer-fallback { width:100%; height:100%; }
-      .viewer-fallback svg { width:100%; height:100%; display:block; }
-      .fb-panel { cursor:pointer; stroke:#8b8f96; stroke-width:1.5; transition:fill .1s; }
-      .viewer-loading { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:11.5px; color:var(--slate); text-align:center; padding:10px; pointer-events:none; }
-      .view-btns { display:none; gap:6px; margin-top:10px; flex-wrap:wrap; }
-      .view-btns button { flex:1; min-width:58px; border:1.5px solid var(--line); background:#fff; border-radius:8px; padding:8px 4px; font-size:11px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--ink); }
-      .view-btns button:active { border-color:var(--red); color:var(--red); }
+      .viewer-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4/3;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #eef0f3, #e2e5ea);
+      }
+      .viewer-wrap canvas {
+        width: 100% !important;
+        height: 100% !important;
+        display: block;
+        touch-action: none;
+      }
+      .viewer-fallback {
+        width: 100%;
+        height: 100%;
+      }
+      .viewer-fallback svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .fb-panel {
+        cursor: pointer;
+        stroke: #8b8f96;
+        stroke-width: 1.5;
+        transition: fill 0.1s;
+      }
+      .fb-glass {
+        pointer-events: none;
+        stroke: #1c1f23;
+        stroke-width: 1;
+      }
+      .fb-wheel {
+        pointer-events: none;
+      }
+      .viewer-loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11.5px;
+        color: var(--slate);
+        text-align: center;
+        padding: 10px;
+        pointer-events: none;
+      }
+      .view-btns {
+        display: none;
+        gap: 6px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+      .view-btns button {
+        flex: 1;
+        min-width: 58px;
+        border: 1.5px solid var(--line);
+        background: #fff;
+        border-radius: 8px;
+        padding: 8px 4px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        color: var(--ink);
+      }
+      .view-btns button:active {
+        border-color: var(--red);
+        color: var(--red);
+      }
 
       /* live math line */
-      .math { background:var(--ink); color:#fff; border-radius:10px; padding:12px 14px; font-size:12.5px; margin-top:4px; line-height:1.6; }
-      .math b { color:#ff8a96; }
+      .math {
+        background: var(--ink);
+        color: #fff;
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 12.5px;
+        margin-top: 4px;
+        line-height: 1.6;
+      }
+      .math b {
+        color: #ff8a96;
+      }
 
       /* settings drawer */
-      .drawer { display:none; margin-bottom:14px; }
-      .drawer.show { display:block; }
-      .drawer .card { border-left:4px solid var(--red); }
-      .sqft-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:10.5px; }
-      .sqft-table th, .sqft-table td { padding:5px 4px; text-align:center; border-bottom:1px solid var(--line); }
-      .sqft-table th { color:var(--slate); font-weight:700; text-transform:uppercase; letter-spacing:.04em; font-size:9.5px; }
-      .sqft-table td:first-child, .sqft-table th:first-child { text-align:left; font-weight:700; }
-      .sqft-table input { width:44px; padding:4px; border:1.5px solid var(--line); border-radius:5px; font-size:11px; text-align:center; font-family:inherit; }
-      .reset-btn { background:none; border:1px solid var(--line); border-radius:8px; padding:8px 12px; font-size:11.5px; font-weight:700; color:var(--slate); cursor:pointer; font-family:inherit; margin-top:12px; }
-      .reset-btn:hover { border-color:var(--red); color:var(--red); }
+      .drawer {
+        display: none;
+        margin-bottom: 14px;
+      }
+      .drawer.show {
+        display: block;
+      }
+      .drawer .card {
+        border-left: 4px solid var(--red);
+      }
+      .sqft-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+        font-size: 10.5px;
+      }
+      .sqft-table th,
+      .sqft-table td {
+        padding: 5px 4px;
+        text-align: center;
+        border-bottom: 1px solid var(--line);
+      }
+      .sqft-table th {
+        color: var(--slate);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-size: 9.5px;
+      }
+      .sqft-table td:first-child,
+      .sqft-table th:first-child {
+        text-align: left;
+        font-weight: 700;
+      }
+      .sqft-table input {
+        width: 44px;
+        padding: 4px;
+        border: 1.5px solid var(--line);
+        border-radius: 5px;
+        font-size: 11px;
+        text-align: center;
+        font-family: inherit;
+      }
+      .reset-btn {
+        background: none;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 11.5px;
+        font-weight: 700;
+        color: var(--slate);
+        cursor: pointer;
+        font-family: inherit;
+        margin-top: 12px;
+      }
+      .reset-btn:hover {
+        border-color: var(--red);
+        color: var(--red);
+      }
 
       /* collapsible cards */
-      #custCard, #savedCard { display:none; }
-      #custCard.show, #savedCard.show { display:block; }
-      .saved-item { display:flex; justify-content:space-between; align-items:center; gap:10px; border:1.5px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:8px; cursor:pointer; transition:border-color .12s; }
-      .saved-item:hover { border-color:var(--red); }
-      .saved-item .sv-name { font-size:13px; font-weight:700; }
-      .saved-item .sv-meta { font-size:11px; color:var(--slate); }
-      .saved-item .sv-total { font-size:13.5px; font-weight:900; color:var(--red); margin-right:6px; }
-      .saved-item .sv-x { color:var(--slate); font-weight:900; padding:2px 6px; }
-      .saved-item .sv-x:hover { color:var(--red); }
-      .empty-note { font-size:12px; color:var(--slate); }
+      #custCard,
+      #savedCard {
+        display: none;
+      }
+      #custCard.show,
+      #savedCard.show {
+        display: block;
+      }
+      .saved-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 12px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        transition: border-color 0.12s;
+      }
+      .saved-item:hover {
+        border-color: var(--red);
+      }
+      .saved-item .sv-name {
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .saved-item .sv-meta {
+        font-size: 11px;
+        color: var(--slate);
+      }
+      .saved-item .sv-total {
+        font-size: 13.5px;
+        font-weight: 900;
+        color: var(--red);
+        margin-right: 6px;
+      }
+      .saved-item .sv-x {
+        color: var(--slate);
+        font-weight: 900;
+        padding: 2px 6px;
+      }
+      .saved-item .sv-x:hover {
+        color: var(--red);
+      }
+      .empty-note {
+        font-size: 12px;
+        color: var(--slate);
+      }
 
       /* sticky total bar */
-      .total-bar { position:fixed; bottom:0; left:0; right:0; z-index:50; background:var(--ink); color:#fff; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px; box-shadow:0 -4px 16px rgba(0,0,0,.18); flex-wrap:wrap; }
-      .total-bar .t-nums { line-height:1.2; }
-      .total-bar .t-label { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#9aa0a8; }
-      .total-bar .t-value { font-size:24px; font-weight:900; }
-      .total-bar .t-value.bump { animation:bump .25s ease; }
-      @keyframes bump { 50% { transform:scale(1.12); color:#ff8a96; } }
-      .bar-btns { display:flex; gap:8px; }
-      .save-btn { background:none; color:#fff; border:1.5px solid #454850; border-radius:10px; padding:13px 14px; font-size:13px; font-weight:900; cursor:pointer; font-family:inherit; white-space:nowrap; }
-      .pdf-btn { background:var(--red); color:#fff; border:none; border-radius:10px; padding:13px 20px; font-size:14px; font-weight:900; cursor:pointer; font-family:inherit; letter-spacing:.03em; white-space:nowrap; }
-      .pdf-btn:active { background:var(--red-dark); }
+      .total-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        background: var(--ink);
+        color: #fff;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.18);
+        flex-wrap: wrap;
+      }
+      .total-bar .t-nums {
+        line-height: 1.2;
+      }
+      .total-bar .t-label {
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #9aa0a8;
+      }
+      .total-bar .t-value {
+        font-size: 24px;
+        font-weight: 900;
+      }
+      .total-bar .t-value.bump {
+        animation: bump 0.25s ease;
+      }
+      @keyframes bump {
+        50% {
+          transform: scale(1.12);
+          color: #ff8a96;
+        }
+      }
+      .bar-btns {
+        display: flex;
+        gap: 8px;
+      }
+      .save-btn {
+        background: none;
+        color: #fff;
+        border: 1.5px solid #454850;
+        border-radius: 10px;
+        padding: 13px 14px;
+        font-size: 13px;
+        font-weight: 900;
+        cursor: pointer;
+        font-family: inherit;
+        white-space: nowrap;
+      }
+      .pdf-btn {
+        background: var(--red);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 13px 20px;
+        font-size: 14px;
+        font-weight: 900;
+        cursor: pointer;
+        font-family: inherit;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+      }
+      .pdf-btn:active {
+        background: var(--red-dark);
+      }
 
       /* credit */
-      .credit { font-size:12px; font-weight:700; color:var(--ink); text-align:center; margin-bottom:16px; }
-      .credit a { color:var(--red); font-weight:700; }
+      .credit {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--ink);
+        text-align: center;
+        margin-bottom: 16px;
+      }
+      .credit a {
+        color: var(--red);
+        font-weight: 700;
+      }
 
       /* ================= ESTIMATE DOCUMENT ================= */
-      .quote-page { background:var(--paper); max-width:680px; margin:20px auto 0; box-shadow:0 2px 16px rgba(0,0,0,.1); display:none; }
-      .quote-page.show { display:block; }
-      .q-band { height:8px; background:var(--red); }
-      .q-inner { padding:40px 44px 32px; display:flex; flex-direction:column; }
-      @media (max-width:600px) { .q-inner { padding:26px 20px; } }
-      .q-header { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
-      .q-header img { height:54px; width:auto; display:block; }
-      .q-title { text-align:right; }
-      .q-title h1 { font-size:26px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
-      .q-meta { margin-top:6px; font-size:11.5px; color:var(--slate); line-height:1.7; }
-      .q-meta b { color:var(--ink); }
-      .q-parties { display:flex; gap:28px; margin-top:28px; flex-wrap:wrap; }
-      .party { flex:1; min-width:200px; }
-      .party h3 { font-size:9.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--red); border-bottom:2px solid var(--ink); padding-bottom:4px; margin-bottom:7px; }
-      .party p { font-size:12.5px; line-height:1.6; }
-      .party .muted { color:var(--slate); }
-      .q-table { width:100%; border-collapse:collapse; margin-top:26px; }
-      .q-table th { background:var(--ink); color:#fff; font-size:9.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; text-align:left; padding:8px 9px; }
-      .q-table th.num, .q-table td.num { text-align:right; }
-      .q-table td { padding:10px 9px; font-size:12.5px; border-bottom:1px solid var(--line); vertical-align:top; }
-      .q-table .desc-main { font-weight:700; }
-      .q-table .desc-sub { font-size:11px; color:var(--slate); margin-top:2px; }
-      .q-totals { display:flex; justify-content:flex-end; margin-top:12px; }
-      .totals-box { width:260px; }
-      .totals-box .t-row { display:flex; justify-content:space-between; padding:5px 9px; font-size:12.5px; }
-      .totals-box .t-row .lab { color:var(--slate); }
-      .totals-box .t-row.grand { background:var(--red); color:#fff; font-weight:900; font-size:15px; padding:10px 9px; margin-top:5px; border-radius:4px; }
-      .min-note { font-size:10.5px; color:var(--red); text-align:right; margin-top:5px; font-weight:700; }
-      .disclaimer { border:1.5px solid var(--red); border-radius:8px; padding:13px 15px; margin-top:26px; font-size:11px; line-height:1.65; color:var(--ink); }
-      .disclaimer b { color:var(--red); }
-      .q-sign { display:flex; gap:34px; margin-top:28px; flex-wrap:wrap; }
-      .sign-block { flex:1; min-width:180px; }
-      .sign-line { border-bottom:1.5px solid var(--ink); height:30px; }
-      .sign-block p { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--slate); margin-top:5px; }
-      .q-footer { margin-top:26px; text-align:center; }
-      .q-footer .rule { height:2px; background:var(--ink); margin-bottom:10px; position:relative; }
-      .q-footer .rule::after { content:""; position:absolute; left:0; top:0; height:2px; width:56px; background:var(--red); }
-      .q-footer p { font-size:10px; color:var(--slate); line-height:1.7; }
-      .q-footer b { color:var(--ink); }
+      .quote-page {
+        background: var(--paper);
+        max-width: 680px;
+        margin: 20px auto 0;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+        display: none;
+      }
+      .quote-page.show {
+        display: block;
+      }
+      .q-band {
+        height: 8px;
+        background: var(--red);
+      }
+      .q-inner {
+        padding: 40px 44px 32px;
+        display: flex;
+        flex-direction: column;
+      }
+      @media (max-width: 600px) {
+        .q-inner {
+          padding: 26px 20px;
+        }
+      }
+      .q-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .q-header img {
+        height: 54px;
+        width: auto;
+        display: block;
+      }
+      .q-title {
+        text-align: right;
+      }
+      .q-title h1 {
+        font-size: 26px;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .q-meta {
+        margin-top: 6px;
+        font-size: 11.5px;
+        color: var(--slate);
+        line-height: 1.7;
+      }
+      .q-meta b {
+        color: var(--ink);
+      }
+      .q-parties {
+        display: flex;
+        gap: 28px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+      .party {
+        flex: 1;
+        min-width: 200px;
+      }
+      .party h3 {
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--red);
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 4px;
+        margin-bottom: 7px;
+      }
+      .party p {
+        font-size: 12.5px;
+        line-height: 1.6;
+      }
+      .party .muted {
+        color: var(--slate);
+      }
+      .q-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 26px;
+      }
+      .q-table th {
+        background: var(--ink);
+        color: #fff;
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-align: left;
+        padding: 8px 9px;
+      }
+      .q-table th.num,
+      .q-table td.num {
+        text-align: right;
+      }
+      .q-table td {
+        padding: 10px 9px;
+        font-size: 12.5px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      .q-table .desc-main {
+        font-weight: 700;
+      }
+      .q-table .desc-sub {
+        font-size: 11px;
+        color: var(--slate);
+        margin-top: 2px;
+      }
+      .q-totals {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 12px;
+      }
+      .totals-box {
+        width: 260px;
+      }
+      .totals-box .t-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 9px;
+        font-size: 12.5px;
+      }
+      .totals-box .t-row .lab {
+        color: var(--slate);
+      }
+      .totals-box .t-row.grand {
+        background: var(--red);
+        color: #fff;
+        font-weight: 900;
+        font-size: 15px;
+        padding: 10px 9px;
+        margin-top: 5px;
+        border-radius: 4px;
+      }
+      .min-note {
+        font-size: 10.5px;
+        color: var(--red);
+        text-align: right;
+        margin-top: 5px;
+        font-weight: 700;
+      }
+      .disclaimer {
+        border: 1.5px solid var(--red);
+        border-radius: 8px;
+        padding: 13px 15px;
+        margin-top: 26px;
+        font-size: 11px;
+        line-height: 1.65;
+        color: var(--ink);
+      }
+      .disclaimer b {
+        color: var(--red);
+      }
+      .q-sign {
+        display: flex;
+        gap: 34px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+      .sign-block {
+        flex: 1;
+        min-width: 180px;
+      }
+      .sign-line {
+        border-bottom: 1.5px solid var(--ink);
+        height: 30px;
+      }
+      .sign-block p {
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--slate);
+        margin-top: 5px;
+      }
+      .q-footer {
+        margin-top: 26px;
+        text-align: center;
+      }
+      .q-footer .rule {
+        height: 2px;
+        background: var(--ink);
+        margin-bottom: 10px;
+        position: relative;
+      }
+      .q-footer .rule::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 2px;
+        width: 56px;
+        background: var(--red);
+      }
+      .q-footer p {
+        font-size: 10px;
+        color: var(--slate);
+        line-height: 1.7;
+      }
+      .q-footer b {
+        color: var(--ink);
+      }
 
       @media print {
-        body { background:#fff; padding-bottom:0; }
-        .wrap, .total-bar, .no-print { display:none !important; }
-        .quote-page { display:block !important; box-shadow:none; max-width:none; margin:0; min-height:100vh; }
-        @page { size:letter; margin:0; }
+        body {
+          background: #fff;
+          padding-bottom: 0;
+        }
+        .wrap,
+        .total-bar,
+        .no-print {
+          display: none !important;
+        }
+        .quote-page {
+          display: block !important;
+          box-shadow: none;
+          max-width: none;
+          margin: 0;
+          min-height: 100vh;
+        }
+        @page {
+          size: letter;
+          margin: 0;
+        }
       }
     </style>
   </head>
   <body>
     <div class="wrap">
       <div class="top">
-        <a href="./index.html"><img src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png" alt="SpeedPro Niagara" /></a>
-        <button class="settings-btn" onclick="document.getElementById('drawer').classList.toggle('show')">&#9881; Settings</button>
+        <a href="./index.html"
+          ><img
+            src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png"
+            alt="SpeedPro Niagara"
+        /></a>
+        <button
+          class="settings-btn"
+          onclick="document.getElementById('drawer').classList.toggle('show')"
+        >
+          &#9881; Settings
+        </button>
       </div>
-      <h1 class="page-title"><span class="slash">///</span> Vehicle Wrap Calculator</h1>
+      <h1 class="page-title">
+        <span class="slash">///</span> Vehicle Wrap Calculator
+      </h1>
 
       <p class="credit no-print">
         Calculator format inspired by
-        <a href="https://app.wrapquotes.com/calculator" target="_blank" rel="noopener">WrapQuotes</a>. Vehicle data from the NHTSA vPIC API.
+        <a
+          href="https://app.wrapquotes.com/calculator"
+          target="_blank"
+          rel="noopener"
+          >WrapQuotes</a
+        >. Vehicle data from the NHTSA vPIC API.
       </p>
 
       <!-- settings drawer -->
       <div class="drawer" id="drawer">
         <div class="card">
-          <div class="step-label"><span class="slash">///</span> Rates &amp; settings</div>
+          <div class="step-label">
+            <span class="slash">///</span> Rates &amp; settings
+          </div>
           <div class="row2">
-            <div class="field"><label>Calendered $/sq ft</label><input id="r_calendered" type="number" min="0" step="0.5" /></div>
-            <div class="field"><label>Cast (3M/Avery) $/sq ft</label><input id="r_cast" type="number" min="0" step="0.5" /></div>
+            <div class="field">
+              <label>Calendered $/sq ft</label
+              ><input id="r_calendered" type="number" min="0" step="0.5" />
+            </div>
+            <div class="field">
+              <label>Cast (3M/Avery) $/sq ft</label
+              ><input id="r_cast" type="number" min="0" step="0.5" />
+            </div>
           </div>
-          <div class="row2" style="margin-top:10px">
-            <div class="field"><label>Specialty $/sq ft</label><input id="r_specialty" type="number" min="0" step="0.5" /></div>
-            <div class="field"><label>Chrome/shift $/sq ft</label><input id="r_chrome" type="number" min="0" step="0.5" /></div>
+          <div class="row2" style="margin-top: 10px">
+            <div class="field">
+              <label>Specialty $/sq ft</label
+              ><input id="r_specialty" type="number" min="0" step="0.5" />
+            </div>
+            <div class="field">
+              <label>Chrome/shift $/sq ft</label
+              ><input id="r_chrome" type="number" min="0" step="0.5" />
+            </div>
           </div>
-          <div class="row3" style="margin-top:10px">
-            <div class="field"><label>Removal fee</label><input id="r_removal" type="number" min="0" step="25" /></div>
-            <div class="field"><label>Window perf fee</label><input id="r_perf" type="number" min="0" step="25" /></div>
-            <div class="field"><label>Design fee</label><input id="r_design" type="number" min="0" step="25" /></div>
+          <div class="row3" style="margin-top: 10px">
+            <div class="field">
+              <label>Removal fee</label
+              ><input id="r_removal" type="number" min="0" step="25" />
+            </div>
+            <div class="field">
+              <label>Window perf fee</label
+              ><input id="r_perf" type="number" min="0" step="25" />
+            </div>
+            <div class="field">
+              <label>Design fee</label
+              ><input id="r_design" type="number" min="0" step="25" />
+            </div>
           </div>
-          <div class="row3" style="margin-top:10px">
-            <div class="field"><label>Minimum order</label><input id="r_minOrder" type="number" min="0" step="25" /></div>
-            <div class="field"><label>HST %</label><input id="r_hst" type="number" min="0" step="0.5" /></div>
-            <div class="field"><label>Waste factor</label><input id="r_waste" type="number" min="1" step="0.01" /></div>
+          <div class="row3" style="margin-top: 10px">
+            <div class="field">
+              <label>Minimum order</label
+              ><input id="r_minOrder" type="number" min="0" step="25" />
+            </div>
+            <div class="field">
+              <label>HST %</label
+              ><input id="r_hst" type="number" min="0" step="0.5" />
+            </div>
+            <div class="field">
+              <label>Waste factor</label
+              ><input id="r_waste" type="number" min="1" step="0.01" />
+            </div>
           </div>
-          <div class="hint" style="margin-top:10px">Advanced — net wrapped sq ft per panel, per vehicle class</div>
+          <div class="hint" style="margin-top: 10px">
+            Advanced — net wrapped sq ft per panel, per vehicle class
+          </div>
           <table class="sqft-table">
-            <thead><tr><th>Class</th><th>Front</th><th>Hood</th><th>Roof</th><th>Sides</th><th>Rear</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Front</th>
+                <th>Hood</th>
+                <th>Roof</th>
+                <th>Sides</th>
+                <th>Rear</th>
+              </tr>
+            </thead>
             <tbody id="sqftTableBody"></tbody>
           </table>
-          <button class="reset-btn" onclick="resetRates()">Reset defaults</button>
+          <button class="reset-btn" onclick="resetRates()">
+            Reset defaults
+          </button>
         </div>
       </div>
 
       <!-- STEP 1: vehicle -->
       <div class="card">
-        <div class="step-label"><span class="slash">///</span> 1 · Your vehicle</div>
-        <div class="row3">
-          <div class="field"><label>Year</label><select id="selYear" onchange="onYearMakeChange()"></select></div>
-          <div class="field"><label>Make</label><select id="selMake" onchange="onYearMakeChange()"></select></div>
-          <div class="field"><label>Model</label><select id="selModel" onchange="onModelChange()"><option value="">—</option></select></div>
+        <div class="step-label">
+          <span class="slash">///</span> 1 · Your vehicle
         </div>
-        <div class="hint" id="modelHint" style="margin-top:8px"></div>
-        <div style="height:14px"></div>
+        <div class="field" style="margin-bottom: 12px">
+          <label>Quick search</label>
+          <input
+            id="vehicleSearch"
+            type="text"
+            list="vehicleSearchList"
+            placeholder="Type a make &amp; model, e.g. Honda Civic"
+            autocomplete="off"
+            onchange="onVehicleSearch()"
+          />
+          <datalist id="vehicleSearchList"></datalist>
+          <div class="hint" id="searchHint">
+            Or pick manually below — both stay in sync.
+          </div>
+        </div>
+        <div class="row3">
+          <div class="field">
+            <label>Year</label
+            ><select id="selYear" onchange="onYearMakeChange()"></select>
+          </div>
+          <div class="field">
+            <label>Make</label
+            ><select id="selMake" onchange="onYearMakeChange()"></select>
+          </div>
+          <div class="field">
+            <label>Model</label
+            ><select id="selModel" onchange="onModelChange()">
+              <option value="">—</option>
+            </select>
+          </div>
+        </div>
+        <div class="hint" id="modelHint" style="margin-top: 8px"></div>
+        <div style="height: 14px"></div>
         <div class="chips" id="classChips"></div>
         <div class="class-hint" id="classHint"></div>
       </div>
 
       <!-- STEP 2: 3D configurator -->
       <div class="card">
-        <div class="step-label"><span class="slash">///</span> 2 · Configure in 3D</div>
+        <div class="step-label">
+          <span class="slash">///</span> 2 · Configure in 3D
+        </div>
         <div class="viewer-wrap" id="viewer3d">
           <div class="viewer-fallback" id="viewerFallback"></div>
-          <canvas id="viewCanvas" style="display:none"></canvas>
-          <div class="viewer-loading" id="viewerLoading">Tap or scroll here to load the interactive 3D view. This 2D preview always works — tap a panel to select it.</div>
+          <canvas id="viewCanvas" style="display: none"></canvas>
+          <div class="viewer-loading" id="viewerLoading">
+            Tap or scroll here to load the interactive 3D view. This 2D preview
+            always works — tap a panel to select it.
+          </div>
         </div>
         <div class="view-btns" id="viewBtns">
           <button onclick="SPNSetView('front')">Front</button>
@@ -255,8 +1020,10 @@
 
       <!-- STEP 3: coverage -->
       <div class="card">
-        <div class="step-label"><span class="slash">///</span> 3 · Coverage — tap panels to wrap</div>
-        <div class="chips" style="margin-bottom:12px">
+        <div class="step-label">
+          <span class="slash">///</span> 3 · Coverage — tap panels to wrap
+        </div>
+        <div class="chips" style="margin-bottom: 12px">
           <button class="chip" onclick="setCoverage('full')">Full wrap</button>
           <button class="chip" onclick="setCoverage('half')">Half wrap</button>
           <button class="chip" onclick="setCoverage('clear')">Clear</button>
@@ -266,14 +1033,16 @@
 
       <!-- STEP 4: film & finish -->
       <div class="card">
-        <div class="step-label"><span class="slash">///</span> 4 · Film &amp; finish</div>
+        <div class="step-label">
+          <span class="slash">///</span> 4 · Film &amp; finish
+        </div>
         <div class="mat-grid" id="filmList"></div>
-        <div style="height:16px"></div>
+        <div style="height: 16px"></div>
         <div class="field"><label>Colour</label></div>
         <div class="swatch-row" id="swatchRow"></div>
         <div class="field"><label>Finish</label></div>
         <div class="finish-row" id="finishRow"></div>
-        <div style="height:6px"></div>
+        <div style="height: 6px"></div>
         <div class="field"><label>Design complexity</label></div>
         <div class="chips" id="complexityChips"></div>
       </div>
@@ -282,7 +1051,7 @@
       <div class="card">
         <div class="step-label"><span class="slash">///</span> 5 · Extras</div>
         <div id="extrasList"></div>
-        <div style="height:6px"></div>
+        <div style="height: 6px"></div>
         <div class="field"><label>Surface condition</label></div>
         <div class="chips" id="conditionChips"></div>
         <div class="math" id="mathLine"></div>
@@ -290,38 +1059,103 @@
 
       <!-- STEP 6: customer (collapsible) -->
       <div class="card">
-        <div class="step-label" style="margin-bottom:0;cursor:pointer" onclick="document.getElementById('custCard').classList.toggle('show')">
-          <span class="slash">///</span> 6 · Customer details (for the PDF) &#9662;
+        <div
+          class="step-label"
+          style="margin-bottom: 0; cursor: pointer"
+          onclick="document.getElementById('custCard').classList.toggle('show')"
+        >
+          <span class="slash">///</span> 6 · Customer details (for the PDF)
+          &#9662;
         </div>
         <div id="custCard">
-          <div style="height:14px"></div>
+          <div style="height: 14px"></div>
           <div class="row2">
-            <div class="field"><label>Name</label><input id="custName" type="text" placeholder="Jane Smith" oninput="renderEstimate()" /></div>
-            <div class="field"><label>Company</label><input id="custCompany" type="text" placeholder="Company Inc." oninput="renderEstimate()" /></div>
+            <div class="field">
+              <label>Name</label
+              ><input
+                id="custName"
+                type="text"
+                placeholder="Jane Smith"
+                oninput="renderEstimate()"
+              />
+            </div>
+            <div class="field">
+              <label>Company</label
+              ><input
+                id="custCompany"
+                type="text"
+                placeholder="Company Inc."
+                oninput="renderEstimate()"
+              />
+            </div>
           </div>
           <div class="row2">
-            <div class="field"><label>Email</label><input id="custEmail" type="text" placeholder="jane@company.com" oninput="renderEstimate()" /></div>
-            <div class="field"><label>Phone</label><input id="custPhone" type="text" placeholder="905-555-0100" oninput="renderEstimate()" /></div>
+            <div class="field">
+              <label>Email</label
+              ><input
+                id="custEmail"
+                type="text"
+                placeholder="jane@company.com"
+                oninput="renderEstimate()"
+              />
+            </div>
+            <div class="field">
+              <label>Phone</label
+              ><input
+                id="custPhone"
+                type="text"
+                placeholder="905-555-0100"
+                oninput="renderEstimate()"
+              />
+            </div>
           </div>
           <div class="row2">
-            <div class="field"><label>Quote #</label><input id="quoteNum" type="text" placeholder="auto" oninput="renderEstimate()" /></div>
-            <div class="field"><label>Prepared by</label><input id="preparedBy" type="text" placeholder="Team member" oninput="renderEstimate()" /></div>
+            <div class="field">
+              <label>Quote #</label
+              ><input
+                id="quoteNum"
+                type="text"
+                placeholder="auto"
+                oninput="renderEstimate()"
+              />
+            </div>
+            <div class="field">
+              <label>Prepared by</label
+              ><input
+                id="preparedBy"
+                type="text"
+                placeholder="Team member"
+                oninput="renderEstimate()"
+              />
+            </div>
           </div>
         </div>
       </div>
 
       <!-- saved quotes (collapsible) -->
       <div class="card">
-        <div class="step-label" style="margin-bottom:0;cursor:pointer" onclick="document.getElementById('savedCard').classList.toggle('show')">
+        <div
+          class="step-label"
+          style="margin-bottom: 0; cursor: pointer"
+          onclick="
+            document.getElementById('savedCard').classList.toggle('show')
+          "
+        >
           <span class="slash">///</span> Saved quotes &#9662;
         </div>
         <div id="savedCard">
-          <div style="height:14px"></div>
+          <div style="height: 14px"></div>
           <div id="savedList"></div>
         </div>
       </div>
 
-      <button class="settings-btn no-print" style="width:100%;padding:12px" onclick="togglePreview()">&#128065; Preview estimate document</button>
+      <button
+        class="settings-btn no-print"
+        style="width: 100%; padding: 12px"
+        onclick="togglePreview()"
+      >
+        &#128065; Preview estimate document
+      </button>
     </div>
 
     <!-- ================= ESTIMATE DOCUMENT ================= -->
@@ -329,7 +1163,10 @@
       <div class="q-band"></div>
       <div class="q-inner">
         <div class="q-header">
-          <img src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png" alt="SpeedPro Niagara" />
+          <img
+            src="https://cdn.prod.website-files.com/683605e0077bd119d6c888cd/68f280da2fb72f3d389588de_Logo-SpeedPro-globalnegro.png"
+            alt="SpeedPro Niagara"
+          />
           <div class="q-title">
             <h1>Estimate</h1>
             <div class="q-meta">
@@ -354,7 +1191,10 @@
             <h3>From</h3>
             <p>
               <b>SpeedPro Niagara</b><br />
-              <span class="muted">300 Welland Avenue, Unit 1<br />St. Catharines, ON L2R 7L9<br />sales@speedproniagara.com · 905-937-2022</span>
+              <span class="muted"
+                >300 Welland Avenue, Unit 1<br />St. Catharines, ON L2R 7L9<br />sales@speedproniagara.com
+                · 905-937-2022</span
+              >
             </p>
           </div>
         </div>
@@ -362,7 +1202,7 @@
         <table class="q-table">
           <thead>
             <tr>
-              <th style="width:40%">Description</th>
+              <th style="width: 40%">Description</th>
               <th class="num">Area</th>
               <th class="num">Qty</th>
               <th class="num">Rate</th>
@@ -374,27 +1214,48 @@
 
         <div class="q-totals">
           <div class="totals-box">
-            <div class="t-row"><span class="lab">Subtotal</span><span id="pSubtotal">$0.00</span></div>
-            <div class="t-row"><span class="lab" id="pTaxLabel">HST (13%)</span><span id="pTax">$0.00</span></div>
-            <div class="t-row grand"><span>Estimated total (CAD)</span><span id="pTotal">$0.00</span></div>
+            <div class="t-row">
+              <span class="lab">Subtotal</span><span id="pSubtotal">$0.00</span>
+            </div>
+            <div class="t-row">
+              <span class="lab" id="pTaxLabel">HST (13%)</span
+              ><span id="pTax">$0.00</span>
+            </div>
+            <div class="t-row grand">
+              <span>Estimated total (CAD)</span><span id="pTotal">$0.00</span>
+            </div>
           </div>
         </div>
-        <div class="min-note" id="pMinNote" style="display:none">Minimum order charge applied.</div>
+        <div class="min-note" id="pMinNote" style="display: none">
+          Minimum order charge applied.
+        </div>
 
         <div class="disclaimer">
-          <b>Please note:</b> this is a preliminary estimate. The final quote is confirmed after an in-person vehicle
-          inspection — vehicle condition, body curves, rivets/trim, and any disassembly required can affect the final
-          price. Book an inspection at speedproniagara.com or 905-937-2022.
+          <b>Please note:</b> this is a preliminary estimate. The final quote is
+          confirmed after an in-person vehicle inspection — vehicle condition,
+          body curves, rivets/trim, and any disassembly required can affect the
+          final price. Book an inspection at speedproniagara.com or
+          905-937-2022.
         </div>
 
         <div class="q-sign">
-          <div class="sign-block"><div class="sign-line"></div><p>Customer acceptance / date</p></div>
-          <div class="sign-block"><div class="sign-line"></div><p id="pPreparedBy">SpeedPro Niagara / date</p></div>
+          <div class="sign-block">
+            <div class="sign-line"></div>
+            <p>Customer acceptance / date</p>
+          </div>
+          <div class="sign-block">
+            <div class="sign-line"></div>
+            <p id="pPreparedBy">SpeedPro Niagara / date</p>
+          </div>
         </div>
 
         <div class="q-footer">
           <div class="rule"></div>
-          <p><b>SpeedPro Niagara</b> — 300 Welland Avenue, Unit 1, St. Catharines, ON L2R 7L9<br />speedproniagara.com · sales@speedproniagara.com · 905-937-2022</p>
+          <p>
+            <b>SpeedPro Niagara</b> — 300 Welland Avenue, Unit 1, St.
+            Catharines, ON L2R 7L9<br />speedproniagara.com ·
+            sales@speedproniagara.com · 905-937-2022
+          </p>
         </div>
       </div>
     </div>
@@ -406,8 +1267,12 @@
         <div class="t-value" id="barTotal">$0.00</div>
       </div>
       <div class="bar-btns">
-        <button class="save-btn" onclick="saveCurrentQuote()">Save quote</button>
-        <button class="pdf-btn" onclick="downloadPDF()">Download PDF &#8595;</button>
+        <button class="save-btn" onclick="saveCurrentQuote()">
+          Save quote
+        </button>
+        <button class="pdf-btn" onclick="downloadPDF()">
+          Download PDF &#8595;
+        </button>
       </div>
     </div>
 
@@ -416,89 +1281,265 @@
          DATA / DEFAULTS
       ===================================================================== */
       const MAKES = [
-        "Acura","Audi","BMW","Buick","Cadillac","Chevrolet","Chrysler","Dodge","Ford","GMC",
-        "Honda","Hyundai","Infiniti","Jeep","Kia","Lexus","Lincoln","Mazda","Mercedes-Benz","Mini",
-        "Mitsubishi","Nissan","Ram","Subaru","Tesla","Toyota","Volkswagen","Volvo","Genesis","Porsche",
+        "Acura",
+        "Audi",
+        "BMW",
+        "Buick",
+        "Cadillac",
+        "Chevrolet",
+        "Chrysler",
+        "Dodge",
+        "Ford",
+        "GMC",
+        "Honda",
+        "Hyundai",
+        "Infiniti",
+        "Jeep",
+        "Kia",
+        "Lexus",
+        "Lincoln",
+        "Mazda",
+        "Mercedes-Benz",
+        "Mini",
+        "Mitsubishi",
+        "Nissan",
+        "Ram",
+        "Subaru",
+        "Tesla",
+        "Toyota",
+        "Volkswagen",
+        "Volvo",
+        "Genesis",
+        "Porsche",
       ];
 
-      const CLASS_LABELS = { sedan:"Sedan / Car", suv:"SUV / Crossover", pickup:"Pickup", van:"Cargo Van / Minivan", box:"Box Truck" };
-      const CLASS_ORDER = ["sedan","suv","pickup","van","box"];
-      const PANEL_LABELS = { front:"Front bumper", hood:"Hood", roof:"Roof", sides:"Sides & doors", rear:"Rear" };
-      const PANEL_ORDER = ["front","hood","roof","sides","rear"];
+      // Small curated list per make so the quick-search box has instant offline
+      // suggestions. The Year/Make/Model dropdowns still do the live NHTSA
+      // lookup for the full, accurate model list once a make is chosen.
+      const POPULAR_MODELS = {
+        Acura: ["MDX", "RDX", "TLX", "ILX", "Integra"],
+        Audi: ["A4", "A6", "Q5", "Q7", "e-tron"],
+        BMW: ["3 Series", "5 Series", "X3", "X5", "M4"],
+        Buick: ["Encore", "Enclave", "Envision"],
+        Cadillac: ["Escalade", "XT5", "CT5", "XT4"],
+        Chevrolet: [
+          "Silverado",
+          "Equinox",
+          "Malibu",
+          "Tahoe",
+          "Traverse",
+          "Camaro",
+        ],
+        Chrysler: ["Pacifica", "300"],
+        Dodge: ["Charger", "Challenger", "Durango", "Grand Caravan"],
+        Ford: [
+          "F-150",
+          "Escape",
+          "Explorer",
+          "Mustang",
+          "Transit",
+          "Edge",
+          "Bronco",
+          "Maverick",
+        ],
+        GMC: ["Sierra", "Terrain", "Acadia", "Yukon"],
+        Honda: ["Civic", "Accord", "CR-V", "Pilot", "Odyssey", "HR-V"],
+        Hyundai: ["Elantra", "Tucson", "Santa Fe", "Sonata", "Kona"],
+        Infiniti: ["Q50", "QX60", "QX80"],
+        Jeep: [
+          "Wrangler",
+          "Grand Cherokee",
+          "Cherokee",
+          "Compass",
+          "Gladiator",
+        ],
+        Kia: ["Forte", "Sportage", "Sorento", "Telluride", "Soul"],
+        Lexus: ["RX", "ES", "NX", "GX"],
+        Lincoln: ["Navigator", "Aviator", "Corsair"],
+        Mazda: ["CX-5", "CX-30", "Mazda3", "CX-9"],
+        "Mercedes-Benz": ["C-Class", "E-Class", "GLC", "GLE", "Sprinter"],
+        Mini: ["Cooper", "Countryman"],
+        Mitsubishi: ["Outlander", "Eclipse Cross", "RVR"],
+        Nissan: ["Rogue", "Altima", "Sentra", "Pathfinder", "Titan", "NV200"],
+        Ram: ["1500", "2500", "ProMaster"],
+        Subaru: ["Outback", "Forester", "Crosstrek", "Impreza"],
+        Tesla: ["Model 3", "Model Y", "Model S", "Model X"],
+        Toyota: [
+          "Camry",
+          "RAV4",
+          "Corolla",
+          "Highlander",
+          "Tacoma",
+          "Tundra",
+          "Sienna",
+          "4Runner",
+        ],
+        Volkswagen: ["Jetta", "Tiguan", "Atlas", "Golf"],
+        Volvo: ["XC90", "XC60", "XC40", "S60"],
+        Genesis: ["G70", "G80", "GV70", "GV80"],
+        Porsche: ["Cayenne", "Macan", "911", "Taycan"],
+      };
+
+      const CLASS_LABELS = {
+        sedan: "Sedan / Car",
+        suv: "SUV / Crossover",
+        pickup: "Pickup",
+        van: "Cargo Van / Minivan",
+        box: "Box Truck",
+      };
+      const CLASS_ORDER = ["sedan", "suv", "pickup", "van", "box"];
+      const PANEL_LABELS = {
+        front: "Front bumper",
+        hood: "Hood",
+        roof: "Roof",
+        sides: "Sides & doors",
+        rear: "Rear",
+      };
+      const PANEL_ORDER = ["front", "hood", "roof", "sides", "rear"];
 
       const DEFAULT_RATES = {
-        calendered: 10, cast: 14, specialty: 18, chrome: 25,
-        removal: 500, perf: 250, design: 200,
-        minOrder: 500, hst: 13, waste: 1.12,
+        calendered: 10,
+        cast: 14,
+        specialty: 18,
+        chrome: 25,
+        removal: 500,
+        perf: 250,
+        design: 200,
+        minOrder: 500,
+        hst: 13,
+        waste: 1.12,
         panelSqft: {
-          sedan:  { front:8,  hood:10, roof:10, sides:30,  rear:10 },
-          suv:    { front:10, hood:11, roof:14, sides:45,  rear:15 },
-          pickup: { front:10, hood:12, roof:9,  sides:42,  rear:17 },
-          van:    { front:10, hood:8,  roof:26, sides:66,  rear:20 },
-          box:    { front:10, hood:9,  roof:38, sides:105, rear:28 },
+          sedan: { front: 8, hood: 10, roof: 10, sides: 30, rear: 10 },
+          suv: { front: 10, hood: 11, roof: 14, sides: 45, rear: 15 },
+          pickup: { front: 10, hood: 12, roof: 9, sides: 42, rear: 17 },
+          van: { front: 10, hood: 8, roof: 26, sides: 66, rear: 20 },
+          box: { front: 10, hood: 9, roof: 38, sides: 105, rear: 28 },
         },
       };
 
       const FILM_OPTIONS = [
-        { key:"calendered", rateKey:"calendered", name:"Calendered", use:"Economy — 3–5 yr wraps, budget-friendly" },
-        { key:"cast", rateKey:"cast", name:"Cast 3M / Avery", use:"Premium — 5–7 yr, conforms to curves" },
-        { key:"specialty", rateKey:"specialty", name:"Specialty", use:"Matte, satin or carbon-fibre textures" },
-        { key:"chrome", rateKey:"chrome", name:"Chrome / Colour-shift", use:"Mirror finish or colour-shifting pearl" },
+        {
+          key: "calendered",
+          rateKey: "calendered",
+          name: "Calendered",
+          use: "Economy — 3–5 yr wraps, budget-friendly",
+        },
+        {
+          key: "cast",
+          rateKey: "cast",
+          name: "Cast 3M / Avery",
+          use: "Premium — 5–7 yr, conforms to curves",
+        },
+        {
+          key: "specialty",
+          rateKey: "specialty",
+          name: "Specialty",
+          use: "Matte, satin or carbon-fibre textures",
+        },
+        {
+          key: "chrome",
+          rateKey: "chrome",
+          name: "Chrome / Colour-shift",
+          use: "Mirror finish or colour-shifting pearl",
+        },
       ];
 
       const FINISH_OPTIONS = [
-        { key:"gloss", label:"Gloss" },
-        { key:"satin", label:"Satin" },
-        { key:"matte", label:"Matte" },
-        { key:"metallic", label:"Metallic" },
-        { key:"chrome", label:"Chrome" },
-        { key:"shift", label:"Colour-shift" },
+        { key: "gloss", label: "Gloss" },
+        { key: "satin", label: "Satin" },
+        { key: "matte", label: "Matte" },
+        { key: "metallic", label: "Metallic" },
+        { key: "chrome", label: "Chrome" },
+        { key: "shift", label: "Colour-shift" },
       ];
       const CHROME_FILM_FINISHES = ["chrome", "shift"];
 
       const SWATCHES = [
-        { name:"Red", hex:"#d0061d" }, { name:"Black", hex:"#101114" }, { name:"White", hex:"#f4f5f7" },
-        { name:"Gunmetal", hex:"#4a4f57" }, { name:"Blue", hex:"#0d47a1" }, { name:"Teal", hex:"#00695c" },
-        { name:"Orange", hex:"#e65100" }, { name:"Lime", hex:"#9acd32" }, { name:"Purple", hex:"#4a148c" }, { name:"Gold", hex:"#c9a227" },
+        { name: "Red", hex: "#d0061d" },
+        { name: "Black", hex: "#101114" },
+        { name: "White", hex: "#f4f5f7" },
+        { name: "Gunmetal", hex: "#4a4f57" },
+        { name: "Blue", hex: "#0d47a1" },
+        { name: "Teal", hex: "#00695c" },
+        { name: "Orange", hex: "#e65100" },
+        { name: "Lime", hex: "#9acd32" },
+        { name: "Purple", hex: "#4a148c" },
+        { name: "Gold", hex: "#c9a227" },
       ];
 
       const COMPLEXITY_OPTIONS = [
-        { key:"simple", label:"Simple ×1", mult:1 },
-        { key:"moderate", label:"Moderate ×1.25", mult:1.25 },
-        { key:"complex", label:"Complex ×1.5", mult:1.5 },
+        { key: "simple", label: "Simple ×1", mult: 1 },
+        { key: "moderate", label: "Moderate ×1.25", mult: 1.25 },
+        { key: "complex", label: "Complex ×1.5", mult: 1.5 },
       ];
 
       const EXTRA_OPTIONS = [
-        { key:"removal", rateKey:"removal", name:"Old wrap removal", per:"order" },
-        { key:"perf", rateKey:"perf", name:"Window perforation", per:"order" },
-        { key:"design", rateKey:"design", name:"Design service", per:"order" },
+        {
+          key: "removal",
+          rateKey: "removal",
+          name: "Old wrap removal",
+          per: "order",
+        },
+        {
+          key: "perf",
+          rateKey: "perf",
+          name: "Window perforation",
+          per: "order",
+        },
+        {
+          key: "design",
+          rateKey: "design",
+          name: "Design service",
+          per: "order",
+        },
       ];
 
       const CONDITION_OPTIONS = [
-        { key:"good", label:"Good +0%", pct:0 },
-        { key:"fair", label:"Fair +10%", pct:0.10 },
-        { key:"poor", label:"Poor +20%", pct:0.20 },
+        { key: "good", label: "Good +0%", pct: 0 },
+        { key: "fair", label: "Fair +10%", pct: 0.1 },
+        { key: "poor", label: "Poor +20%", pct: 0.2 },
       ];
 
       /* =====================================================================
          STATE
       ===================================================================== */
       const state = {
-        year: null, make: "", model: "",
-        vehicleClass: "sedan", classSource: "auto",
-        panels: { front:false, hood:false, roof:false, sides:false, rear:false },
-        film: "calendered", finish: "gloss", colour: "#d0061d",
+        year: null,
+        make: "",
+        model: "",
+        vehicleClass: "sedan",
+        classSource: "auto",
+        panels: {
+          front: true,
+          hood: true,
+          roof: true,
+          sides: true,
+          rear: true,
+        },
+        film: "calendered",
+        finish: "gloss",
+        colour: "#d0061d",
         complexity: "simple",
-        extras: { removal:false, perf:false, design:false },
+        extras: { removal: false, perf: false, design: false },
         condition: "good",
       };
 
       let RATES = deepClone(DEFAULT_RATES);
 
-      function deepClone(o) { return JSON.parse(JSON.stringify(o)); }
+      function deepClone(o) {
+        return JSON.parse(JSON.stringify(o));
+      }
       const $ = (id) => document.getElementById(id);
-      const money = (n) => "$" + n.toLocaleString("en-CA", { minimumFractionDigits:2, maximumFractionDigits:2 });
-      const num = (v) => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
+      const money = (n) =>
+        "$" +
+        n.toLocaleString("en-CA", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+      const num = (v) => {
+        const n = parseFloat(v);
+        return isNaN(n) ? 0 : n;
+      };
 
       /* =====================================================================
          localStorage helpers
@@ -510,21 +1551,45 @@
             const parsed = JSON.parse(raw);
             RATES = deepClone(DEFAULT_RATES);
             Object.assign(RATES, parsed);
-            RATES.panelSqft = Object.assign({}, DEFAULT_RATES.panelSqft, parsed.panelSqft || {});
-            CLASS_ORDER.forEach((c) => { RATES.panelSqft[c] = Object.assign({}, DEFAULT_RATES.panelSqft[c], (parsed.panelSqft || {})[c] || {}); });
+            RATES.panelSqft = Object.assign(
+              {},
+              DEFAULT_RATES.panelSqft,
+              parsed.panelSqft || {},
+            );
+            CLASS_ORDER.forEach((c) => {
+              RATES.panelSqft[c] = Object.assign(
+                {},
+                DEFAULT_RATES.panelSqft[c],
+                (parsed.panelSqft || {})[c] || {},
+              );
+            });
           } else {
             RATES = deepClone(DEFAULT_RATES);
           }
-        } catch (e) { RATES = deepClone(DEFAULT_RATES); }
+        } catch (e) {
+          RATES = deepClone(DEFAULT_RATES);
+        }
       }
       function saveRates() {
-        try { localStorage.setItem("spn_wrap_rates_v1", JSON.stringify(RATES)); } catch (e) { /* private mode, ignore */ }
+        try {
+          localStorage.setItem("spn_wrap_rates_v1", JSON.stringify(RATES));
+        } catch (e) {
+          /* private mode, ignore */
+        }
       }
       function loadSavedQuotes() {
-        try { return JSON.parse(localStorage.getItem("spn_wrap_quotes_v1") || "[]"); } catch (e) { return []; }
+        try {
+          return JSON.parse(localStorage.getItem("spn_wrap_quotes_v1") || "[]");
+        } catch (e) {
+          return [];
+        }
       }
       function writeSavedQuotes(list) {
-        try { localStorage.setItem("spn_wrap_quotes_v1", JSON.stringify(list)); } catch (e) { /* ignore */ }
+        try {
+          localStorage.setItem("spn_wrap_quotes_v1", JSON.stringify(list));
+        } catch (e) {
+          /* ignore */
+        }
       }
 
       /* =====================================================================
@@ -532,9 +1597,24 @@
       ===================================================================== */
       function classifyModel(model) {
         const m = (model || "").toLowerCase();
-        if (/transit|sprinter|promaster|savana|express|caravan|sienna|odyssey|pacifica/.test(m)) return "van";
-        if (/f-?\d{3}|silverado|sierra|tundra|tacoma|ranger|colorado|frontier|titan|maverick|^1500|^2500/.test(m)) return "pickup";
-        if (/rav4|cr-?v|highlander|pilot|explorer|escape|equinox|tahoe|yukon|4runner|wrangler|rogue|cx-?\d|tucson|telluride|outback|forester|model [xy]|bronco/.test(m)) return "suv";
+        if (
+          /transit|sprinter|promaster|savana|express|caravan|sienna|odyssey|pacifica/.test(
+            m,
+          )
+        )
+          return "van";
+        if (
+          /f-?\d{3}|silverado|sierra|tundra|tacoma|ranger|colorado|frontier|titan|maverick|^1500|^2500/.test(
+            m,
+          )
+        )
+          return "pickup";
+        if (
+          /rav4|cr-?v|highlander|pilot|explorer|escape|equinox|tahoe|yukon|4runner|wrangler|rogue|cx-?\d|tucson|telluride|outback|forester|model [xy]|bronco/.test(
+            m,
+          )
+        )
+          return "suv";
         if (/box|cutaway|cab.?chassis|e-?\d{3}/.test(m)) return "box";
         return "sedan";
       }
@@ -543,9 +1623,69 @@
         const nextYear = new Date().getFullYear() + 1;
         const years = [];
         for (let y = nextYear; y >= 1995; y--) years.push(y);
-        $("selYear").innerHTML = years.map((y) => `<option value="${y}">${y}</option>`).join("");
-        $("selMake").innerHTML = `<option value="">—</option>` + MAKES.map((m) => `<option value="${m}">${m}</option>`).join("");
+        $("selYear").innerHTML = years
+          .map((y) => `<option value="${y}">${y}</option>`)
+          .join("");
+        $("selMake").innerHTML =
+          `<option value="">—</option>` +
+          MAKES.map((m) => `<option value="${m}">${m}</option>`).join("");
         state.year = years[0];
+        populateSearchList();
+      }
+
+      function populateSearchList() {
+        const labels = [];
+        MAKES.forEach((make) => {
+          (POPULAR_MODELS[make] || []).forEach((model) =>
+            labels.push(`${make} ${model}`),
+          );
+        });
+        $("vehicleSearchList").innerHTML = labels
+          .map((l) => `<option value="${l}"></option>`)
+          .join("");
+      }
+
+      // Quick-search box: user types/picks "Make Model" (or just a make).
+      // Resolves to the same Year/Make/Model dropdowns so the rest of the
+      // app (fetch, classify, sync3D) behaves exactly as if they'd used the
+      // dropdowns directly — the dropdowns remain the source of truth.
+      async function onVehicleSearch() {
+        const raw = $("vehicleSearch").value.trim();
+        if (!raw) return;
+        const makeMatch = MAKES.slice()
+          .sort((a, b) => b.length - a.length) // longest first so "Mercedes-Benz" wins over any shorter prefix clash
+          .find((m) => raw.toLowerCase().startsWith(m.toLowerCase()));
+        if (!makeMatch) {
+          $("searchHint").textContent =
+            `Couldn't match "${raw}" to a make — try the dropdowns below.`;
+          return;
+        }
+        const modelText = raw.slice(makeMatch.length).trim();
+        $("selMake").value = makeMatch;
+        $("searchHint").textContent = "Loading models…";
+        await onYearMakeChange();
+        if (!modelText) {
+          $("searchHint").textContent =
+            `Matched make: ${makeMatch}. Pick a model below.`;
+          return;
+        }
+        const options = Array.from($("selModel").options);
+        const found =
+          options.find(
+            (o) => o.value.toLowerCase() === modelText.toLowerCase(),
+          ) ||
+          options.find((o) =>
+            o.value.toLowerCase().includes(modelText.toLowerCase()),
+          );
+        if (found) {
+          $("selModel").value = found.value;
+          onModelChange();
+          $("searchHint").textContent =
+            `Matched: ${makeMatch} ${found.value} (${state.year}).`;
+        } else {
+          $("searchHint").textContent =
+            `Matched make: ${makeMatch}. No "${modelText}" in ${state.year} — pick a model below or try another year.`;
+        }
       }
 
       let modelFetchToken = 0;
@@ -554,7 +1694,10 @@
         state.make = $("selMake").value;
         state.model = "";
         $("selModel").innerHTML = `<option value="">—</option>`;
-        if (!state.make) { $("modelHint").textContent = ""; return; }
+        if (!state.make) {
+          $("modelHint").textContent = "";
+          return;
+        }
         const myToken = ++modelFetchToken;
         $("modelHint").textContent = "Loading models…";
         $("selModel").disabled = true;
@@ -565,18 +1708,25 @@
           const data = await res.json();
           if (myToken !== modelFetchToken) return; // a newer request superseded this one
           const wanted = state.make.toUpperCase();
-          const names = Array.from(new Set(
-            (data.Results || [])
-              .filter((r) => r.Make_Name && r.Make_Name.toUpperCase() === wanted)
-              .map((r) => r.Model_Name)
-          )).sort();
+          const names = Array.from(
+            new Set(
+              (data.Results || [])
+                .filter(
+                  (r) => r.Make_Name && r.Make_Name.toUpperCase() === wanted,
+                )
+                .map((r) => r.Model_Name),
+            ),
+          ).sort();
           $("selModel").disabled = false;
           if (!names.length) {
-            $("modelHint").textContent = "No models found for that year/make — pick vehicle type below.";
+            $("modelHint").textContent =
+              "No models found for that year/make — pick vehicle type below.";
             $("selModel").innerHTML = `<option value="">—</option>`;
             return;
           }
-          $("selModel").innerHTML = `<option value="">Choose a model…</option>` + names.map((n) => `<option value="${n}">${n}</option>`).join("");
+          $("selModel").innerHTML =
+            `<option value="">Choose a model…</option>` +
+            names.map((n) => `<option value="${n}">${n}</option>`).join("");
           $("modelHint").textContent = "";
         } catch (err) {
           if (myToken !== modelFetchToken) return;
@@ -607,11 +1757,14 @@
       }
 
       function renderClassChips() {
-        $("classChips").innerHTML = CLASS_ORDER.map((c) =>
-          `<button class="chip ${c === state.vehicleClass ? "on" : ""}" onclick="setClassManual('${c}')">${CLASS_LABELS[c]}</button>`
+        $("classChips").innerHTML = CLASS_ORDER.map(
+          (c) =>
+            `<button class="chip ${c === state.vehicleClass ? "on" : ""}" onclick="setClassManual('${c}')">${CLASS_LABELS[c]}</button>`,
         ).join("");
-        const src = state.classSource === "auto" ? "Auto-detected" : "Manually selected";
-        $("classHint").textContent = `${src}: ${CLASS_LABELS[state.vehicleClass]}`;
+        const src =
+          state.classSource === "auto" ? "Auto-detected" : "Manually selected";
+        $("classHint").textContent =
+          `${src}: ${CLASS_LABELS[state.vehicleClass]}`;
       }
 
       /* =====================================================================
@@ -626,9 +1779,16 @@
       window.SPNTogglePanel = togglePanel;
 
       function setCoverage(mode) {
-        if (mode === "full") PANEL_ORDER.forEach((k) => (state.panels[k] = true));
-        else if (mode === "half") { state.panels.hood = true; state.panels.sides = true; state.panels.rear = true; state.panels.front = false; state.panels.roof = false; }
-        else if (mode === "clear") PANEL_ORDER.forEach((k) => (state.panels[k] = false));
+        if (mode === "full")
+          PANEL_ORDER.forEach((k) => (state.panels[k] = true));
+        else if (mode === "half") {
+          state.panels.hood = true;
+          state.panels.sides = true;
+          state.panels.rear = true;
+          state.panels.front = false;
+          state.panels.roof = false;
+        } else if (mode === "clear")
+          PANEL_ORDER.forEach((k) => (state.panels[k] = false));
         renderPanelList();
         sync3D();
         renderMathAndBar();
@@ -636,13 +1796,15 @@
 
       function renderPanelList() {
         const table = RATES.panelSqft[state.vehicleClass];
-        $("panelList").innerHTML = PANEL_ORDER.map((k) => `
+        $("panelList").innerHTML = PANEL_ORDER.map(
+          (k) => `
           <div class="addon ${state.panels[k] ? "on" : ""}" onclick="SPNTogglePanel('${k}')">
             <div class="a-left"><div class="a-check">${state.panels[k] ? "&#10003;" : ""}</div>
               <div><div class="a-name">${PANEL_LABELS[k]}</div><div class="a-per">wrappable panel</div></div>
             </div>
             <div class="a-price">${table[k]} sq ft</div>
-          </div>`).join("");
+          </div>`,
+        ).join("");
       }
 
       /* =====================================================================
@@ -650,14 +1812,16 @@
       ===================================================================== */
       function setFilm(key) {
         state.film = key;
-        if (key === "chrome" && !CHROME_FILM_FINISHES.includes(state.finish)) state.finish = "chrome";
+        if (key === "chrome" && !CHROME_FILM_FINISHES.includes(state.finish))
+          state.finish = "chrome";
         renderFilmList();
         renderFinishRow();
         sync3D();
         renderMathAndBar();
       }
       function setFinish(key) {
-        if (state.film === "chrome" && !CHROME_FILM_FINISHES.includes(key)) return;
+        if (state.film === "chrome" && !CHROME_FILM_FINISHES.includes(key))
+          return;
         state.finish = key;
         renderFinishRow();
         sync3D();
@@ -676,27 +1840,32 @@
       }
 
       function renderFilmList() {
-        $("filmList").innerHTML = FILM_OPTIONS.map((f) => `
+        $("filmList").innerHTML = FILM_OPTIONS.map(
+          (f) => `
           <button class="mat-card ${state.film === f.key ? "on" : ""}" onclick="setFilm('${f.key}')">
             <div class="m-name">${f.name}</div>
             <div class="m-use">${f.use}</div>
             <div class="m-rate">$${RATES[f.rateKey]} /sq ft</div>
-          </button>`).join("");
+          </button>`,
+        ).join("");
       }
       function renderSwatchRow() {
-        $("swatchRow").innerHTML = SWATCHES.map((s) =>
-          `<button class="swatch ${state.colour === s.hex ? "on" : ""}" style="background:${s.hex}" title="${s.name}" onclick="setColour('${s.hex}')"></button>`
+        $("swatchRow").innerHTML = SWATCHES.map(
+          (s) =>
+            `<button class="swatch ${state.colour === s.hex ? "on" : ""}" style="background:${s.hex}" title="${s.name}" onclick="setColour('${s.hex}')"></button>`,
         ).join("");
       }
       function renderFinishRow() {
         $("finishRow").innerHTML = FINISH_OPTIONS.map((f) => {
-          const disabled = state.film === "chrome" && !CHROME_FILM_FINISHES.includes(f.key);
+          const disabled =
+            state.film === "chrome" && !CHROME_FILM_FINISHES.includes(f.key);
           return `<button class="chip ${state.finish === f.key ? "on" : ""}" ${disabled ? "disabled" : ""} onclick="setFinish('${f.key}')">${f.label}</button>`;
         }).join("");
       }
       function renderComplexityChips() {
-        $("complexityChips").innerHTML = COMPLEXITY_OPTIONS.map((c) =>
-          `<button class="chip ${state.complexity === c.key ? "on" : ""}" onclick="setComplexity('${c.key}')">${c.label}</button>`
+        $("complexityChips").innerHTML = COMPLEXITY_OPTIONS.map(
+          (c) =>
+            `<button class="chip ${state.complexity === c.key ? "on" : ""}" onclick="setComplexity('${c.key}')">${c.label}</button>`,
         ).join("");
       }
 
@@ -714,17 +1883,20 @@
         renderMathAndBar();
       }
       function renderExtrasList() {
-        $("extrasList").innerHTML = EXTRA_OPTIONS.map((a) => `
+        $("extrasList").innerHTML = EXTRA_OPTIONS.map(
+          (a) => `
           <div class="addon ${state.extras[a.key] ? "on" : ""}" onclick="toggleExtra('${a.key}')">
             <div class="a-left"><div class="a-check">${state.extras[a.key] ? "&#10003;" : ""}</div>
               <div><div class="a-name">${a.name}</div><div class="a-per">per order</div></div>
             </div>
             <div class="a-price">+${money(RATES[a.rateKey])}</div>
-          </div>`).join("");
+          </div>`,
+        ).join("");
       }
       function renderConditionChips() {
-        $("conditionChips").innerHTML = CONDITION_OPTIONS.map((c) =>
-          `<button class="chip ${state.condition === c.key ? "on" : ""}" onclick="setCondition('${c.key}')">${c.label}</button>`
+        $("conditionChips").innerHTML = CONDITION_OPTIONS.map(
+          (c) =>
+            `<button class="chip ${state.condition === c.key ? "on" : ""}" onclick="setCondition('${c.key}')">${c.label}</button>`,
         ).join("");
       }
 
@@ -735,17 +1907,26 @@
         const table = RATES.panelSqft[state.vehicleClass];
         const selectedKeys = PANEL_ORDER.filter((k) => state.panels[k]);
         const baseSqft = selectedKeys.reduce((s, k) => s + (table[k] || 0), 0);
-        const totalClassSqft = PANEL_ORDER.reduce((s, k) => s + (table[k] || 0), 0);
-        const coveragePct = totalClassSqft ? (baseSqft / totalClassSqft) * 100 : 0;
+        const totalClassSqft = PANEL_ORDER.reduce(
+          (s, k) => s + (table[k] || 0),
+          0,
+        );
+        const coveragePct = totalClassSqft
+          ? (baseSqft / totalClassSqft) * 100
+          : 0;
         const wasteSqft = baseSqft * RATES.waste;
 
         const filmOpt = FILM_OPTIONS.find((f) => f.key === state.film);
         const filmRate = RATES[filmOpt.rateKey];
-        const complexityOpt = COMPLEXITY_OPTIONS.find((c) => c.key === state.complexity);
+        const complexityOpt = COMPLEXITY_OPTIONS.find(
+          (c) => c.key === state.complexity,
+        );
         const complexityMult = complexityOpt.mult;
 
         const wrapBeforeCondition = wasteSqft * filmRate * complexityMult;
-        const conditionOpt = CONDITION_OPTIONS.find((c) => c.key === state.condition);
+        const conditionOpt = CONDITION_OPTIONS.find(
+          (c) => c.key === state.condition,
+        );
         const conditionPct = conditionOpt.pct;
         const conditionAmt = wrapBeforeCondition * conditionPct;
         const wrapCost = wrapBeforeCondition + conditionAmt;
@@ -760,20 +1941,40 @@
 
         let subtotal = wrapCost + extrasAmt;
         let minApplied = false;
-        if (subtotal > 0 && subtotal < RATES.minOrder) { subtotal = RATES.minOrder; minApplied = true; }
+        if (subtotal > 0 && subtotal < RATES.minOrder) {
+          subtotal = RATES.minOrder;
+          minApplied = true;
+        }
         const tax = (subtotal * RATES.hst) / 100;
         const total = subtotal + tax;
 
         return {
-          selectedKeys, baseSqft, totalClassSqft, coveragePct, wasteSqft,
-          filmOpt, filmRate, complexityOpt, complexityMult,
-          wrapBeforeCondition, conditionOpt, conditionPct, conditionAmt, wrapCost,
-          extraLines, extrasAmt, subtotal, tax, total, minApplied,
+          selectedKeys,
+          baseSqft,
+          totalClassSqft,
+          coveragePct,
+          wasteSqft,
+          filmOpt,
+          filmRate,
+          complexityOpt,
+          complexityMult,
+          wrapBeforeCondition,
+          conditionOpt,
+          conditionPct,
+          conditionAmt,
+          wrapCost,
+          extraLines,
+          extrasAmt,
+          subtotal,
+          tax,
+          total,
+          minApplied,
         };
       }
 
       function vehicleLabel() {
-        if (state.year && state.make && state.model) return `${state.year} ${state.make} ${state.model}`;
+        if (state.year && state.make && state.model)
+          return `${state.year} ${state.make} ${state.model}`;
         return CLASS_LABELS[state.vehicleClass];
       }
 
@@ -787,9 +1988,12 @@
           `<b>${c.baseSqft.toFixed(1)} sq ft</b> selected × <b>${RATES.waste}</b> waste = <b>${c.wasteSqft.toFixed(1)} sq ft</b>` +
           ` × <b>${money(c.filmRate)}</b>/sq ft (${c.filmOpt.name}) × <b>${c.complexityMult}</b> (${c.complexityOpt.label.split(" ")[0]})` +
           ` = <b>${money(c.wrapBeforeCondition)}</b>`;
-        if (c.conditionAmt > 0) mathStr += ` + condition adj. <b>${money(c.conditionAmt)}</b>`;
-        if (c.extrasAmt > 0) mathStr += ` + extras <b>${money(c.extrasAmt)}</b>`;
-        if (c.minApplied) mathStr += ` &nbsp;→ min. charge <b>${money(c.subtotal)}</b>`;
+        if (c.conditionAmt > 0)
+          mathStr += ` + condition adj. <b>${money(c.conditionAmt)}</b>`;
+        if (c.extrasAmt > 0)
+          mathStr += ` + extras <b>${money(c.extrasAmt)}</b>`;
+        if (c.minApplied)
+          mathStr += ` &nbsp;→ min. charge <b>${money(c.subtotal)}</b>`;
         mathStr += ` &nbsp;+ HST ${RATES.hst}% = <b>${money(c.total)}</b>`;
         $("mathLine").innerHTML = mathStr;
 
@@ -830,7 +2034,9 @@
       window.SPNSetView = function (preset) {
         if (window.SPN3D && window.SPN3D.ready) window.SPN3D.setView(preset);
       };
-      window.SPNGetClass = function () { return state.vehicleClass; };
+      window.SPNGetClass = function () {
+        return state.vehicleClass;
+      };
       // Called by the module once Three.js has successfully initialized.
       window.SPNOnReady = function () {
         $("viewBtns").style.display = "flex";
@@ -841,25 +2047,97 @@
       /* =====================================================================
          2D FALLBACK (always available, works even with no WebGL at all)
       ===================================================================== */
+      // Each class is built from shapes that share exact edge coordinates with
+      // their neighbours (rear ↔ sides ↔ hood ↔ front along the bottom,
+      // sides ↔ glass ↔ roof stacked at the top) so the side-view reads as
+      // one continuous car body instead of floating blocks. "glass" is a
+      // decorative, non-clickable dark panel (matches the 3D model's
+      // non-wrappable windows); the other five keys are the real wrap panels.
       const FALLBACK_SHAPES = {
-        sedan:  { body:{x:30,y:125,w:330,h:45}, rear:{x:15,y:100,w:45,h:25}, front:{x:345,y:110,w:25,h:55}, hood:{x:290,y:100,w:60,h:22}, roof:{x:150,y:65,w:140,h:38}, wheels:[110,290] },
-        suv:    { body:{x:25,y:115,w:340,h:55}, rear:{x:10,y:85,w:45,h:48}, front:{x:345,y:95,w:25,h:68}, hood:{x:290,y:95,w:55,h:20}, roof:{x:140,y:55,w:155,h:42}, wheels:[105,295] },
-        pickup: { body:{x:20,y:120,w:340,h:45}, rear:{x:15,y:100,w:40,h:20}, front:{x:345,y:105,w:25,h:60}, hood:{x:290,y:100,w:55,h:22}, roof:{x:205,y:65,w:95,h:38}, wheels:[95,300] },
-        van:    { body:{x:90,y:90,w:270,h:70}, rear:{x:75,y:70,w:25,h:95}, front:{x:350,y:110,w:20,h:50}, hood:{x:330,y:115,w:25,h:18}, roof:{x:100,y:55,w:250,h:35}, wheels:[140,320] },
-        box:    { body:{x:140,y:70,w:220,h:90}, rear:{x:125,y:60,w:20,h:105}, front:{x:365,y:110,w:20,h:55}, hood:{x:330,y:118,w:35,h:18}, roof:{x:145,y:55,w:210,h:18}, wheels:[180,260,340] },
+        sedan: {
+          rear: { poly: "20,170 20,136 70,118 70,170" },
+          sides: { rect: { x: 70, y: 118, w: 200, h: 52 } },
+          hood: { poly: "330,170 330,142 270,118 270,170" },
+          front: { rect: { x: 330, y: 142, w: 50, h: 28 } },
+          roof: { rect: { x: 95, y: 58, w: 150, h: 18 } },
+          glass: { poly: "70,118 95,76 245,76 270,118" },
+          wheels: [110, 300],
+          span: [20, 380],
+        },
+        suv: {
+          rear: { poly: "15,172 15,118 55,108 55,172" },
+          sides: { rect: { x: 55, y: 108, w: 230, h: 64 } },
+          hood: { poly: "335,172 335,136 285,108 285,172" },
+          front: { rect: { x: 335, y: 136, w: 50, h: 36 } },
+          roof: { rect: { x: 78, y: 46, w: 172, h: 18 } },
+          glass: { poly: "55,108 78,64 250,64 285,108" },
+          wheels: [105, 300],
+          span: [15, 385],
+        },
+        pickup: {
+          rear: { rect: { x: 15, y: 148, w: 25, h: 22 } },
+          sides: { poly: "40,170 40,148 185,148 185,112 265,112 265,170" },
+          hood: { poly: "320,170 320,140 265,112 265,170" },
+          front: { rect: { x: 320, y: 140, w: 65, h: 30 } },
+          roof: { rect: { x: 205, y: 52, w: 45, h: 18 } },
+          glass: { poly: "185,112 205,70 250,70 265,112" },
+          wheels: [95, 300],
+          span: [15, 385],
+        },
+        van: {
+          rear: { poly: "65,172 65,104 95,100 95,172" },
+          sides: { rect: { x: 95, y: 100, w: 230, h: 72 } },
+          hood: { poly: "355,172 355,140 325,100 325,172" },
+          front: { rect: { x: 355, y: 140, w: 30, h: 32 } },
+          roof: { rect: { x: 115, y: 44, w: 185, h: 14 } },
+          glass: { poly: "95,100 115,58 300,58 325,100" },
+          wheels: [145, 320],
+          span: [65, 385],
+        },
+        box: {
+          rear: { rect: { x: 15, y: 60, w: 30, h: 112 } },
+          sides: { poly: "45,172 45,60 255,60 255,112 300,112 300,172" },
+          hood: { poly: "335,172 335,140 300,112 300,172" },
+          front: { rect: { x: 335, y: 140, w: 40, h: 32 } },
+          roof: { rect: { x: 45, y: 48, w: 210, h: 12 } },
+          glass: { poly: "255,112 263,68 292,68 300,112" },
+          wheels: [130, 175, 345],
+          span: [15, 375],
+        },
       };
-      function fallbackFill(key) { return state.panels[key] ? state.colour : "#c9ccd2"; }
+      const FALLBACK_PANEL_KEYS = ["rear", "sides", "hood", "front", "roof"];
+      function fallbackFill(key) {
+        return state.panels[key] ? state.colour : "#c9ccd2";
+      }
+      function shapeEl(shape, extraAttrs) {
+        return shape.poly
+          ? `<polygon points="${shape.poly}" ${extraAttrs}/>`
+          : `<rect x="${shape.rect.x}" y="${shape.rect.y}" width="${shape.rect.w}" height="${shape.rect.h}" ${extraAttrs}/>`;
+      }
       function buildFallbackSvg() {
         const s = FALLBACK_SHAPES[state.vehicleClass];
-        const wheels = s.wheels.map((cx) => `<circle cx="${cx}" cy="176" r="20" fill="#2a2c30" stroke="#111" stroke-width="1"/><circle cx="${cx}" cy="176" r="8" fill="#8a8f96"/>`).join("");
-        $("viewerFallback").innerHTML = `<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        const [spanMin, spanMax] = s.span;
+        const shadowCx = (spanMin + spanMax) / 2;
+        const shadowRx = ((spanMax - spanMin) / 2) * 0.94;
+        const panels = FALLBACK_PANEL_KEYS.map((key) =>
+          shapeEl(
+            s[key],
+            `class="fb-panel" data-panel="${key}" fill="${fallbackFill(key)}" onclick="SPNTogglePanel('${key}')"`,
+          ),
+        ).join("\n          ");
+        const glass = shapeEl(s.glass, `class="fb-glass" fill="#33383f"`);
+        const wheels = s.wheels
+          .map(
+            (cx) =>
+              `<circle class="fb-wheel" cx="${cx}" cy="176" r="20" fill="#2a2c30" stroke="#111" stroke-width="1"/><circle class="fb-wheel" cx="${cx}" cy="176" r="8" fill="#8a8f96"/>`,
+          )
+          .join("");
+        $("viewerFallback").innerHTML =
+          `<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
           <rect x="0" y="0" width="400" height="210" fill="#eef0f3"/>
-          <rect class="fb-panel" data-panel="sides" x="${s.body.x}" y="${s.body.y}" width="${s.body.w}" height="${s.body.h}" rx="6" fill="${fallbackFill("sides")}" onclick="SPNTogglePanel('sides')"/>
-          <rect class="fb-panel" data-panel="rear" x="${s.rear.x}" y="${s.rear.y}" width="${s.rear.w}" height="${s.rear.h}" rx="5" fill="${fallbackFill("rear")}" onclick="SPNTogglePanel('rear')"/>
-          <rect class="fb-panel" data-panel="front" x="${s.front.x}" y="${s.front.y}" width="${s.front.w}" height="${s.front.h}" rx="5" fill="${fallbackFill("front")}" onclick="SPNTogglePanel('front')"/>
-          <rect class="fb-panel" data-panel="hood" x="${s.hood.x}" y="${s.hood.y}" width="${s.hood.w}" height="${s.hood.h}" rx="4" fill="${fallbackFill("hood")}" onclick="SPNTogglePanel('hood')"/>
-          <rect class="fb-panel" data-panel="roof" x="${s.roof.x}" y="${s.roof.y}" width="${s.roof.w}" height="${s.roof.h}" rx="8" fill="${fallbackFill("roof")}" onclick="SPNTogglePanel('roof')"/>
-          <rect x="${s.roof.x + 14}" y="${s.roof.y + s.roof.h - 6}" width="${Math.max(0, s.roof.w - 28)}" height="10" fill="#14181c" opacity="0.85"/>
+          <ellipse cx="${shadowCx}" cy="198" rx="${shadowRx}" ry="7" fill="#000" opacity="0.1"/>
+          ${panels}
+          ${glass}
           ${wheels}
           <line x1="0" y1="196" x2="400" y2="196" stroke="#c7cad0" stroke-width="2"/>
         </svg>`;
@@ -871,7 +2149,18 @@
       /* =====================================================================
          SETTINGS DRAWER (rates)
       ===================================================================== */
-      const RATE_FIELD_IDS = { calendered:"r_calendered", cast:"r_cast", specialty:"r_specialty", chrome:"r_chrome", removal:"r_removal", perf:"r_perf", design:"r_design", minOrder:"r_minOrder", hst:"r_hst", waste:"r_waste" };
+      const RATE_FIELD_IDS = {
+        calendered: "r_calendered",
+        cast: "r_cast",
+        specialty: "r_specialty",
+        chrome: "r_chrome",
+        removal: "r_removal",
+        perf: "r_perf",
+        design: "r_design",
+        minOrder: "r_minOrder",
+        hst: "r_hst",
+        waste: "r_waste",
+      };
       function bindRateFields() {
         Object.keys(RATE_FIELD_IDS).forEach((key) => {
           const el = $(RATE_FIELD_IDS[key]);
@@ -884,11 +2173,13 @@
         });
       }
       function renderSqftTable() {
-        $("sqftTableBody").innerHTML = CLASS_ORDER.map((c) => `
+        $("sqftTableBody").innerHTML = CLASS_ORDER.map(
+          (c) => `
           <tr>
             <td>${CLASS_LABELS[c]}</td>
             ${PANEL_ORDER.map((p) => `<td><input type="number" min="0" step="1" value="${RATES.panelSqft[c][p]}" oninput="onSqftEdit('${c}','${p}',this.value)"/></td>`).join("")}
-          </tr>`).join("");
+          </tr>`,
+        ).join("");
       }
       function onSqftEdit(cls, panel, val) {
         RATES.panelSqft[cls][panel] = num(val);
@@ -911,10 +2202,17 @@
         const c = calc();
         const list = loadSavedQuotes();
         list.unshift({
-          ts: Date.now(), vehicleName: vehicleLabel(), vehicleClass: state.vehicleClass,
-          panels: Object.assign({}, state.panels), film: state.film, finish: state.finish,
-          colour: state.colour, complexity: state.complexity, extras: Object.assign({}, state.extras),
-          condition: state.condition, total: c.total,
+          ts: Date.now(),
+          vehicleName: vehicleLabel(),
+          vehicleClass: state.vehicleClass,
+          panels: Object.assign({}, state.panels),
+          film: state.film,
+          finish: state.finish,
+          colour: state.colour,
+          complexity: state.complexity,
+          extras: Object.assign({}, state.extras),
+          condition: state.condition,
+          total: c.total,
         });
         writeSavedQuotes(list.slice(0, 25));
         renderSavedQuotes();
@@ -926,12 +2224,18 @@
         if (!q) return;
         state.vehicleClass = q.vehicleClass || "sedan";
         state.classSource = "manual";
-        state.panels = Object.assign({ front:false, hood:false, roof:false, sides:false, rear:false }, q.panels);
+        state.panels = Object.assign(
+          { front: false, hood: false, roof: false, sides: false, rear: false },
+          q.panels,
+        );
         state.film = q.film || "calendered";
         state.finish = q.finish || "gloss";
         state.colour = q.colour || "#d0061d";
         state.complexity = q.complexity || "simple";
-        state.extras = Object.assign({ removal:false, perf:false, design:false }, q.extras);
+        state.extras = Object.assign(
+          { removal: false, perf: false, design: false },
+          q.extras,
+        );
         state.condition = q.condition || "good";
         fullRerender();
       }
@@ -944,8 +2248,14 @@
       }
       function renderSavedQuotes() {
         const list = loadSavedQuotes();
-        if (!list.length) { $("savedList").innerHTML = `<p class="empty-note">No saved quotes yet — tap "Save quote" in the bottom bar.</p>`; return; }
-        $("savedList").innerHTML = list.map((q, i) => `
+        if (!list.length) {
+          $("savedList").innerHTML =
+            `<p class="empty-note">No saved quotes yet — tap "Save quote" in the bottom bar.</p>`;
+          return;
+        }
+        $("savedList").innerHTML = list
+          .map(
+            (q, i) => `
           <div class="saved-item" onclick="loadQuote(${i})">
             <div>
               <div class="sv-name">${q.vehicleName}</div>
@@ -955,7 +2265,9 @@
               <span class="sv-total">${money(q.total)}</span>
               <span class="sv-x" onclick="deleteQuote(${i}, event)">&#10005;</span>
             </div>
-          </div>`).join("");
+          </div>`,
+          )
+          .join("");
       }
 
       /* =====================================================================
@@ -964,7 +2276,8 @@
       function togglePreview() {
         const q = $("quotePage");
         q.classList.toggle("show");
-        if (q.classList.contains("show")) q.scrollIntoView({ behavior:"smooth" });
+        if (q.classList.contains("show"))
+          q.scrollIntoView({ behavior: "smooth" });
       }
       function downloadPDF() {
         $("quotePage").classList.add("show");
@@ -974,34 +2287,74 @@
       function renderEstimate(c) {
         c = c || calc();
         const today = new Date();
-        $("pDate").textContent = today.toLocaleDateString("en-CA", { year:"numeric", month:"short", day:"numeric" });
-        $("pQuoteNum").textContent = $("quoteNum").value ||
-          "SPN-" + today.getFullYear() + String(today.getMonth() + 1).padStart(2, "0") + String(today.getDate()).padStart(2, "0") + "-01";
+        $("pDate").textContent = today.toLocaleDateString("en-CA", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+        $("pQuoteNum").textContent =
+          $("quoteNum").value ||
+          "SPN-" +
+            today.getFullYear() +
+            String(today.getMonth() + 1).padStart(2, "0") +
+            String(today.getDate()).padStart(2, "0") +
+            "-01";
 
         $("pCustName").textContent = $("custName").value || "Customer name";
         $("pCustCompany").textContent = $("custCompany").value;
         $("pCustEmail").textContent = $("custEmail").value;
         $("pCustPhone").textContent = $("custPhone").value;
-        $("pPreparedBy").textContent = ($("preparedBy").value ? $("preparedBy").value + " — " : "") + "SpeedPro Niagara / date";
+        $("pPreparedBy").textContent =
+          ($("preparedBy").value ? $("preparedBy").value + " — " : "") +
+          "SpeedPro Niagara / date";
 
-        const finishLabel = FINISH_OPTIONS.find((f) => f.key === state.finish).label;
+        const finishLabel = FINISH_OPTIONS.find(
+          (f) => f.key === state.finish,
+        ).label;
         const swatch = SWATCHES.find((s) => s.hex === state.colour);
         const colourLabel = swatch ? swatch.name : state.colour;
-        const panelNames = c.selectedKeys.length ? c.selectedKeys.map((k) => PANEL_LABELS[k]).join(", ") : "none selected";
+        const panelNames = c.selectedKeys.length
+          ? c.selectedKeys.map((k) => PANEL_LABELS[k]).join(", ")
+          : "none selected";
 
-        const lines = [{
-          main: "Vehicle wrap — " + vehicleLabel(),
-          sub: `${c.filmOpt.name} · ${finishLabel} · ${colourLabel} · ${c.complexityOpt.label} · Panels: ${panelNames}`,
-          area: `${c.wasteSqft.toFixed(1)} sq ft (${c.coveragePct.toFixed(0)}% coverage)`,
-          qty: 1, rate: money(c.filmRate) + "/sq ft × " + c.complexityMult, amount: c.wrapBeforeCondition,
-        }];
-        if (c.conditionAmt > 0) lines.push({ main:`Surface condition adjustment (${c.conditionOpt.label})`, sub:"", area:"—", qty:1, rate:(c.conditionPct * 100) + "%", amount:c.conditionAmt });
-        c.extraLines.forEach((e) => lines.push({ main:e.name, sub:"", area:"—", qty:1, rate:money(e.amt), amount:e.amt }));
+        const lines = [
+          {
+            main: "Vehicle wrap — " + vehicleLabel(),
+            sub: `${c.filmOpt.name} · ${finishLabel} · ${colourLabel} · ${c.complexityOpt.label} · Panels: ${panelNames}`,
+            area: `${c.wasteSqft.toFixed(1)} sq ft (${c.coveragePct.toFixed(0)}% coverage)`,
+            qty: 1,
+            rate: money(c.filmRate) + "/sq ft × " + c.complexityMult,
+            amount: c.wrapBeforeCondition,
+          },
+        ];
+        if (c.conditionAmt > 0)
+          lines.push({
+            main: `Surface condition adjustment (${c.conditionOpt.label})`,
+            sub: "",
+            area: "—",
+            qty: 1,
+            rate: c.conditionPct * 100 + "%",
+            amount: c.conditionAmt,
+          });
+        c.extraLines.forEach((e) =>
+          lines.push({
+            main: e.name,
+            sub: "",
+            area: "—",
+            qty: 1,
+            rate: money(e.amt),
+            amount: e.amt,
+          }),
+        );
 
-        $("pLines").innerHTML = lines.map((l) => `
+        $("pLines").innerHTML = lines
+          .map(
+            (l) => `
           <tr><td><div class="desc-main">${l.main}</div>${l.sub ? `<div class="desc-sub">${l.sub}</div>` : ""}</td>
           <td class="num">${l.area}</td><td class="num">${l.qty}</td><td class="num">${l.rate}</td>
-          <td class="num"><b>${money(l.amount)}</b></td></tr>`).join("");
+          <td class="num"><b>${money(l.amount)}</b></td></tr>`,
+          )
+          .join("");
 
         $("pSubtotal").textContent = money(c.subtotal);
         $("pTaxLabel").textContent = `HST (${RATES.hst}%)`;
@@ -1063,7 +2416,9 @@
           try {
             const c = document.createElement("canvas");
             return !!(window.WebGL2RenderingContext && c.getContext("webgl2"));
-          } catch (e) { return false; }
+          } catch (e) {
+            return false;
+          }
         }
 
         async function start() {
@@ -1072,25 +2427,38 @@
           try {
             if (!hasWebGL2()) throw new Error("WebGL2 not available");
             const THREE = await import("three");
-            const { OrbitControls } = await import("three/addons/controls/OrbitControls.js");
-            const { RoomEnvironment } = await import("three/addons/environments/RoomEnvironment.js");
-            init(THREE, OrbitControls, RoomEnvironment);
+            const { OrbitControls } =
+              await import("three/addons/controls/OrbitControls.js");
+            const { RoomEnvironment } =
+              await import("three/addons/environments/RoomEnvironment.js");
+            const { RoundedBoxGeometry } =
+              await import("three/addons/geometries/RoundedBoxGeometry.js");
+            init(THREE, OrbitControls, RoomEnvironment, RoundedBoxGeometry);
           } catch (err) {
             console.warn("3D viewer unavailable, using 2D fallback:", err);
-            // canvas stays hidden; #viewerFallback (already rendered by classic script) remains visible.
           }
         }
 
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((en) => { if (en.isIntersecting) start(); });
-        }, { threshold: 0.15 });
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((en) => {
+              if (en.isIntersecting) start();
+            });
+          },
+          { threshold: 0.15 },
+        );
         io.observe(wrapEl);
-        wrapEl.addEventListener("pointerdown", start, { once:true });
+        wrapEl.addEventListener("pointerdown", start, { once: true });
 
-        function init(THREE, OrbitControls, RoomEnvironment) {
+        function init(
+          THREE,
+          OrbitControls,
+          RoomEnvironment,
+          RoundedBoxGeometry,
+        ) {
           let renderer;
           try {
-            renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
+            renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
           } catch (e) {
             console.warn("Renderer creation failed, using 2D fallback:", e);
             return;
@@ -1104,10 +2472,12 @@
           renderer.outputColorSpace = THREE.SRGBColorSpace;
 
           const pmrem = new THREE.PMREMGenerator(renderer);
-          scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+          scene.environment = pmrem.fromScene(
+            new RoomEnvironment(),
+            0.04,
+          ).texture;
 
-          const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
-          scene.add(hemi);
+          scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 0.6));
           const dir = new THREE.DirectionalLight(0xffffff, 1.1);
           dir.position.set(4, 6, 3);
           scene.add(dir);
@@ -1119,176 +2489,599 @@
           controls.enableDamping = true;
           controls.dampingFactor = 0.08;
           controls.minDistance = 2.5;
-          controls.maxDistance = 14;
+          controls.maxDistance = 16;
           controls.maxPolarAngle = Math.PI * 0.49;
           controls.autoRotate = true;
           controls.autoRotateSpeed = 1.1;
-          controls.target.set(0, 0.6, 0);
-          controls.addEventListener("start", () => { controls.autoRotate = false; });
+          controls.target.set(0, 0.7, 0);
+          controls.addEventListener("start", () => {
+            controls.autoRotate = false;
+          });
 
           const ground = new THREE.Mesh(
-            new THREE.CircleGeometry(2.6, 40),
-            new THREE.MeshBasicMaterial({ color:0x000000, transparent:true, opacity:0.16 })
+            new THREE.CircleGeometry(3.0, 40),
+            new THREE.MeshBasicMaterial({
+              color: 0x000000,
+              transparent: true,
+              opacity: 0.16,
+            }),
           );
           ground.rotation.x = -Math.PI / 2;
           ground.position.y = 0.001;
           scene.add(ground);
 
-          const neutralMat = new THREE.MeshStandardMaterial({ color:0xc9ccd2, roughness:0.6, metalness:0 });
-          const hoverMat = new THREE.MeshStandardMaterial({ color:0xc9ccd2, roughness:0.6, metalness:0, emissive:0x331111 });
-          const glassMat = new THREE.MeshStandardMaterial({ color:0x14181c, roughness:0.15, metalness:0.2 });
-          const wheelMat = new THREE.MeshStandardMaterial({ color:0x1c1d20, roughness:0.75 });
-          const hubMat = new THREE.MeshStandardMaterial({ color:0x9aa0a8, roughness:0.4, metalness:0.6 });
+          /* ---- materials ---- */
+          const neutralMat = new THREE.MeshPhysicalMaterial({
+            color: 0xc9ccd2,
+            roughness: 0.55,
+            clearcoat: 0.4,
+            clearcoatRoughness: 0.3,
+          });
+          const hoverMat = neutralMat.clone();
+          hoverMat.emissive = new THREE.Color(0x331111);
+          const glassMat = new THREE.MeshPhysicalMaterial({
+            color: 0xf2f6f9,
+            metalness: 0,
+            roughness: 0.12,
+            transmission: 0.5,
+            ior: 1.45,
+            thickness: 0.3,
+            transparent: true,
+            envMapIntensity: 1.6,
+          });
+          const interiorMat = new THREE.MeshStandardMaterial({
+            color: 0x9aa2ab,
+            roughness: 0.9,
+          });
+          const trimMat = new THREE.MeshStandardMaterial({
+            color: 0x1b1d21,
+            roughness: 0.55,
+          });
+          const lampMat = new THREE.MeshStandardMaterial({
+            color: 0xfff6d8,
+            emissive: 0xffedb8,
+            emissiveIntensity: 1.5,
+            roughness: 0.2,
+          });
+          const wheelMat = new THREE.MeshStandardMaterial({
+            color: 0x1c1d20,
+            roughness: 0.75,
+          });
+          const hubMat = new THREE.MeshStandardMaterial({
+            color: 0x9aa0a8,
+            roughness: 0.4,
+            metalness: 0.6,
+          });
 
           let wrapMat = makeWrapMaterial("gloss", "#d0061d");
-          function disposeMat(m) { if (m) m.dispose(); }
+          let wrapMatFront = makeWrapMaterial("gloss", "#d0061d", 0.72); // Front-Panel Tint: front slice a shade darker
+          function disposeMat(m) {
+            if (m) m.dispose();
+          }
 
-          function makeWrapMaterial(finish, colorHex) {
-            const base = { color: finish === "chrome" ? 0xf2f3f5 : new THREE.Color(colorHex) };
+          function makeWrapMaterial(finish, colorHex, tint) {
+            const col =
+              finish === "chrome"
+                ? new THREE.Color(0xf2f3f5)
+                : new THREE.Color(colorHex);
+            if (tint) col.multiplyScalar(tint);
+            const base = { color: col };
             switch (finish) {
-              case "gloss": return new THREE.MeshPhysicalMaterial(Object.assign({}, base, { metalness:0, roughness:0.4, clearcoat:1.0, clearcoatRoughness:0.05 }));
-              case "satin": return new THREE.MeshPhysicalMaterial(Object.assign({}, base, { metalness:0, roughness:0.55, clearcoat:0.6, clearcoatRoughness:0.25 }));
-              case "matte": return new THREE.MeshPhysicalMaterial(Object.assign({}, base, { metalness:0, roughness:0.9, clearcoat:0 }));
-              case "metallic": return new THREE.MeshPhysicalMaterial(Object.assign({}, base, { metalness:0.85, roughness:0.3, clearcoat:1.0, clearcoatRoughness:0.1 }));
-              case "chrome": return new THREE.MeshPhysicalMaterial({ color:0xf2f3f5, metalness:1.0, roughness:0.03, clearcoat:0 });
-              case "shift": return new THREE.MeshPhysicalMaterial(Object.assign({}, base, {
-                metalness:0.7, roughness:0.3, clearcoat:1.0, clearcoatRoughness:0.1,
-                iridescence:1, iridescenceIOR:1.3, iridescenceThicknessRange:[100, 400],
-              }));
-              default: return new THREE.MeshPhysicalMaterial(Object.assign({}, base, { metalness:0, roughness:0.4, clearcoat:1.0, clearcoatRoughness:0.05 }));
+              case "gloss":
+                return new THREE.MeshPhysicalMaterial(
+                  Object.assign({}, base, {
+                    metalness: 0,
+                    roughness: 0.4,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.05,
+                  }),
+                );
+              case "satin":
+                return new THREE.MeshPhysicalMaterial(
+                  Object.assign({}, base, {
+                    metalness: 0,
+                    roughness: 0.55,
+                    clearcoat: 0.6,
+                    clearcoatRoughness: 0.25,
+                  }),
+                );
+              case "matte":
+                return new THREE.MeshPhysicalMaterial(
+                  Object.assign({}, base, {
+                    metalness: 0,
+                    roughness: 0.9,
+                    clearcoat: 0,
+                  }),
+                );
+              case "metallic":
+                return new THREE.MeshPhysicalMaterial(
+                  Object.assign({}, base, {
+                    metalness: 0.85,
+                    roughness: 0.3,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.1,
+                  }),
+                );
+              case "chrome":
+                return new THREE.MeshPhysicalMaterial({
+                  color: col,
+                  metalness: 1.0,
+                  roughness: 0.03,
+                  clearcoat: 0,
+                });
+              case "shift":
+                return new THREE.MeshPhysicalMaterial(
+                  Object.assign({}, base, {
+                    metalness: 0.7,
+                    roughness: 0.3,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.1,
+                    iridescence: 1,
+                    iridescenceIOR: 1.3,
+                    iridescenceThicknessRange: [100, 400],
+                  }),
+                );
+              default:
+                return new THREE.MeshPhysicalMaterial(
+                  Object.assign({}, base, {
+                    metalness: 0,
+                    roughness: 0.4,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.05,
+                  }),
+                );
             }
+          }
+
+          /* ================================================================
+             SILHOUETTE PRO bodies — each vehicle class is a real side-profile
+             sliced into FIVE extruded segments (front / hood / roof / sides /
+             rear), so every wrap panel is its own mesh. Hairline bevel seams
+             between segments read as panel gaps (the "Front-Panel Tint" idea:
+             the front IS a separate mesh).
+          ================================================================ */
+          function shapeFrom(pts) {
+            const s = new THREE.Shape();
+            s.moveTo(pts[0][0], pts[0][1]);
+            for (let i = 1; i < pts.length; i++) s.lineTo(pts[i][0], pts[i][1]);
+            s.closePath();
+            return s;
+          }
+          function extrude(pts, depth, bevel) {
+            const g = new THREE.ExtrudeGeometry(shapeFrom(pts), {
+              depth,
+              bevelEnabled: true,
+              bevelThickness: bevel,
+              bevelSize: bevel,
+              bevelSegments: 2,
+            });
+            g.translate(0, 0, -depth / 2);
+            return g;
+          }
+
+          /* per-class geometry data: profile slices + glass + details */
+          const GEO = {
+            sedan: {
+              depth: 1.66,
+              dist: 6.6,
+              target: 0.65,
+              slices: {
+                rear: [
+                  [-2.1, 0.28],
+                  [-2.12, 0.72],
+                  [-1.55, 0.8],
+                  [-1.55, 0.28],
+                ],
+                sides: [
+                  [-1.55, 0.28],
+                  [-1.55, 0.8],
+                  [1.15, 0.82],
+                  [1.15, 0.28],
+                ],
+                roof: [
+                  [-1.55, 0.8],
+                  [-0.95, 1.28],
+                  [0.55, 1.32],
+                  [1.15, 0.82],
+                ],
+                hood: [
+                  [1.15, 0.28],
+                  [1.15, 0.82],
+                  [1.8, 0.755],
+                  [1.8, 0.28],
+                ],
+                front: [
+                  [1.8, 0.28],
+                  [1.8, 0.755],
+                  [1.95, 0.74],
+                  [2.14, 0.68],
+                  [2.18, 0.5],
+                  [2.18, 0.28],
+                ],
+              },
+              glass: [
+                [-0.85, 0.84],
+                [-0.55, 1.22],
+                [0.45, 1.24],
+                [0.95, 0.84],
+              ],
+              noseX: 2.22,
+              lampY: 0.55,
+              lampZ: 0.52,
+              mirror: { x: 0.98, y: 0.94, z: 0.9 },
+              wheels: [
+                [1.35, 0.86],
+                [1.35, -0.86],
+                [-1.35, 0.86],
+                [-1.35, -0.86],
+              ],
+              wheelR: 0.34,
+            },
+            suv: {
+              depth: 1.78,
+              dist: 7.4,
+              target: 0.85,
+              slices: {
+                rear: [
+                  [-2.25, 0.3],
+                  [-2.3, 1.62],
+                  [-1.95, 1.72],
+                  [-1.95, 0.3],
+                ],
+                sides: [
+                  [-1.95, 0.3],
+                  [-1.95, 0.95],
+                  [1.35, 0.98],
+                  [1.35, 0.3],
+                ],
+                roof: [
+                  [-1.95, 0.95],
+                  [-1.95, 1.72],
+                  [0.9, 1.72],
+                  [1.35, 0.98],
+                ],
+                hood: [
+                  [1.35, 0.3],
+                  [1.35, 0.98],
+                  [1.9, 0.9],
+                  [1.9, 0.3],
+                ],
+                front: [
+                  [1.9, 0.3],
+                  [1.9, 0.9],
+                  [2.28, 0.84],
+                  [2.35, 0.56],
+                  [2.35, 0.3],
+                ],
+              },
+              glass: [
+                [-1.85, 1.02],
+                [-1.85, 1.62],
+                [0.82, 1.62],
+                [1.24, 1.02],
+              ],
+              noseX: 2.39,
+              lampY: 0.62,
+              lampZ: 0.56,
+              mirror: { x: 1.18, y: 1.1, z: 0.96 },
+              wheels: [
+                [1.5, 0.92],
+                [1.5, -0.92],
+                [-1.5, 0.92],
+                [-1.5, -0.92],
+              ],
+              wheelR: 0.38,
+            },
+            pickup: {
+              depth: 1.82,
+              dist: 8.2,
+              target: 0.85,
+              slices: {
+                rear: [
+                  [-2.6, 0.3],
+                  [-2.62, 0.96],
+                  [-2.35, 0.96],
+                  [-2.35, 0.3],
+                ],
+                sides: [
+                  [-2.35, 0.3],
+                  [-2.35, 0.96],
+                  [1.5, 1.0],
+                  [1.5, 0.3],
+                ],
+                roof: [
+                  [-0.15, 1.0],
+                  [-0.1, 1.62],
+                  [0.95, 1.66],
+                  [1.5, 1.0],
+                ],
+                hood: [
+                  [1.5, 0.3],
+                  [1.5, 1.0],
+                  [2.1, 0.9],
+                  [2.1, 0.3],
+                ],
+                front: [
+                  [2.1, 0.3],
+                  [2.1, 0.9],
+                  [2.48, 0.84],
+                  [2.55, 0.52],
+                  [2.55, 0.3],
+                ],
+              },
+              glass: [
+                [0.02, 1.06],
+                [0.05, 1.55],
+                [0.88, 1.58],
+                [1.36, 1.06],
+              ],
+              noseX: 2.59,
+              lampY: 0.6,
+              lampZ: 0.58,
+              mirror: { x: 1.32, y: 1.12, z: 0.98 },
+              wheels: [
+                [1.8, 0.94],
+                [1.8, -0.94],
+                [-1.75, 0.94],
+                [-1.75, -0.94],
+              ],
+              wheelR: 0.4,
+              extra(g) {
+                g.add(
+                  fixedMesh(
+                    new THREE.BoxGeometry(1.9, 0.06, 1.55),
+                    trimMat,
+                    -1.3,
+                    0.96,
+                    0,
+                  ),
+                );
+              } /* bed opening hint */,
+            },
+            van: {
+              depth: 1.92,
+              dist: 9.0,
+              target: 1.05,
+              slices: {
+                rear: [
+                  [-2.7, 0.3],
+                  [-2.72, 2.02],
+                  [-2.4, 2.08],
+                  [-2.4, 0.3],
+                ],
+                sides: [
+                  [-2.4, 0.3],
+                  [-2.4, 1.1],
+                  [1.7, 1.12],
+                  [1.7, 0.3],
+                ],
+                roof: [
+                  [-2.4, 1.1],
+                  [-2.4, 2.08],
+                  [1.12, 2.08],
+                  [1.7, 1.12],
+                ],
+                hood: [
+                  [1.7, 0.3],
+                  [1.7, 1.12],
+                  [2.15, 0.95],
+                  [2.15, 0.3],
+                ],
+                front: [
+                  [2.15, 0.3],
+                  [2.15, 0.95],
+                  [2.58, 0.88],
+                  [2.7, 0.55],
+                  [2.7, 0.3],
+                ],
+              },
+              glass: [
+                [1.16, 1.16],
+                [1.22, 1.98],
+                [1.42, 1.98],
+                [1.74, 1.16],
+              ],
+              noseX: 2.74,
+              lampY: 0.62,
+              lampZ: 0.62,
+              mirror: { x: 1.66, y: 1.28, z: 1.02 },
+              wheels: [
+                [1.9, 0.96],
+                [1.9, -0.96],
+                [-1.8, 0.96],
+                [-1.8, -0.96],
+              ],
+              wheelR: 0.38,
+            },
+            box: {
+              depth: 2.3,
+              dist: 12.0,
+              target: 1.35,
+              slices: {
+                rear: [
+                  [-3.38, 0.4],
+                  [-3.4, 2.88],
+                  [-3.15, 2.88],
+                  [-3.15, 0.4],
+                ],
+                sides: [
+                  [-3.15, 0.4],
+                  [-3.15, 2.7],
+                  [0.5, 2.7],
+                  [0.5, 0.4],
+                ],
+                roof: [
+                  [-3.15, 2.7],
+                  [-3.15, 2.9],
+                  [0.5, 2.9],
+                  [0.5, 2.7],
+                ],
+                hood: [
+                  [0.7, 0.35],
+                  [0.7, 1.95],
+                  [2.4, 1.95],
+                  [2.4, 0.35],
+                ],
+                front: [
+                  [2.4, 0.35],
+                  [2.4, 1.9],
+                  [2.72, 1.86],
+                  [3.12, 1.0],
+                  [3.2, 0.6],
+                  [3.2, 0.35],
+                ],
+              },
+              glass: [
+                [2.42, 1.12],
+                [2.45, 1.74],
+                [2.68, 1.74],
+                [2.94, 1.12],
+              ],
+              noseX: 3.2,
+              lampY: 0.72,
+              lampZ: 0.74,
+              mirror: { x: 2.42, y: 1.72, z: 1.24 },
+              wheels: [
+                [2.45, 1.08],
+                [2.45, -1.08],
+                [-1.6, 1.08],
+                [-1.6, -1.08],
+                [-2.5, 1.08],
+                [-2.5, -1.08],
+              ],
+              wheelR: 0.44,
+            },
+          };
+
+          function fixedMesh(geo, mat, x, y, z, rx, rz) {
+            const m = new THREE.Mesh(geo, mat);
+            m.position.set(x, y, z);
+            if (rx) m.rotation.x = rx;
+            if (rz) m.rotation.z = rz;
+            m.userData.panel = null;
+            disposeBag.push(geo);
+            return m;
           }
 
           let vehicleGroup = null;
           let currentClass = null;
-          let currentSelection = { front:false, hood:false, roof:false, sides:false, rear:false };
+          let currentSelection = {
+            front: false,
+            hood: false,
+            roof: false,
+            sides: false,
+            rear: false,
+          };
           const disposeBag = [];
 
-          function panel(w, h, d, x, y, z, key) {
-            const geo = new THREE.BoxGeometry(w, h, d);
-            const mesh = new THREE.Mesh(geo, neutralMat);
-            mesh.position.set(x, y, z);
-            mesh.userData.panel = key;
-            disposeBag.push(geo);
-            return mesh;
-          }
-          function fixed(w, h, d, x, y, z, mat, rz) {
-            const geo = new THREE.BoxGeometry(w, h, d);
-            const mesh = new THREE.Mesh(geo, mat);
-            mesh.position.set(x, y, z);
-            if (rz) mesh.rotation.z = rz;
-            mesh.userData.panel = null;
-            disposeBag.push(geo);
-            return mesh;
-          }
-          function wheelSet(positions, radius, width) {
-            const group = new THREE.Group();
-            const geo = new THREE.CylinderGeometry(radius, radius, width, 20);
-            const hubGeo = new THREE.CylinderGeometry(radius * 0.45, radius * 0.45, width + 0.02, 14);
-            disposeBag.push(geo, hubGeo);
-            positions.forEach(([x, z]) => {
-              const w1 = new THREE.Mesh(geo, wheelMat);
-              w1.rotation.x = Math.PI / 2;
-              w1.position.set(x, radius, z);
-              w1.userData.panel = null;
-              const hub = new THREE.Mesh(hubGeo, hubMat);
-              hub.rotation.x = Math.PI / 2;
-              hub.position.set(x, radius, z);
-              hub.userData.panel = null;
-              group.add(w1, hub);
-            });
-            return group;
-          }
-
           function buildVehicle(cls) {
+            const cfg = GEO[cls];
             const g = new THREE.Group();
-            let length = 4.4, dist = 6.5;
-            if (cls === "sedan") {
-              length = 4.4;
-              g.add(panel(0.55, 0.5, 1.7, 2.05, 0.45, 0, "front"));
-              g.add(panel(1.25, 0.32, 1.62, 1.45, 0.56, 0, "hood"));
-              g.add(panel(1.55, 0.38, 1.5, 0.1, 1.0, 0, "roof"));
-              g.add(panel(2.55, 0.62, 0.12, 0, 0.66, 0.85, "sides"));
-              g.add(panel(2.55, 0.62, 0.12, 0, 0.66, -0.85, "sides"));
-              g.add(panel(0.85, 0.55, 1.7, -1.6, 0.6, 0, "rear"));
-              g.add(fixed(0.5, 0.4, 1.5, 0.85, 0.86, 0, glassMat, -0.35));
-              g.add(fixed(0.5, 0.38, 1.5, -0.75, 0.84, 0, glassMat, 0.35));
-              g.add(wheelSet([[1.35, 0.9], [1.35, -0.9], [-1.35, 0.9], [-1.35, -0.9]], 0.32, 0.24));
-              dist = 6.4;
-            } else if (cls === "suv") {
-              length = 4.9;
-              g.add(panel(0.6, 0.65, 1.8, 2.2, 0.55, 0, "front"));
-              g.add(panel(1.2, 0.34, 1.72, 1.5, 0.65, 0, "hood"));
-              g.add(panel(2.1, 0.5, 1.6, -0.05, 1.28, 0, "roof"));
-              g.add(panel(2.9, 0.85, 0.12, -0.05, 0.85, 0.92, "sides"));
-              g.add(panel(2.9, 0.85, 0.12, -0.05, 0.85, -0.92, "sides"));
-              g.add(panel(0.75, 0.85, 1.8, -1.85, 0.85, 0, "rear"));
-              g.add(fixed(0.5, 0.5, 1.55, 0.9, 1.05, 0, glassMat, -0.3));
-              g.add(fixed(0.5, 0.48, 1.55, -1.0, 1.03, 0, glassMat, 0.3));
-              g.add(wheelSet([[1.5, 0.98], [1.5, -0.98], [-1.5, 0.98], [-1.5, -0.98]], 0.38, 0.26));
-              dist = 7.2;
-            } else if (cls === "pickup") {
-              length = 5.6;
-              g.add(panel(0.6, 0.55, 1.85, 2.55, 0.5, 0, "front"));
-              g.add(panel(1.4, 0.34, 1.75, 1.75, 0.62, 0, "hood"));
-              g.add(panel(1.5, 0.42, 1.55, 0.9, 1.05, 0, "roof"));
-              g.add(panel(3.4, 0.7, 0.12, -0.6, 0.75, 0.95, "sides"));
-              g.add(panel(3.4, 0.7, 0.12, -0.6, 0.75, -0.95, "sides"));
-              g.add(panel(0.5, 0.65, 1.85, -2.3, 0.62, 0, "rear"));
-              g.add(fixed(0.5, 0.42, 1.5, 1.35, 0.88, 0, glassMat, -0.32));
-              g.add(fixed(1.4, 0.5, 1.5, -0.9, 0.5, 0, glassMat, 0)); // open bed floor hint
-              g.add(wheelSet([[1.7, 1.0], [1.7, -1.0], [-1.6, 1.0], [-1.6, -1.0]], 0.38, 0.26));
-              dist = 8.0;
-            } else if (cls === "van") {
-              length = 5.8;
-              g.add(panel(0.5, 0.55, 1.9, 2.65, 0.5, 0, "front"));
-              g.add(panel(0.9, 0.3, 1.8, 2.1, 0.6, 0, "hood"));
-              g.add(panel(4.0, 0.5, 1.85, -0.5, 1.85, 0, "roof"));
-              g.add(panel(4.0, 1.5, 0.12, -0.5, 1.15, 0.95, "sides"));
-              g.add(panel(4.0, 1.5, 0.12, -0.5, 1.15, -0.95, "sides"));
-              g.add(panel(0.4, 1.9, 1.9, -2.55, 1.15, 0, "rear"));
-              g.add(fixed(0.4, 0.5, 1.6, 1.75, 0.85, 0, glassMat, -0.4));
-              g.add(wheelSet([[1.85, 1.0], [1.85, -1.0], [-1.7, 1.0], [-1.7, -1.0]], 0.36, 0.26));
-              dist = 8.6;
-            } else if (cls === "box") {
-              length = 7.5;
-              g.add(panel(0.5, 0.6, 2.3, 3.35, 0.55, 0, "front"));
-              g.add(panel(1.0, 0.32, 2.15, 2.75, 0.68, 0, "hood"));
-              g.add(panel(4.6, 0.55, 2.35, -1.05, 2.75, 0, "roof"));
-              g.add(panel(4.6, 2.2, 0.12, -1.05, 1.55, 1.18, "sides"));
-              g.add(panel(4.6, 2.2, 0.12, -1.05, 1.55, -1.18, "sides"));
-              g.add(panel(0.35, 2.35, 2.3, -3.4, 1.55, 0, "rear"));
-              g.add(fixed(0.4, 0.55, 1.9, 2.3, 0.95, 0, glassMat, -0.35));
-              g.add(wheelSet([[2.3, 1.2], [2.3, -1.2], [-1.4, 1.2], [-1.4, -1.2], [-2.2, 1.2], [-2.2, -1.2]], 0.42, 0.3));
-              dist = 11.5;
-            }
-            return { group: g, dist, length };
-          }
 
-          const panelDims = { front:1, hood:1, roof:1, sides:1, rear:1 };
+            /* five panel slices */
+            Object.keys(cfg.slices).forEach((key) => {
+              const geo = extrude(cfg.slices[key], cfg.depth, 0.04);
+              disposeBag.push(geo);
+              const m = new THREE.Mesh(geo, neutralMat);
+              m.userData.panel = key;
+              g.add(m);
+            });
+
+            /* interior + white glass */
+            const intGeo = extrude(cfg.glass, cfg.depth * 0.86, 0.004);
+            g.add(fixedMesh(intGeo, interiorMat, 0, -0.02, 0));
+            const glGeo = extrude(cfg.glass, cfg.depth + 0.05, 0.008);
+            g.add(fixedMesh(glGeo, glassMat, 0, 0.02, 0));
+
+            /* headlights (front cue) */
+            [1, -1].forEach((side) => {
+              g.add(
+                fixedMesh(
+                  new RoundedBoxGeometry(0.05, 0.1, 0.26, 2, 0.03),
+                  lampMat,
+                  cfg.noseX,
+                  cfg.lampY,
+                  side * cfg.lampZ,
+                ),
+              );
+            });
+
+            /* side mirrors */
+            [1, -1].forEach((side) => {
+              g.add(
+                fixedMesh(
+                  new THREE.BoxGeometry(0.05, 0.04, 0.16),
+                  trimMat,
+                  cfg.mirror.x,
+                  cfg.mirror.y - 0.06,
+                  side * (cfg.mirror.z - 0.02),
+                ),
+              );
+              g.add(
+                fixedMesh(
+                  new RoundedBoxGeometry(0.1, 0.14, 0.2, 3, 0.03),
+                  trimMat,
+                  cfg.mirror.x - 0.02,
+                  cfg.mirror.y,
+                  side * (cfg.mirror.z + 0.1),
+                ),
+              );
+            });
+
+            /* wheels */
+            cfg.wheels.forEach(([x, z]) => {
+              const t = fixedMesh(
+                new THREE.CylinderGeometry(cfg.wheelR, cfg.wheelR, 0.28, 20),
+                wheelMat,
+                x,
+                cfg.wheelR,
+                z,
+                Math.PI / 2,
+              );
+              const h = fixedMesh(
+                new THREE.CylinderGeometry(
+                  cfg.wheelR * 0.44,
+                  cfg.wheelR * 0.44,
+                  0.3,
+                  14,
+                ),
+                hubMat,
+                x,
+                cfg.wheelR,
+                z,
+                Math.PI / 2,
+              );
+              g.add(t, h);
+            });
+
+            if (cfg.extra) cfg.extra(g);
+            return { group: g, dist: cfg.dist, target: cfg.target };
+          }
 
           function setClass(cls) {
             if (cls === currentClass) return;
             currentClass = cls;
-            if (vehicleGroup) {
-              scene.remove(vehicleGroup);
-              vehicleGroup.traverse((o) => { if (o.isMesh) { /* geometry disposed via disposeBag below */ } });
-            }
+            if (vehicleGroup) scene.remove(vehicleGroup);
             while (disposeBag.length) disposeBag.pop().dispose();
             const built = buildVehicle(cls);
             vehicleGroup = built.group;
             scene.add(vehicleGroup);
-            ground.scale.setScalar(Math.max(0.8, built.length / 4.4));
+            ground.scale.setScalar(Math.max(0.9, built.dist / 6.6));
             applySelection();
+            controls.target.set(0, built.target, 0);
             const d = built.dist;
-            tweenTo([d * 0.7, d * 0.34, d * 0.7], [0, 0.6, 0]);
+            tweenTo([d * 0.7, d * 0.34, d * 0.7], [0, built.target, 0]);
           }
 
           function applySelection() {
             if (!vehicleGroup) return;
             vehicleGroup.traverse((o) => {
               if (!o.isMesh || o.userData.panel == null) return;
-              o.material = currentSelection[o.userData.panel] ? wrapMat : neutralMat;
+              o.material = currentSelection[o.userData.panel]
+                ? o.userData.panel === "front"
+                  ? wrapMatFront
+                  : wrapMat
+                : neutralMat;
             });
           }
           function setSelected(panelsObj) {
@@ -1296,87 +3089,112 @@
             applySelection();
           }
           function setMaterial(finish, colorHex) {
-            const old = wrapMat;
+            const old = wrapMat,
+              oldFront = wrapMatFront;
             wrapMat = makeWrapMaterial(finish, colorHex);
+            wrapMatFront = makeWrapMaterial(finish, colorHex, 0.72);
             applySelection();
             disposeMat(old);
+            disposeMat(oldFront);
           }
 
-          // ---- view preset tween ----
+          /* ---- view preset tween ---- */
           let tween = null;
-          function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+          function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+          }
           function tweenTo(posArr, targetArr) {
             tween = {
-              fromPos: camera.position.clone(), fromTarget: controls.target.clone(),
+              fromPos: camera.position.clone(),
+              fromTarget: controls.target.clone(),
               toPos: new THREE.Vector3(posArr[0], posArr[1], posArr[2]),
-              toTarget: new THREE.Vector3(targetArr[0], targetArr[1], targetArr[2]),
-              t0: performance.now(), dur: 600,
+              toTarget: new THREE.Vector3(
+                targetArr[0],
+                targetArr[1],
+                targetArr[2],
+              ),
+              t0: performance.now(),
+              dur: 600,
             };
           }
           function setView(preset) {
-            const d = currentClass ? buildDistFor(currentClass) : 6.5;
+            const cfg = GEO[currentClass] || GEO.sedan;
+            const d = cfg.dist,
+              ty = cfg.target;
             const map = {
-              front: [0, 1.1, d], side: [d, 0.9, 0], rear: [0, 1.1, -d],
-              threeq: [d * 0.7, d * 0.34, d * 0.7], top: [0.001, d * 1.15, 0.001],
+              front: [d * 0.92, ty * 0.9, 0.001],
+              side: [0.001, ty * 0.9, d * 0.92],
+              rear: [-d * 0.92, ty, 0.001],
+              threeq: [d * 0.7, d * 0.34, d * 0.7],
+              top: [0.001, d * 1.1, 0.001],
             };
-            const p = map[preset] || map.threeq;
-            tweenTo(p, [0, 0.6, 0]);
-          }
-          function buildDistFor(cls) {
-            const table = { sedan:6.4, suv:7.2, pickup:8.0, van:8.6, box:11.5 };
-            return table[cls] || 6.5;
+            tweenTo(map[preset] || map.threeq, [0, ty, 0]);
           }
 
-          // ---- pointer: tap-vs-drag + hover ----
+          /* ---- pointer: tap-vs-drag + hover ---- */
           const raycaster = new THREE.Raycaster();
           const ndc = new THREE.Vector2();
           let downInfo = null;
           let hoveredMesh = null;
-          const hoverCapable = window.matchMedia && window.matchMedia("(hover:hover) and (pointer:fine)").matches;
+          const hoverCapable =
+            window.matchMedia &&
+            window.matchMedia("(hover:hover) and (pointer:fine)").matches;
 
           function setNDCFromEvent(e) {
             const rect = canvas.getBoundingClientRect();
             ndc.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
             ndc.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
           }
-          function raycastHit() {
+          function panelHitFromEvent(e) {
             if (!vehicleGroup) return null;
+            setNDCFromEvent(e);
             raycaster.setFromCamera(ndc, camera);
-            const hits = raycaster.intersectObjects(vehicleGroup.children, true);
-            const hit = hits.find((h) => h.object.userData && h.object.userData.panel);
-            return hit ? hit.object.userData.panel : null;
+            const hits = raycaster.intersectObjects(
+              vehicleGroup.children,
+              true,
+            );
+            const hit = hits.find(
+              (h) => h.object.userData && h.object.userData.panel,
+            );
+            return hit ? hit.object : null;
           }
-          canvas.addEventListener("pointerdown", (e) => { downInfo = { x:e.clientX, y:e.clientY, t:performance.now() }; });
+          canvas.addEventListener("pointerdown", (e) => {
+            downInfo = { x: e.clientX, y: e.clientY, t: performance.now() };
+          });
           canvas.addEventListener("pointerup", (e) => {
             if (!downInfo) return;
-            const dx = e.clientX - downInfo.x, dy = e.clientY - downInfo.y;
-            const dist = Math.hypot(dx, dy);
+            const dist = Math.hypot(
+              e.clientX - downInfo.x,
+              e.clientY - downInfo.y,
+            );
             const dt = performance.now() - downInfo.t;
             downInfo = null;
             if (dist < 10 && dt < 250) {
-              setNDCFromEvent(e);
-              const key = raycastHit();
-              if (key && window.SPNTogglePanel) window.SPNTogglePanel(key);
+              const m = panelHitFromEvent(e);
+              if (m && window.SPNTogglePanel)
+                window.SPNTogglePanel(m.userData.panel);
             }
           });
           if (hoverCapable) {
             canvas.addEventListener("pointermove", (e) => {
-              setNDCFromEvent(e);
-              raycaster.setFromCamera(ndc, camera);
-              const hits = vehicleGroup ? raycaster.intersectObjects(vehicleGroup.children, true) : [];
-              const hit = hits.find((h) => h.object.userData && h.object.userData.panel);
-              const mesh = hit ? hit.object : null;
-              if (mesh !== hoveredMesh) {
-                if (hoveredMesh && !currentSelection[hoveredMesh.userData.panel]) hoveredMesh.material = neutralMat;
-                if (mesh && !currentSelection[mesh.userData.panel]) mesh.material = hoverMat;
-                hoveredMesh = mesh;
+              const m = panelHitFromEvent(e);
+              if (m !== hoveredMesh) {
+                if (
+                  hoveredMesh &&
+                  !currentSelection[hoveredMesh.userData.panel]
+                )
+                  hoveredMesh.material = neutralMat;
+                if (m && !currentSelection[m.userData.panel])
+                  m.material = hoverMat;
+                hoveredMesh = m;
               }
             });
           }
 
-          // ---- resize ----
+          /* ---- resize ---- */
           function resize() {
-            const w = wrapEl.clientWidth, h = wrapEl.clientHeight;
+            const w = wrapEl.clientWidth,
+              h = wrapEl.clientHeight;
             if (!w || !h) return;
             renderer.setSize(w, h, false);
             camera.aspect = w / h;
@@ -1385,7 +3203,7 @@
           new ResizeObserver(resize).observe(wrapEl);
           resize();
 
-          // ---- render loop (paused when tab hidden) ----
+          /* ---- render loop (paused when tab hidden) ---- */
           let rafId = null;
           function animate(now) {
             rafId = requestAnimationFrame(animate);
@@ -1400,11 +3218,13 @@
             renderer.render(scene, camera);
           }
           document.addEventListener("visibilitychange", () => {
-            if (document.hidden) { if (rafId) cancelAnimationFrame(rafId); rafId = null; }
-            else if (!rafId) rafId = requestAnimationFrame(animate);
+            if (document.hidden) {
+              if (rafId) cancelAnimationFrame(rafId);
+              rafId = null;
+            } else if (!rafId) rafId = requestAnimationFrame(animate);
           });
 
-          // ---- go live ----
+          /* ---- go live ---- */
           setClass(window.SPNGetClass ? window.SPNGetClass() : "sedan");
           canvas.style.display = "block";
           document.getElementById("viewerFallback").style.display = "none";
@@ -1412,7 +3232,10 @@
 
           window.SPN3D = {
             ready: true,
-            setClass, setSelected, setMaterial, setView,
+            setClass,
+            setSelected,
+            setMaterial,
+            setView,
           };
           if (window.SPNOnReady) window.SPNOnReady();
         }
